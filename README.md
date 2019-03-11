@@ -6,6 +6,7 @@ Here are some *advices*:
 * Live a healhty lifestyle 
   * **Sleep enough**
   * Eat well
+* read a book
 
 ## Tehtävät
 ### Viikko 1
