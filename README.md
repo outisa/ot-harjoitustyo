@@ -7,8 +7,8 @@ Here are some *advices*:
   * **Sleep enough**
   * Eat well
 
-### Tehtävät
-#### Viikko 1
+## Tehtävät
+### Viikko 1
 
 [gitlog.txt](https://github.com/outisa/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
