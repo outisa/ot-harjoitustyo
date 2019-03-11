@@ -1,0 +1,123 @@
+commit c3ee1f3ace281b17af0669e0757e40932f16da82
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 22:53:17 2019 +0200
+
+    Nimen muutos
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 7c483c7d6efc2a725fec9d58f4f4f3cea9935c88
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 22:47:20 2019 +0200
+
+    Uudet tiedostot
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 3a73638dda7083cfed3ba72dfc7504825f67397a
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 22:37:07 2019 +0200
+
+    Muutoksia kolmas.txt tiedostoon
+
+ kolmas.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit a29341980df58f6b035b99356c42523abf636156
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 22:00:27 2019 +0200
+
+    Muutoksia tiedostoihin
+
+ eka.txt    | 28 +---------------------------
+ kolmas.txt |  2 +-
+ 2 files changed, 2 insertions(+), 28 deletions(-)
+
+commit 4b1a579ee17874c1bb004b8464a86d368224ae54
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 21:53:51 2019 +0200
+
+    tiedoston nimen muutos
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 35c59f1366bb5f1618b06fd810011a9662f5ca43
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 21:51:38 2019 +0200
+
+    tiedoston toinen.txt poisto
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 30ac7bde48f7da3364265ee740a7ed4345bfedee
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 21:48:56 2019 +0200
+
+    tiedoston muokkaus
+
+ tiedosto.txt | 17 +++--------------
+ 1 file changed, 3 insertions(+), 14 deletions(-)
+
+commit 8bd31e3fe630d5b30b8a7c7ce17219ed371a7410
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 21:47:11 2019 +0200
+
+    Sanojen lisäys
+
+ tiedosto.txt | 61189 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 61188 insertions(+), 1 deletion(-)
+
+commit a9ec12ba149cb756bd17ff1dfed1970ba4e7aab2
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 21:20:59 2019 +0200
+
+    Uusi hakemisto stuff
+
+ stuff/test.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 3ba0d9478984f06d18fa99fa0c1227572a178c53
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 21:19:18 2019 +0200
+
+    muutoksia tiedostoihin
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 4b28554358184fb8cad19aa03bbdd5166fd278c6
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 21:17:46 2019 +0200
+
+    uuden tiedoston lisäys
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9dbaf9254acdfec8106175bc9e4c59f8233b32f7
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 21:12:26 2019 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 73f1eab3ea9e267b970ecc01eafa674d8e91c2f2
+Author: outisa <savolainen.outi@gmail.com>
+Date:   Mon Mar 11 20:56:13 2019 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
