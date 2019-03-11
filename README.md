@@ -1,16 +1,14 @@
-# Ohjelmistotekniikka
+# Ohjelmistotekniikka, harjoitustyö
 
-**Here will be some better text on some point**
+Here are some *advices*:
 
-But anyway here are some *advices*:
-
-* Do the week exercises 
+* Do the **week exercises** 
 * Live a healhty lifestyle 
-  * Sleep enough
+  * **Sleep enough**
   * Eat well
 
-***Tehtävät
-**Viikko 1
+### Tehtävät
+#### Viikko 1
 
 [gitlog.txt](https://github.com/outisa/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
