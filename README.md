@@ -1,8 +1,8 @@
 # This is a start
 
-**Here we will get some text, when the times come**
+**Here will be some better text on some point**
 
-But anyway here are some *advices* to follow.
+But anyway here are some *advices*:
 
 * Do the week exercises 
 * Live a healhty lifestyle 
