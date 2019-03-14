@@ -3,10 +3,12 @@
 Here are some *advices*:
 
 * Do the **week exercises** 
-* Live a healhty lifestyle 
+* Remember these:
   * **Sleep enough**
   * Eat well
 * read a book
+
+Ja siirrytään sitten *viikkoon 1* ja sen *laskareihin*.
 
 ## Tehtävät
 ### Viikko 1
