@@ -8,7 +8,7 @@ Here are some *advices*:
   * Eat well
 * read a book
 
-Ja siirrytään sitten *viikkoon 1* ja sen *laskareihin*.
+Ja siirrytään sitten *viikkoon 1* ja sen ***laskareihin***.
 
 ## Tehtävät
 ### Viikko 1
