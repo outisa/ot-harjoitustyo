@@ -16,7 +16,7 @@ peruskäyttäjää suuremmat käyttöoikeudet.
 
 Sovellus koostuu alustavasti seitsämästä eri näkymästä:
 
-![Sovellusnäkymä]
+![Sovellusnäkymä](kayttoliittymaluonnos.jpg)
 
 Sovellus aukeaa ensimmäisksi kirjautumisnäkymään, josta on mahdollista siirtyä
 "luo uusi käyttäjä" -näkymään tai onnistuneen kirjautumisen yhteydessä 
