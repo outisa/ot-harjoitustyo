@@ -14,7 +14,7 @@ peruskäyttäjää suuremmat käyttöoikeudet.
 
 ## Käyttöliittymäluonnos
 
-Sovellus koostuu alustavasti viidestä eri näkymästä:
+Sovellus koostuu alustavasti seitsämästä eri näkymästä:
 
 ![Sovellusnäkymä]
 
