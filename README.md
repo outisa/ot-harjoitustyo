@@ -1,14 +1,8 @@
 # Ohjelmistotekniikka, harjoitustyö
 
-Here are some *advices*:
+Kevät 2019
 
-* Do the **week exercises** 
-* Remember these:
-  * **Sleep enough**
-  * Eat well
-* read a book
-
-Ja siirrytään sitten *viikkoon 1* ja sen ***laskareihin***.
+[vaativuusmaarittely.md](/dokumentointi/vaativuusmaarittely.md)
 
 ## Tehtävät
 ### Viikko 1
@@ -16,3 +10,9 @@ Ja siirrytään sitten *viikkoon 1* ja sen ***laskareihin***.
 [gitlog.txt](https://github.com/outisa/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
 [komentorivi.txt](https://github.com/outisa/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+
+### Viikko 2
+
+Screenshot testikattavuudesta.
+
+[testikattavuus.png](https://github.com/outisa/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
