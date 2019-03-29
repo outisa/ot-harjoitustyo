@@ -9,6 +9,6 @@ package financialmanagement.dao;
  *
  * @author ousavola
  */
-public class SQLExpenseDao {
+public interface ExpenseDao {
     
 }

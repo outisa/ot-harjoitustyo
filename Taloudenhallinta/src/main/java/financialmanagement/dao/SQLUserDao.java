@@ -1,15 +1,37 @@
-package FinancialManagement.dao;
+package financialmanagement.dao;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import financialmanagement.domain.User;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author ousavola
- */
-public class SQLUserDao {
+
+public class SQLUserDao implements UserDao{
+    private List<User> users;
+
+    public SQLUserDao() {
+        users = new ArrayList<>();
+    }
+
+    @Override
+    public User create(User user) throws Exception {
+        users.add(user);
+        return user;
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        for(User user: users){
+            if(user.getUsername().equals(username)){
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<User> getAll() {
+        return users;
+    }
+    
     
 }
