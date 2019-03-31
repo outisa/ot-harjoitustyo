@@ -3,20 +3,19 @@
  */
 package financialmanagement.domain;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Income {
     private Integer id;
-    private Date datetime;
+    private LocalDateTime datetime;
     private Double amount;
-    private String Category;
+    private String category;
     private Integer userId;
 
-    public Income(Integer id, Date datetime, Double amount, String Category, Integer userId) {
-        this.id = id;
+    public Income(LocalDateTime datetime, Double amount, String category, Integer userId) {
         this.datetime = datetime;
         this.amount = amount;
-        this.Category = Category;
+        this.category = category;
         this.userId = userId;
     }
 
@@ -25,20 +24,33 @@ public class Income {
     }
 
     public String getCategory() {
-        return Category;
+        return category;
     }
 
-    public Date getDatetime() {
+    public LocalDateTime getDatetime() {
         return datetime;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public void setCategory(String Category) {
-        this.Category = Category;
+    public Integer getUserId() {
+        return userId;
     }
     
-    
+    @Override
+    public boolean equals(Object o){
+        if(! (o instanceof Income)){
+            return false;
+        }
+        Income other = (Income) o;
+        if(this.datetime.equals(other.getDatetime())){
+            if(this.amount.equals(other.getAmount())){
+                if(this.category.equals(other.getCategory())){
+                    if(this.userId.equals(other.getUserId())){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+       
 }

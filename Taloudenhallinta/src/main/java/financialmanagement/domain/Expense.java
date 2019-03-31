@@ -4,20 +4,22 @@
 package financialmanagement.domain;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Expense {
     private Integer id;
-    private Date date;
+    private LocalDateTime date;
     private Double amount;
     private String category;
     private Integer userId;
+    private String place;
 
-    public Expense(Integer id, Date date, Double amount, String category, Integer userId) {
-        this.id = id;
+    public Expense(LocalDateTime date, Double amount, String category, Integer userId, String place){
         this.date = date;
         this.amount = amount;
         this.category = category;
         this.userId = userId;
+        this.place = place;
     } 
 
     public Integer getUserId() {
@@ -32,17 +34,25 @@ public class Expense {
         return category;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
+   
+    @Override
+    public boolean equals(Object o){
+        if(! (o instanceof Expense)){
+            return false;
+        }
+        Expense other = (Expense) o;
+        if(this.date.equals(other.getDate())){
+            if(this.amount.equals(other.getAmount())){
+                if(this.category.equals(other.getCategory())){
+                    if(this.userId.equals(other.getUserId())){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    
-    
 }

@@ -43,7 +43,7 @@ public class FinancialManagementUi extends Application{
         VBox loginPane = new VBox(10);
         HBox inputPane = new HBox(10);
         loginPane.setPadding(new Insets(10));
-        Label loginLabel = new Label("username");
+        Label loginLabel = new Label("Username:");
         TextField usernameInput = new TextField();
         
         inputPane.getChildren().addAll(loginLabel, usernameInput);
@@ -53,14 +53,14 @@ public class FinancialManagementUi extends Application{
         Button createButton = new Button("create new user");
         loginButton.setOnAction(e->{
             String username = usernameInput.getText();
-            menuLabel.setText(username + " is logged in");
+            menuLabel.setText(username + " is logged in.");
             if(financialManagementService.login(username)){
                 // not yet ready
                 loginMessage.setText("");
                 primaryStage.setScene(mainScene);
                 usernameInput.setText("");
            } else {
-                loginMessage.setText("User does not exist");
+                loginMessage.setText("User does not exist!");
                 loginMessage.setTextFill(Color.RED);
             }
         });
@@ -85,7 +85,7 @@ public class FinancialManagementUi extends Application{
         
         Label userCreationMessage = new Label();
         
-        Button createNewUserButton = new Button("create new account");
+        Button createNewUserButton = new Button("create new user");
         createNewUserButton.setPadding(new Insets(10));
         
         createNewUserButton.setOnAction(e->{
@@ -108,7 +108,7 @@ public class FinancialManagementUi extends Application{
         newUserPane.getChildren().addAll(errorMessage, userCreationMessage, newUsernamePane, createNewUserButton);
         newUserScene = new Scene(newUserPane, 600, 500);
         
-        // main scene
+        // main scene, not yet ready
         
         HBox menuPane = new HBox(10);
         
