@@ -9,3 +9,5 @@ päivä | aika | mitä tein
 29.3. | 4 | Graaffisten kirjautumis- ja käyttäjänluontinäkymien teko ja alustavasti päänäkymän luontia.
 29.3. | 2 | Kirjautumis-, käyttäjänluonti ja uloskirjautumistoimintojen teko.
 29.3. | 0.5 | Dokumentoinnin ajantasaistaminen.
+30.3. | 1.5 | Ensimmäisten testien luontia User, Income ja Expense luokkiin.
+31.3. | 1 | Testien luonnin aloitus luokalle FinancialManagementService.
