@@ -2,8 +2,6 @@
 package financialmanagement.domain;
 
 
-import java.sql.Date;
-import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.junit.Before;
@@ -25,32 +23,32 @@ public class IncomeTest {
     
     @Test
     public void incomeHasDate() {
-        assertEquals(income.getDatetime(), LocalDateTime.parse("2019-12-12" + " " + "00:00" ,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        assertEquals(LocalDateTime.parse("2019-12-12" + " " + "00:00" ,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), income.getDatetime());
     }
     
     @Test
     public void incomeHasAmout(){
-        assertEquals(income.getAmount(), 128.22, 0.001);
+        assertEquals(128.22, income.getAmount(), 0.001);
     }
     
     @Test
     public void incomeHasCategory(){
-        assertEquals(income.getCategory(), "Present");
+        assertEquals("Present", income.getCategory());
     }
     
     @Test
     public void incomeHasUserId() {
-        assertEquals(income.getUserId(), 2, 0);
+        assertEquals(2, income.getUserId(), 0);
     }
     
     @Test
     public void incomeEqualsWhenSameParameters(){
-        assertEquals(income.equals(income2), true);
+        assertTrue(income.equals(income2));
     }
     
     @Test
     public void incomeNonequalsWhenAllParametersNotSame(){
-        assertEquals(income.equals(income3), false);
+        assertFalse(income.equals(income3));
     }
     
     @Test

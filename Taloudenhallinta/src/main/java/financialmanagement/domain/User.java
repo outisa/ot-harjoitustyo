@@ -21,8 +21,8 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(!(o instanceof User)){
+    public boolean equals(Object o) {
+        if (!(o instanceof User)) {
             return false;
         }
         

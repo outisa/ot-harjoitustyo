@@ -3,7 +3,6 @@
  */
 package financialmanagement.domain;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class Expense {
@@ -14,7 +13,7 @@ public class Expense {
     private Integer userId;
     private String place;
 
-    public Expense(LocalDateTime date, Double amount, String category, Integer userId, String place){
+    public Expense(LocalDateTime date, Double amount, String category, Integer userId, String place) {
         this.date = date;
         this.amount = amount;
         this.category = category;
@@ -39,20 +38,11 @@ public class Expense {
     }
    
     @Override
-    public boolean equals(Object o){
-        if(! (o instanceof Expense)){
+    public boolean equals(Object o) {
+        if (!(o instanceof Expense)) {
             return false;
         }
         Expense other = (Expense) o;
-        if(this.date.equals(other.getDate())){
-            if(this.amount.equals(other.getAmount())){
-                if(this.category.equals(other.getCategory())){
-                    if(this.userId.equals(other.getUserId())){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        return this.date.equals(other.getDate()) && this.category.equals(other.getCategory()) && this.userId.equals(other.getUserId()) && this.amount.equals(other.getAmount());
     }
 }

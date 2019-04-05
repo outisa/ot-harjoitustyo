@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SQLUserDao implements UserDao{
+public class SQLUserDao implements UserDao {
     private List<User> users;
 
     public SQLUserDao() {
@@ -20,8 +20,8 @@ public class SQLUserDao implements UserDao{
 
     @Override
     public User findByUsername(String username) {
-        for(User user: users){
-            if(user.getUsername().equals(username)){
+        for (User user: users) {
+            if (user.getUsername().equals(username)) {
                 return user;
             }
         }
@@ -32,6 +32,4 @@ public class SQLUserDao implements UserDao{
     public List<User> getAll() {
         return users;
     }
-    
-    
 }

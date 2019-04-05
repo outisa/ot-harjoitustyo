@@ -16,14 +16,13 @@ public class FinancialManagementService {
     
     // All the User related functions below.
     public boolean createUser(String username) {
-        //This method needs to be refactored
         if (userDao.findByUsername(username) != null) {
             return false;
         }
         User user = new User(username);
         try {
             userDao.create(user);
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
         }
@@ -33,7 +32,7 @@ public class FinancialManagementService {
     //login function
     public boolean login(String username) {
         User user = userDao.findByUsername(username);
-        if(user == null){
+        if (user == null) {
             return false;
         }
         loggedIn = user;

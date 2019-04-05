@@ -36,21 +36,12 @@ public class Income {
     }
     
     @Override
-    public boolean equals(Object o){
-        if(! (o instanceof Income)){
+    public boolean equals(Object o) {
+        if (!(o instanceof Income)) {
             return false;
         }
         Income other = (Income) o;
-        if(this.datetime.equals(other.getDatetime())){
-            if(this.amount.equals(other.getAmount())){
-                if(this.category.equals(other.getCategory())){
-                    if(this.userId.equals(other.getUserId())){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        return this.datetime.equals(other.getDatetime()) && this.userId.equals(other.getUserId()) && (this.category.equals(other.getCategory()) && this.amount.equals(other.getAmount()));
     }
        
 }

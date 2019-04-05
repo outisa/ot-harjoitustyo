@@ -3,6 +3,7 @@ package financialmanagement.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -23,32 +24,32 @@ public class ExpenseTest {
     
     @Test
     public void expenseHasDate() {
-        assertEquals(expense.getDate(), LocalDateTime.parse("2019-12-12" + " " + "00:00" ,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        assertEquals(LocalDateTime.parse("2019-12-12" + " " + "00:00" ,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), expense.getDate());
     }
     
     @Test
     public void expenseHasAmout(){
-        assertEquals(expense.getAmount(), 10.78, 0.001);
+        Assert.assertEquals(10.78, expense.getAmount(), 0.00001);
     }
     
     @Test
     public void expenseHasCategory(){
-        assertEquals(expense.getCategory(), "Food");
+        assertEquals("Food", expense.getCategory());
     }
     
     @Test
     public void expenseHasUserId() {
-        assertEquals(expense.getUserId(), 2, 0);
+        assertEquals(2, expense.getUserId(), 0.0);
     }
     
     @Test
     public void expenseEqualsWhenSameParameters(){
-        assertEquals(expense.equals(expense2), true);
+        assertTrue(expense.equals(expense2));
     }
     
     @Test
     public void expenseNonequalsWhenAllParametersNotSame(){
-        assertEquals(expense.equals(expense3), false);
+        assertFalse(expense.equals(expense3));
     }
     
     @Test
