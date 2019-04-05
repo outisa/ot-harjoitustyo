@@ -10,4 +10,21 @@ Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sek
 [Työaikakirjanpito](/dokumentointi/tuntikirjanpito.md)
 
 
+## Komentorivitoiminnot
+
+### Testaus
+
+Testit suoritetaan komennolla
+
+`mvn test`
+
+Testikattavuusraportti luodaan komennolla
+
+`mvn jacoco:report`
+
+Kattaavuusraporttia voidaan tarkastella avaamalla selaimella tiedosto target/jacoco/index.html
+
+
+
+### Checkstyle
 
