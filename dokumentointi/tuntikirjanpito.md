@@ -11,3 +11,5 @@ päivä | aika | mitä tein
 29.3. | 0.5 | Dokumentoinnin ajantasaistaminen.
 30.3. | 1.5 | Ensimmäisten testien luontia User, Income ja Expense luokkiin.
 31.3. | 1 | Testien luonnin aloitus luokalle FinancialManagementService.
+5.4.  | 1 | Testien korjausta ja checkstyle.xml luonti
+5.4.  | 2 | README.md ajantasalle ja Arkkitehtuuri.md:n tekoa
