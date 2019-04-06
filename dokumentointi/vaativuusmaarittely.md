@@ -16,7 +16,7 @@ peruskäyttäjää suuremmat käyttöoikeudet.
 
 Sovellus koostuu alustavasti seitsämästä eri näkymästä:
 
-![Sovellusnäkymä](kayttoliittymaluonnos.jpg)
+<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/kayttoliittymaluonnos.jpg" width="850">
 
 Sovellus aukeaa ensimmäisksi kirjautumisnäkymään, josta on mahdollista siirtyä
 "luo uusi käyttäjä" -näkymään tai onnistuneen kirjautumisen yhteydessä 
