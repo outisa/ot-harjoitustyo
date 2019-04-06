@@ -13,3 +13,7 @@ päivä | aika | mitä tein
 31.3. | 1 | Testien luonnin aloitus luokalle FinancialManagementService.
 5.4.  | 1 | Testien korjausta ja checkstyle.xml luonti
 5.4.  | 2 | README.md ajantasalle ja Arkkitehtuuri.md:n tekoa
+6.4.  | 1 | README.md, Arkkitehtuuri.md ajantasalle ja rikkinäisten linkkien korjaus
+
+
+Yhteensä: 23 tuntia
