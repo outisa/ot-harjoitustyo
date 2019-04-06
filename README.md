@@ -5,9 +5,12 @@ Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sek
 
 ## Dokumentaatio
 
+[Arkkitehtuurikuvaus](/dokumentointi/arkkitehtuurikuvaus.md)
+
 [Vaativuusmäärittely](/dokumentointi/vaativuusmaarittely.md)
 
 [Työaikakirjanpito](/dokumentointi/tuntikirjanpito.md)
+
 
 
 ## Komentorivitoiminnot
@@ -28,3 +31,4 @@ Kattaavuusraporttia voidaan tarkastella avaamalla selaimella tiedosto target/jac
 
 ### Checkstyle
 
+`mvn jxr:jxr checkstyle:checkstyle`
