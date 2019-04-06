@@ -5,9 +5,9 @@ Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sek
 
 ## Dokumentaatio
 
-[Arkkitehtuurikuvaus](/dokumentointi/arkkitehtuurikuvaus.md)
-
 [Vaativuusmäärittely](/dokumentointi/vaativuusmaarittely.md)
+
+[Arkkitehtuurikuvaus](/dokumentointi/arkkitehtuuri.md)
 
 [Työaikakirjanpito](/dokumentointi/tuntikirjanpito.md)
 
