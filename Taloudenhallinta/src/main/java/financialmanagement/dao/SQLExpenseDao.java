@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import jdk.nashorn.internal.ir.LiteralNode;
 
 
 public class SQLExpenseDao implements ExpenseDao {
@@ -43,7 +44,13 @@ public class SQLExpenseDao implements ExpenseDao {
 
     @Override
     public List<Expense> getTenResentlyAdded(Integer userId) {
-        return expenses;
+        List<Expense> expensesForCurrentUser = new ArrayList<>();
+        for (Expense expense: expenses) {
+            if (expense.getUserId().equals(userId)) {
+                expensesForCurrentUser.add(expense);
+            }
+        }
+        return expensesForCurrentUser;
     }
     
 }

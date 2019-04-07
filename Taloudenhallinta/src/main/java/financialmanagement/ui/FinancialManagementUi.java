@@ -275,7 +275,7 @@ public class FinancialManagementUi extends Application{
         expensesPane.add(new Label("Category:"), 1, 0);
         expensesPane.add(new Label("Price:"), 2, 0);
         for (int i = 0; i < expenses.size(); i++) {
-            String date = incomes.get(i).getDatetime().toString().substring(0, 10);
+            String date = expenses.get(i).getDate().toString().substring(0, 10);
             expensesPane.add(new Label(date), 0, i + 1);
             expensesPane.add(new Label(expenses.get(i).getCategory()), 1, i + 1);
             expensesPane.add(new Label(String.valueOf(expenses.get(i).getAmount())), 2, i + 1);
@@ -531,7 +531,7 @@ public class FinancialManagementUi extends Application{
         ObservableList<String> categories = 
                 FXCollections.observableArrayList(
                         "Other",
-                        "Houme",
+                        "Home",
                         "Food",
                         "Car",
                         "Hobbies",

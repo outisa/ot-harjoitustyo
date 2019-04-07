@@ -41,7 +41,13 @@ public class SQLIncomeDao implements IncomeDao {
 
     @Override
     public List<Income> getTenResentAdded(Integer userId)  {
-        return incomes;
+        List<Income> incomessForCurrentUser = new ArrayList<>();
+        for (Income income: incomes) {
+            if (income.getUserId().equals(userId)) {
+                incomessForCurrentUser.add(income);
+            }
+        }
+        return incomessForCurrentUser;
     }
     
 }

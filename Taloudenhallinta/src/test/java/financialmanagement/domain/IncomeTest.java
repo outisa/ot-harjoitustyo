@@ -38,7 +38,7 @@ public class IncomeTest {
     
     @Test
     public void incomeHasUserId() {
-        assertEquals(2, income.getUserId(), 0);
+        assertTrue(income.getUserId().equals(2));
     }
     
     @Test

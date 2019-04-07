@@ -6,9 +6,10 @@ import java.util.List;
 
 
 public class FakeUserDao implements UserDao {
-    List<User> users = new ArrayList<>();
+    List<User> users;
 
     public FakeUserDao() {
+        users = new ArrayList<>();
         users.add(new User("Tester"));
     }
 
