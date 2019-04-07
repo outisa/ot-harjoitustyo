@@ -17,9 +17,9 @@ public class ExpenseTest {
     @Before
     public void setUp() {
         LocalDateTime date = LocalDateTime.parse("2019-12-12"+ " " + "00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        this.expense = new Expense(date, 10.78, "Food", 2 , " ");
-        this.expense2= new Expense(date, 10.78, "Food", 2, " ");
-        this.expense3= new Expense(date, 109.00, "Household", 1, " ");
+        this.expense = new Expense(date, 10.78, "Food", 2);
+        this.expense2= new Expense(date, 10.78, "Food", 2);
+        this.expense3= new Expense(date, 109.00, "Household", 1);
     }
     
     @Test

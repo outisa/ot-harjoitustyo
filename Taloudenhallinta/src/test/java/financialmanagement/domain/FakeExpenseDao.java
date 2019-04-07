@@ -1,23 +1,17 @@
 
-package financialmanagement.dao;
+package financialmanagement.domain;
 
-import financialmanagement.domain.Expense;
+import financialmanagement.dao.ExpenseDao;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class SQLExpenseDao implements ExpenseDao {
-    private List<Expense> expenses;
-
-    public SQLExpenseDao() {
-        expenses = new ArrayList<>();
-    }
+class FakeExpenseDao implements ExpenseDao{
 
     @Override
     public void create(Expense expense) throws Exception {
-        expenses.add(expense);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -27,13 +21,7 @@ public class SQLExpenseDao implements ExpenseDao {
 
     @Override
     public Expense findExpense(LocalDateTime date, Double amount, String category, Integer userId) {
-        Expense newExpense = new Expense(date, amount, category, userId);
-        for (Expense expense: expenses) {
-            if (newExpense.equals(expense)) {
-                return expense;
-            }    
-        }
-        return null;    
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -43,7 +31,7 @@ public class SQLExpenseDao implements ExpenseDao {
 
     @Override
     public List<Expense> getTenResentlyAdded(Integer userId) {
-        return expenses;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

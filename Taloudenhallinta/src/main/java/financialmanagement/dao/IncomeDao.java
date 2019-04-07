@@ -1,11 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package financialmanagement.dao;
 
+import financialmanagement.domain.Income;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
 
 public interface IncomeDao {
+    void create(Income income) throws Exception;
     
+    HashMap<String, Integer> incomeForEachCategory();
+    
+    Income findIncome(LocalDateTime date, Double amount, String category, Integer userId);
+    
+    List<Income> getAllBetween(LocalDateTime dateFrom, LocalDateTime dateTo, Integer userId);
+    
+    List<Income> getTenResentAdded(Integer userId);
 }

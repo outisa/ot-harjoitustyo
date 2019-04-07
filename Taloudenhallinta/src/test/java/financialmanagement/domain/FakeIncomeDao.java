@@ -1,21 +1,21 @@
-package financialmanagement.dao;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package financialmanagement.domain;
 
-import financialmanagement.domain.Income;
+import financialmanagement.dao.IncomeDao;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SQLIncomeDao implements IncomeDao {
-    private List<Income> incomes;
 
-    public SQLIncomeDao() {
-        incomes = new ArrayList<>();
-    }
+class FakeIncomeDao implements IncomeDao {
 
     @Override
     public void create(Income income) throws Exception {
-        incomes.add(income);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -25,13 +25,7 @@ public class SQLIncomeDao implements IncomeDao {
 
     @Override
     public Income findIncome(LocalDateTime date, Double amount, String category, Integer userId) {
-        Income newIncome = new Income(date, amount, category, userId);
-        for (Income income: incomes) {
-            if (newIncome.equals(income)) {
-                return income;
-            }    
-        }
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -40,8 +34,8 @@ public class SQLIncomeDao implements IncomeDao {
     }
 
     @Override
-    public List<Income> getTenResentAdded(Integer userId)  {
-        return incomes;
+    public List<Income> getTenResentAdded(Integer UserId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

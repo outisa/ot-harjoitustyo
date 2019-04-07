@@ -13,12 +13,12 @@ public class Expense {
     private Integer userId;
     private String place;
 
-    public Expense(LocalDateTime date, Double amount, String category, Integer userId, String place) {
+    public Expense(LocalDateTime date, Double amount, String category, Integer userId) {
         this.date = date;
         this.amount = amount;
         this.category = category;
         this.userId = userId;
-        this.place = place;
+        
     } 
 
     public Integer getUserId() {
