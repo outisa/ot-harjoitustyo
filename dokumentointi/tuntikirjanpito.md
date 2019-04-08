@@ -14,6 +14,8 @@ päivä | aika | mitä tein
 5.4.  | 1 | Testien korjausta ja checkstyle.xml luonti
 5.4.  | 2 | README.md ajantasalle ja Arkkitehtuuri.md:n tekoa
 6.4.  | 1 | README.md, Arkkitehtuuri.md ajantasalle ja rikkinäisten linkkien korjaus
-
-
-Yhteensä: 23 tuntia
+6.4.  | 4 | Perusäkymien tekoa tulon ja menon lisäykseen
+7.4.  | 6 | Perusnäkymien teon jatkaminen tulon ja menon lisäykseen ja näiden listaukseen. Toiminnallisuuden luontia edellä mainittuihin perusnäkymiin.
+7.4.  | 2 | Testien luontia Domain pakkauksen luokkiin, checkstyle tarkistus, sekä sen antamien virheiden korjaus
+ 
+Yhteensä: 35 tuntia
