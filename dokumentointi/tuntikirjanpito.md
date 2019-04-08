@@ -17,5 +17,6 @@ päivä | aika | mitä tein
 6.4.  | 4 | Perusäkymien tekoa tulon ja menon lisäykseen
 7.4.  | 6 | Perusnäkymien teon jatkaminen tulon ja menon lisäykseen ja näiden listaukseen. Toiminnallisuuden luontia edellä mainittuihin perusnäkymiin.
 7.4.  | 2 | Testien luontia Domain pakkauksen luokkiin, checkstyle tarkistus, sekä sen antamien virheiden korjaus
-8.4   | 0.5 | Pientä parantelua käyttöliittymään sovelluksen sulkemisen hoitamiseen 
-Yhteensä: 35.5 tuntia
+8.4   | 0.5 | Pientä parantelua käyttöliittymään sovelluksen sulkemisen hoitamiseen
+8.4. | 0.5 | Vaativuusmäärittelyn sekä READMEn päivitystä   
+Yhteensä:| 36 |
