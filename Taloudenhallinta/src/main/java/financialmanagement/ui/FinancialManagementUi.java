@@ -30,16 +30,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
-
-public class FinancialManagementUi extends Application{
+public class FinancialManagementUi extends Application {
     private Scene newUserScene;
     private Scene loginScene;
     private Scene mainScene;
     private Scene newIncomeScene;
     private Scene newExpenseScene;
-   
-    private VBox incomeNodes;
-    private VBox outcomeNodes;
     
     private Label menuLabel;
    
@@ -61,7 +57,6 @@ public class FinancialManagementUi extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Label errorMessage = new Label();
         Label notUser = new Label("If you don't have any username, create new account.");
         notUser.setTextFill(Color.FORESTGREEN);
         //login scene
@@ -81,7 +76,7 @@ public class FinancialManagementUi extends Application{
         loginButton.setOnAction(e-> {
             String username = usernameInput.getText();
             menuLabel.setText(username + " is logged in.");
-            if(financialManagementService.login(username) == true) {
+            if (financialManagementService.login(username) == true) {
                 // not yet ready
                 loginMessage.setText("");
                 primaryStage.setScene(mainScene);
@@ -123,10 +118,10 @@ public class FinancialManagementUi extends Application{
         createNewUserButton.setOnAction(e->{
             String username = newUsernameInput.getText();
             newUsernameInput.setText("");
-            if(username.length() < 3){
+            if (username.length() < 3){
                 userCreationMessage.setText("Username is too short, you need at least 3 characters");
                 userCreationMessage.setTextFill(Color.RED);
-            } else if(financialManagementService.createUser(username)){
+            } else if (financialManagementService.createUser(username)) {
                 userCreationMessage.setText("");
                 loginMessage.setText("New user created");
                 loginMessage.setTextFill(Color.GREEN);
@@ -145,7 +140,7 @@ public class FinancialManagementUi extends Application{
         newUserScene = new Scene(newUserPane, 900, 700);
         
         // main scene, ulkonäkö vaatii viimeistelyä
-        BorderPane ground = new BorderPane();
+        BorderPane mainPane = new BorderPane();
         GridPane expensesBetween = new GridPane();
         
         HBox menuPane = new HBox(10);
@@ -182,14 +177,14 @@ public class FinancialManagementUi extends Application{
         
         Button addIncome = new Button("Add new income");
         Button addExpense = new Button("Add new expense");
-        Button listAll = new Button("List last 10 expenses and 10 incomes");
+        Button listLastTenAdds = new Button("List last 10 expenses and 10 incomes");
    
-        selectButtons.getChildren().addAll(addIncome, addExpense, listAll);
-        menuPane.getChildren().addAll(menuLabel, logoutButton , errorMessage);
+        selectButtons.getChildren().addAll(addIncome, addExpense, listLastTenAdds);
+        menuPane.getChildren().addAll(menuLabel, logoutButton);
        
-        ground.setTop(menuPane);
-        ground.setCenter(expensesBetween);
-        ground.setBottom(selectButtons);
+        mainPane.setTop(menuPane);
+        mainPane.setCenter(expensesBetween);
+        mainPane.setBottom(selectButtons);
            
         logoutButton.setOnAction(e->{ 
             financialManagementService.logout();
@@ -203,11 +198,11 @@ public class FinancialManagementUi extends Application{
         addExpense.setOnAction(e->{
             primaryStage.setScene(newExpenseScene);
         });
-        listAll.setOnAction(e->{ 
+        listLastTenAdds.setOnAction(e->{ 
             listResentTenScene = new Scene(listLastTenIncomesAndOutcomes(primaryStage), 900, 700);
             primaryStage.setScene(listResentTenScene);
         });
-        mainScene = new Scene(ground, 900, 700);
+        mainScene = new Scene(mainPane, 900, 700);
         
         //new income scene
         newIncomeScene = new Scene(addNewIncome(primaryStage), 900, 700); 
@@ -215,8 +210,7 @@ public class FinancialManagementUi extends Application{
         // new expense scene 
         newExpenseScene = new Scene(addNewExpense(primaryStage), 900, 700);
         
-        // list last last 10 incomes and expenses 
-        
+        // list last last 10 incomes and expenses         
         listResentTenScene = new Scene(listLastTenIncomesAndOutcomes(primaryStage), 900, 700);
         
         // setup primary stage 
@@ -227,20 +221,18 @@ public class FinancialManagementUi extends Application{
             System.out.println("closing");
             System.out.println(financialManagementService.getLoggedUser());
             if(financialManagementService.getLoggedUser()!= null){
-                errorMessage.setText("logout first");
-                errorMessage.setTextFill(Color.FIREBRICK);
-                e.consume();
+                financialManagementService.logout();
             }    
         });
     }
     @Override
-    public void stop(){
+    public void stop() {
         System.out.println("Application is closing");
     }
     // When SQL in use change 1 to financialManagementService.getLoggedUser().getId()
     public BorderPane listLastTenIncomesAndOutcomes(Stage primaryStage) {
         ScrollPane listPane = new ScrollPane();
-        BorderPane pane = new BorderPane(listPane);
+        BorderPane orderpane = new BorderPane(listPane);
         GridPane incomesPane = new GridPane();
         incomesPane.setPadding(new Insets(20,20,20,20));
         incomesPane.setHgap(20);
@@ -249,8 +241,7 @@ public class FinancialManagementUi extends Application{
         GridPane expensesPane= new GridPane();
         expensesPane.setPadding(new Insets(20,20,20,20));
         expensesPane.setHgap(20);
-        expensesPane.setVgap(10)
-                ;        
+        expensesPane.setVgap(10);        
         HBox menu = new HBox(10);
         menu.setSpacing(20);
         menu.setPadding(new Insets(10,10,10,10));
@@ -279,21 +270,22 @@ public class FinancialManagementUi extends Application{
             expensesPane.add(new Label(date), 0, i + 1);
             expensesPane.add(new Label(expenses.get(i).getCategory()), 1, i + 1);
             expensesPane.add(new Label(String.valueOf(expenses.get(i).getAmount())), 2, i + 1);
-
         }
         Label income = new Label("Incomes:");
         Label expense = new Label("Expenses:");
         VBox listLayout = new VBox(10);
+        
         listLayout.setPadding(new Insets(20,10,10,20));
         listLayout.setSpacing(20);
         listLayout.getChildren().addAll(income, incomesPane, expense, expensesPane);
-        pane.setTop(menu);
-        pane.setCenter(listLayout);
+        
+        orderpane.setTop(menu);
+        orderpane.setCenter(listLayout);
         backtoMain.setOnAction(e -> {
             primaryStage.setScene(mainScene);
         });
         
-        return pane;
+        return orderpane;
     }
     // loggedIn.getId must be added, when SQL in use
     public GridPane addNewIncome(Stage primaryStage) {
@@ -302,7 +294,11 @@ public class FinancialManagementUi extends Application{
         
         TextField setAmount = new TextField("0.00");
         Button backtoMain = new Button("Back to overview");
+        backtoMain.setPadding(new Insets(10,10,10,10));
         Button newIncome = new Button("create new income");
+        newIncome.setPadding(new Insets(10,10,10,10));
+        Button logout = new Button("logout");
+        logout.setPadding(new Insets(10,10,10,10));
         
         final ComboBox setYear = new ComboBox(createYears());
         setYear.setValue("2018");
@@ -313,25 +309,26 @@ public class FinancialManagementUi extends Application{
         final ComboBox setCategory = new ComboBox(createCategories());
         setCategory.setValue("Other");
         
-        backtoMain.setPadding(new Insets(10,10,10,10));
         Label notAnumberError = new Label();
         newIncomePane.setHgap(10);
         newIncomePane.setVgap(10);
-        newIncomePane.add(new Label("year"), 1, 0);
-        newIncomePane.add(new Label("month"), 2, 0);
-        newIncomePane.add(new Label("day"), 3, 0);
+        newIncomePane.add(logout, 0, 0);
+        newIncomePane.add(new Label("Logout before closing the program"), 1, 0);
+        newIncomePane.add(new Label("year"), 1, 1);
+        newIncomePane.add(new Label("month"), 2, 1);
+        newIncomePane.add(new Label("day"), 3, 1);
         newIncomePane.add(notAnumberError, 1, 4);
-        newIncomePane.add(new Label("Give date here:"), 0, 1);
-        newIncomePane.add(setYear, 1, 1);
-        newIncomePane.add(setMonth, 2, 1);
-        newIncomePane.add(setday, 3, 1);
-        newIncomePane.add( new Label("Give amount here (xxx.xx)"), 0, 2);
-        newIncomePane.add(setAmount, 1, 2);
-        newIncomePane.add(new Label("Choose category"), 0, 3);
-        newIncomePane.add(setCategory, 1, 3);
-        newIncomePane.add(newIncome, 1,6);
-        newIncomePane.add(backtoMain, 1, 5);
-        newIncomePane.add(errormessageIncome, 2,4);
+        newIncomePane.add(new Label("Give date here:"), 0, 2);
+        newIncomePane.add(setYear, 1, 2);
+        newIncomePane.add(setMonth, 2, 2);
+        newIncomePane.add(setday, 3, 2);
+        newIncomePane.add( new Label("Give amount here (xxx.xx)"), 0, 3);
+        newIncomePane.add(setAmount, 1, 3);
+        newIncomePane.add(new Label("Choose category"), 0, 4);
+        newIncomePane.add(setCategory, 1, 4);
+        newIncomePane.add(newIncome, 1,5);
+        newIncomePane.add(backtoMain, 2, 0);
+        newIncomePane.add(errormessageIncome, 2,5);
 
         setAmount.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?") || newValue.isEmpty()) {
@@ -343,10 +340,17 @@ public class FinancialManagementUi extends Application{
         });
 
         backtoMain.setOnAction(e -> {
+            errormessageIncome.setText("");
             primaryStage.setScene(mainScene);
         });
+        
+        logout.setOnAction(e->{ 
+            financialManagementService.logout();
+            primaryStage.setScene(loginScene);
+        });
+        
         newIncome.setOnAction(e->{
-            double price = Double.valueOf(setAmount.getText());
+            double amount = Double.valueOf(setAmount.getText());
             String year = setYear.getValue().toString();
             String month = setMonth.getValue().toString();
             String day = setday.getValue().toString();
@@ -354,7 +358,7 @@ public class FinancialManagementUi extends Application{
             LocalDateTime datetime = LocalDateTime.parse(year + "-" + month +
                     "-" + day + " " + "00:01", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             
-            if (financialManagementService.createIncome(datetime, price, setCategory.getValue().toString(), 1) == false) {
+            if (financialManagementService.createIncome(datetime, amount, setCategory.getValue().toString(), 1) == false) {
                 errormessageIncome.setText("Income exists already");
                 errormessageIncome.setTextFill(Color.RED);
                 setYear.setValue("2018");
@@ -375,8 +379,10 @@ public class FinancialManagementUi extends Application{
         
         TextField setAmount = new TextField("0.00");
         Button backtoMain = new Button("Back to overview");
+        backtoMain.setPadding(new Insets(10,10,10,10));
         Button newExpense = new Button("add expense");
-        
+        newExpense.setPadding(new Insets(10, 10, 10, 10));
+                
         final ComboBox setYear = new ComboBox(createYears());
         setYear.setValue("2018");
         final ComboBox setMonth = new ComboBox(createMonths());
@@ -386,7 +392,6 @@ public class FinancialManagementUi extends Application{
         final ComboBox setCategory = new ComboBox(createExpenseCategories());
         setCategory.setValue("Other");
         
-        backtoMain.setPadding(new Insets(10,10,10,10));
         Label notAnumberError = new Label();
         expensePane.setHgap(10);
         expensePane.setVgap(10);
@@ -416,6 +421,7 @@ public class FinancialManagementUi extends Application{
         });
 
         backtoMain.setOnAction(e -> {
+            errormessageExpense.setText("");
             primaryStage.setScene(mainScene);
         });
 
