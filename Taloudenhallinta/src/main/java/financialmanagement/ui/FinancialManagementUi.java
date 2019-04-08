@@ -313,7 +313,6 @@ public class FinancialManagementUi extends Application {
         newIncomePane.setHgap(10);
         newIncomePane.setVgap(10);
         newIncomePane.add(logout, 0, 0);
-        newIncomePane.add(new Label("Logout before closing the program"), 1, 0);
         newIncomePane.add(new Label("year"), 1, 1);
         newIncomePane.add(new Label("month"), 2, 1);
         newIncomePane.add(new Label("day"), 3, 1);
@@ -326,7 +325,7 @@ public class FinancialManagementUi extends Application {
         newIncomePane.add(setAmount, 1, 3);
         newIncomePane.add(new Label("Choose category"), 0, 4);
         newIncomePane.add(setCategory, 1, 4);
-        newIncomePane.add(newIncome, 1,5);
+        newIncomePane.add(newIncome, 1, 5);
         newIncomePane.add(backtoMain, 2, 0);
         newIncomePane.add(errormessageIncome, 2,5);
 
