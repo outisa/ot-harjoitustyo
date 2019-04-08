@@ -22,7 +22,7 @@ Sovellus aukeaa ensimmäisksi kirjautumisnäkymään, josta on mahdollista siirt
 "luo uusi käyttäjä" -näkymään tai onnistuneen kirjautumisen yhteydessä 
 yleisnäkymään. Yleisnäkymässä on mahdollisuus siirtyä lisää uusi tulo tai 
 meno lomakkeeseen,
- sekä hakea menoja joltakin aikaväliltä. Onnistuneen uuden tulon tai menon lisäämisen jälkeen palataan yleisnäkymään.
+ sekä hakea menoja joltakin aikaväliltä. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysytään tulo- tai menonäkymässä ja käyttäjä saa viestin onnistuneesta lisäyksestä. Jos tarkalleen samoilla tiedoilla oleva tulo tai meno on jo olemassa, saadaan virheilmoitus. Käyttäjä voi halutessaan siirtyä päänäkymään.
  Jos halutulla aikavälillä on menoja, siirrytään näkymään, jossa on  menot listattuna kategorioittain sekä diagrammi
 menojen %-osuuksista kategorioittain. 
 
@@ -35,7 +35,7 @@ menojen %-osuuksista kategorioittain.
 
 * Käyttäjä voi kirjautua järjestelmään
   * Krjautuminen onnistuu syötettäessä olemassaoleva käyttäjätunnus aloitusnäkymän kirjautumislomakkeelle.
-  * Jos käyttäjää ei löydy järjestelmästä tao tunnus on väärä, ilmoitta järjestelmä tästä aloitusnäkymässä.
+  * Jos käyttäjää ei löydy järjestelmästä tai tunnus on väärä, ilmoittaa järjestelmä tästä aloitusnäkymässä.
 
 ### Kirjautumisen jälkeen
 
@@ -47,22 +47,32 @@ menojen %-osuuksista kategorioittain.
     * Haku näyttää yhteenvedon vain käyttäjän luomista menoista.
     * Loppupäivämäärän täytyy olla suurempi kuin alkupäivämäärä.
     * Jos tapahtumia ei löydy aikaväliltä, tulee siitä ilmoitus. 
-  * Käyttäjä voi listata kaikki menot ja tulot.
+  * Käyttäjä voi siirtyä uusimpien kymmenen menoerän ja tulon listaukseen.
   * Käyttäjä voi kirjautua ulos järjestelmästä.
 
-* Käyttäjä voi lisätä uuden tulotapahtuman
-  * Onnistuneen kisäyksen jälkeen palataan perusnäkymään.
-
-* Käyttäjä voi lisätä uuden menoerän
-  * Onnistuneen lisäyksen jälkeen palataan perusnäkymään.
+* Tulonlisäysnäkymä
+  * Käyttäjä voi lisätä uuden tulotapahtuman 
+    * Onnistuneen lisäyksen jälkeen pysytään lisäysnäkymässä ja käyttäjä saa ilmoituksen onnistuneesta lisäyksestä.
+    * Jos tarkalleen samoilla tiedoilla oleva tulo on jo olemassa, saa käyttäjä virheiloituksen ja lisäys ei onnistu.
+  * Käyttäjä voi palata perusnäkymään.
+  * Käyttäjä voi kirjautua ulos.
+  
+* Menonlisäysnäkymä  
+  * Käyttäjä voi lisätä uuden menoerän
+    * Onnistuneen lisäyksen jälkeen pysytään lisäysnäkymässä ja käyttäjä saa ilmoituksen onnistuneesta lisäyksestä.
+    * Jos tarkalleen samoilla tiedoilla oleva meno on jo olemassa, saa käyttäjä virheiloituksen ja lisäys ei onnistu.
+  * Käyttäjä voi palata perusnäkymään.
+  * Käyttäjä voi kirjautua ulos.
 
 * Listausnäkymässä 
-  * Käyttäjä näkee kaikki lisäämänsä menot ja tulot aikajärjestyksessä. 
+  * Käyttäjä näkee kymmenen tuoreinta lisäämänsä menoa ja tuloa.
+  * Käyttäjä voi palata perusnäkymään.
+  * Käyttäjä voi kirjautua ulos.
   
 * Yhteenvetonäkymässä
   * käyttäjä näkee menot kategorioittain.
   * käyttäjä voi palata perusnäkymään.
-
+  * Käyttäjä voi kirjautua ulos.
 
 
 ## Jatkokehitysideoita
