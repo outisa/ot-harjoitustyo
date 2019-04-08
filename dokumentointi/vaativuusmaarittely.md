@@ -18,13 +18,11 @@ Sovellus koostuu alustavasti seitsämästä eri näkymästä:
 
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/kayttoliittymaluonnos.jpg" width="850">
 
-Sovellus aukeaa ensimmäisksi kirjautumisnäkymään, josta on mahdollista siirtyä
+Sovellus aukeaa ensimmäiseksi kirjautumisnäkymään, josta on mahdollista siirtyä
 "luo uusi käyttäjä" -näkymään tai onnistuneen kirjautumisen yhteydessä 
 yleisnäkymään. Yleisnäkymässä on mahdollisuus siirtyä lisää uusi tulo tai 
-meno lomakkeeseen,
- sekä hakea menoja joltakin aikaväliltä. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysytään tulo- tai menonäkymässä ja käyttäjä saa viestin onnistuneesta lisäyksestä. Jos tarkalleen samoilla tiedoilla oleva tulo tai meno on jo olemassa, saadaan virheilmoitus. Käyttäjä voi halutessaan siirtyä päänäkymään.
- Jos halutulla aikavälillä on menoja, siirrytään näkymään, jossa on  menot listattuna kategorioittain sekä diagrammi
-menojen %-osuuksista kategorioittain. 
+meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysytään tulo- tai menonäkymässä ja käyttäjä saa viestin onnistuneesta lisäyksestä. Jos tarkalleen samoilla tiedoilla oleva tulo tai meno on jo olemassa, saadaan virheilmoitus. Käyttäjä voi halutessaan siirtyä päänäkymään. 
+ Lisäksi yleisnäkymässä voidaan hakea menoja joltakin aikaväliltä. Jos halutulla aikavälillä on menoja, siirrytään näkymään, jossa on  menot listattuna kategorioittain sekä diagrammi menojen %-osuuksista kategorioittain. Päänäkymästä pääsee myös listausnäkymään, jossa on viimeisimmät kymmenen menoa ja tuloa listattuna. 
 
 ## Perusversion tarjoama toiminnallisuus
 
