@@ -11,3 +11,6 @@ nbactions.xml
 /Taloudenhallinta/nbproject/
 
 Taloudenhallinta/nb-configuration.xml
+
+management.db
+testManagement.db

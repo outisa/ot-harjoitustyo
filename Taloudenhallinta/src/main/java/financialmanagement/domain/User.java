@@ -8,6 +8,10 @@ public class User {
     private Integer id;
     private String username;
 
+    public User(Integer id, String username) {
+        this.username = username;
+        this.id = id;
+    }
     public User(String username) {
         this.username = username;
     }

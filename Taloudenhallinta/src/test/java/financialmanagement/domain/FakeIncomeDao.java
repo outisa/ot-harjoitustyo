@@ -2,8 +2,8 @@
 package financialmanagement.domain;
 
 import financialmanagement.dao.IncomeDao;
+import java.sql.Date;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +14,8 @@ class FakeIncomeDao implements IncomeDao {
 
     public FakeIncomeDao() {
         incomes = new ArrayList<>();
-        LocalDateTime date = LocalDateTime.parse("2019-12-24"+ " " + "00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        Income income = new Income(date, 120.00, "Present", 1);
+        Date date = Date.valueOf("2019-12-24");
+        Income income = new Income(1, date, "Present", 120.00);
         incomes.add(income);
     }
     
@@ -30,8 +30,8 @@ class FakeIncomeDao implements IncomeDao {
     }
 
     @Override
-    public Income findIncome(LocalDateTime date, Double amount, String category, Integer userId) {
-        Income newIncome = new Income(date, amount, category, userId);
+    public Income findIncome(Date date, Double amount, String category, Integer userId) {
+        Income newIncome = new Income(userId, date, category, amount);
         for (Income income: incomes) {
             if (newIncome.equals(income)) {
                 return income;
@@ -41,7 +41,7 @@ class FakeIncomeDao implements IncomeDao {
     }
 
     @Override
-    public List<Income> getAllBetween(LocalDateTime dateFrom, LocalDateTime dateTo, Integer userId) {
+    public List<Income> getAllBetween(Date dateFrom, Date dateTo, Integer userId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

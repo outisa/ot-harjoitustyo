@@ -3,21 +3,22 @@
  */
 package financialmanagement.domain;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class Expense {
     private Integer id;
-    private LocalDateTime date;
+    private Date date;
     private Double amount;
     private String category;
     private Integer userId;
     private String place;
 
-    public Expense(LocalDateTime date, Double amount, String category, Integer userId) {
-        this.date = date;
-        this.amount = amount;
-        this.category = category;
+    public Expense(Integer userId, Date date, String category, Double amount) {
         this.userId = userId;
+        this.date = date;
+        this.category = category;
+        this.amount = amount;
+
         
     } 
 
@@ -33,7 +34,7 @@ public class Expense {
         return category;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
    

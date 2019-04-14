@@ -2,8 +2,7 @@
 package financialmanagement.domain;
 
 import financialmanagement.dao.ExpenseDao;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +13,8 @@ class FakeExpenseDao implements ExpenseDao{
 
     public FakeExpenseDao() {
         expenses = new ArrayList<>();
-        LocalDateTime date = LocalDateTime.parse("2019-07-26"+ " " + "00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        expenses.add(new Expense(date, 12.05, "Food", 1));
+        Date date = Date.valueOf("2019-07-26");
+        expenses.add(new Expense(1, date, "Food", 12.05));
     }
 
     @Override
@@ -29,8 +28,8 @@ class FakeExpenseDao implements ExpenseDao{
     }
 
     @Override
-    public Expense findExpense(LocalDateTime date, Double amount, String category, Integer userId) {
-        Expense newExpense = new Expense(date, amount, category, userId);
+    public Expense findExpense(Date date, Double amount, String category, Integer userId) {
+        Expense newExpense = new Expense(userId, date, category, amount);
         for (Expense expense: expenses) {
             if (newExpense.equals(expense)) {
                 return expense;
@@ -40,7 +39,7 @@ class FakeExpenseDao implements ExpenseDao{
     }
 
     @Override
-    public List<Expense> getAllBetween(LocalDateTime dateFrom, LocalDateTime dateTo, Integer userId) {
+    public List<Expense> getAllBetween(Date dateFrom, Date dateTo, Integer userId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

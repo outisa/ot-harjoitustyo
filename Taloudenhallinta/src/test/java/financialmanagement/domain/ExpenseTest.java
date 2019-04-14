@@ -1,8 +1,8 @@
 
 package financialmanagement.domain;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,15 +16,15 @@ public class ExpenseTest {
    
     @Before
     public void setUp() {
-        LocalDateTime date = LocalDateTime.parse("2019-12-12"+ " " + "00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        this.expense = new Expense(date, 10.78, "Food", 2);
-        this.expense2= new Expense(date, 10.78, "Food", 2);
-        this.expense3= new Expense(date, 109.00, "Household", 1);
+        Date date = Date.valueOf("2019-12-12");
+        this.expense = new Expense(2, date, "Food", 10.78);
+        this.expense2= new Expense(2, date, "Food", 10.78);
+        this.expense3= new Expense(1, date, "Household", 109.00);
     }
     
     @Test
     public void expenseHasDate() {
-        assertEquals(LocalDateTime.parse("2019-12-12" + " " + "00:00" ,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), expense.getDate());
+        assertEquals(Date.valueOf("2019-12-12"), expense.getDate());
     }
     
     @Test

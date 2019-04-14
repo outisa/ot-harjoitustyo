@@ -2,8 +2,7 @@
 package financialmanagement.domain;
 
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -15,15 +14,15 @@ public class IncomeTest {
     
     @Before
     public void setUp() {
-        LocalDateTime date = LocalDateTime.parse("2019-12-12"+ " " + "00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        this.income = new Income(date, 128.22, "Present", 2);
-        this.income2= new Income(date, 128.22, "Present", 2);
-        this.income3= new Income(date, 12.12, "Salary", 1);
+        Date date = Date.valueOf("2019-12-12");
+        this.income = new Income(2, date, "Present", 128.22);
+        this.income2= new Income(2, date, "Present", 128.22);
+        this.income3= new Income(1, date, "Salary", 12.12);
     }
     
     @Test
     public void incomeHasDate() {
-        assertEquals(LocalDateTime.parse("2019-12-12" + " " + "00:00" ,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), income.getDatetime());
+        assertEquals(Date.valueOf("2019-12-12"), income.getDatetime());
     }
     
     @Test

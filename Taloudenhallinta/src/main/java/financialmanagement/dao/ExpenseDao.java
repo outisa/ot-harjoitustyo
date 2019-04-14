@@ -2,7 +2,7 @@
 package financialmanagement.dao;
 
 import financialmanagement.domain.Expense;
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,11 +10,11 @@ import java.util.List;
 public interface ExpenseDao {
     void create(Expense expense) throws Exception;
     
-    HashMap<String, Integer> expenseForEachCategory();
+    HashMap<String, Integer> expenseForEachCategory() throws Exception;
     
-    Expense findExpense(LocalDateTime date, Double amount, String category, Integer userId);
+    Expense findExpense(Date date, Double amount, String category, Integer userId) throws Exception;
     
-    List<Expense> getAllBetween(LocalDateTime dateFrom, LocalDateTime dateTo, Integer userId);
+    List<Expense> getAllBetween(Date dateFrom, Date dateTo, Integer userId);
     
     List<Expense> getTenResentlyAdded(Integer userId);
 }
