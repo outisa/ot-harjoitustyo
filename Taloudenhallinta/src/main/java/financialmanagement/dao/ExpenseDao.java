@@ -12,7 +12,7 @@ public interface ExpenseDao {
     
     HashMap<String, Integer> expenseForEachCategory() throws Exception;
     
-    Expense findExpense(Date date, Double amount, String category, Integer userId) throws Exception;
+    Expense findExpense(Date date, Double amount, String category, Integer userId);
     
     List<Expense> getAllBetween(Date dateFrom, Date dateTo, Integer userId);
     
