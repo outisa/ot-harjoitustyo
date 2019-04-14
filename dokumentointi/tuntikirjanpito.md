@@ -18,5 +18,9 @@ päivä | aika | mitä tein
 7.4.  | 6 | Perusnäkymien teon jatkaminen tulon ja menon lisäykseen ja näiden listaukseen. Toiminnallisuuden luontia edellä mainittuihin perusnäkymiin.
 7.4.  | 2 | Testien luontia Domain pakkauksen luokkiin, checkstyle tarkistus, sekä sen antamien virheiden korjaus
 8.4   | 0.5 | Pientä parantelua käyttöliittymään sovelluksen sulkemisen hoitamiseen
-8.4. | 0.5 | Vaativuusmäärittelyn sekä READMEn päivitystä   
-Yhteensä:| 36 |
+8.4. | 0.5 | Vaativuusmäärittelyn sekä READMEn päivitystä
+12.4. | 4 | Springin kertausta, mutta koska ei tullut toivottua tulosta, niin siirtyminen SQLite jdbc:n käyttöön.
+12.4. | 2 | Tietokannan luominen ja tietokantaoperaatioiden luonti käyttäjälle, sekä sen toimivuuden kokeilua.
+13.4. | 5 | Tietokannan luominen menoille ja tuloille, sekä niiden käyttöön otto.
+14.5. | 5 | Toiminnallisuuden lisäämistä, testit SQLUserDaolle.
+Yhteensä:| 52 |
