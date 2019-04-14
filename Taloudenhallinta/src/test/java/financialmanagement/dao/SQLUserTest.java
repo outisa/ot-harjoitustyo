@@ -32,7 +32,7 @@ public class SQLUserTest {
     @Before
     public void setUp() throws SQLException, IOException {
         properties = new Properties();
-        properties.load(new FileInputStream("config.properties"));
+        properties.load(new FileInputStream("src/main/resources/config.properties"));
         testDatabase = properties.getProperty("testString");
         dao = new SQLUserDao(testDatabase);
         String sqlAddUser = "INSERT INTO Account (username) VALUES (?)";
