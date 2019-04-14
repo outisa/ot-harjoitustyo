@@ -58,7 +58,7 @@ public class FinancialManagementUi extends Application {
     @Override
     public void init() throws Exception {
        Properties properties = new Properties();
-       properties.load(new FileInputStream("config.properties"));
+       properties.load(new FileInputStream("src/main/resources/config.properties"));
        
        String database = properties.getProperty("String");
        
