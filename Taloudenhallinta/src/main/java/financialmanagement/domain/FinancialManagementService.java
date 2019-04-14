@@ -4,6 +4,7 @@ import financialmanagement.dao.ExpenseDao;
 import financialmanagement.dao.IncomeDao;
 import financialmanagement.dao.UserDao;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,6 @@ public class FinancialManagementService {
         try {
             userDao.create(user);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -96,7 +96,7 @@ public class FinancialManagementService {
         try {
             incomeDao.create(income);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return false;
         }
         return true;
     }
@@ -127,8 +127,7 @@ public class FinancialManagementService {
         Expense expense = new Expense(userid, datetime, category, amount);
         try {
             expenseDao.create(expense);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException e) {
             return false;
         }
         return true;
