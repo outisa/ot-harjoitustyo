@@ -11,6 +11,7 @@ Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sek
 
 [Työaikakirjanpito](/dokumentointi/tuntikirjanpito.md)
 
+## Releaset
 
 
 ## Komentorivitoiminnot
@@ -27,7 +28,13 @@ Testikattavuusraportti luodaan komennolla
 
 Kattaavuusraporttia voidaan tarkastella avaamalla selaimella tiedosto _target/jacoco/index.html_
 
+## Suoritettavan jarin generointi
 
+Komennolla
+
+`mvn package`
+
+generoidaan hakemistoon target suoritettavan jar-tiedoston _FinancialManagement-1.0-SNAPSHOT.jar_
 
 ### Checkstyle
 
