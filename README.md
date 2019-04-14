@@ -1,6 +1,6 @@
 # FinancialManagement
 
-Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sekä menoista että tuloista. Sovellusta voi käyttää useampi rekisteröitynyt käyttäjä, joilla jokaisella on oma yksilöllinen menojen ja tulojen kirjanpito. Käyttäjä voi lisätä menoja ja tuloja. Viimeiset kymmenen menoa ja tuloa voidaan listata, sekä käyttäjä voi tehdä hakuja, joiden perusteella hän näkee menot kategorioittain määrittelemällään aikavälillä. 
+Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sekä menoista että tuloista. Sovellusta voi käyttää useampi rekisteröitynyt käyttäjä, joilla jokaisella on oma yksilöllinen menojen ja tulojen kirjanpito. Käyttäjä voi lisätä menoja ja tuloja. Viimeiset kymmenen menoa ja tuloa voidaan listata, sekä käyttäjä voi tehdä hakuja, joiden perusteella hän näkee menot määrittelemällään aikavälillä tai haun, jonka perusteella hän näkee kaikki menot ja tulot kategoriottain. 
 
 
 ## Dokumentaatio
