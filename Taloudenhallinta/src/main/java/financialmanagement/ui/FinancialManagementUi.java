@@ -1,5 +1,6 @@
 
 package financialmanagement.ui;
+import javafx.application.Application;
 import financialmanagement.dao.SQLExpenseDao;
 import financialmanagement.dao.SQLIncomeDao;
 import financialmanagement.dao.SQLUserDao;
@@ -8,19 +9,17 @@ import financialmanagement.domain.FinancialManagementService;
 import financialmanagement.domain.Income;
 import java.io.FileInputStream;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
         
-import javafx.application.Application;
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -34,13 +33,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
-
 public class FinancialManagementUi extends Application {
-    public static void main(String[] args) {
-        launch(args);        
-    }        
-   
+      
     private Scene newUserScene;
     private Scene loginScene;
     private Scene mainScene;
@@ -266,6 +260,10 @@ public class FinancialManagementUi extends Application {
     public void stop() {
         System.out.println("Application is closing");
     }
+    
+    public static void main(String[] args) {
+        launch(args);        
+    } 
     // List all expenses between given Period
     public BorderPane listExpensesBetween(Stage primaryStage, Date dateFrom, Date dateTo) {
         ScrollPane scrollExpenses = new ScrollPane();
