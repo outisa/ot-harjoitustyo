@@ -29,13 +29,9 @@ public class SQLUserDao implements UserDao {
     *
     * @return the Connection object
     */
-    private Connection connect() {
+    private Connection connect() throws SQLException {
         Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(database);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        connection = DriverManager.getConnection(database);
         return connection;
     }
     
@@ -48,14 +44,13 @@ public class SQLUserDao implements UserDao {
      */
     @Override
     public User create(User user) throws Exception {
-        String sql = "INSERT INTO Account (username) VALUES (?)";
-        try (Connection connection = this.connect()) {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, user.getUsername());
-            stmt.executeUpdate();
-            stmt.close();
-            connection.close();
-        }
+        String sql = "INSERT INTO Account (username) VALUES (?)";       
+        Connection connection = this.connect();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, user.getUsername());
+        stmt.executeUpdate();
+        stmt.close();
+        connection.close();
         return user;
     }
   
@@ -64,23 +59,23 @@ public class SQLUserDao implements UserDao {
      * 
      * @param username
      * @return user, if already exists; null, if no user exists with given username 
+     * @throws java.sql.SQLException 
      */
     @Override
-    public User findByUsername(String username) {
+    public User findByUsername(String username) throws SQLException {
         ArrayList<User> users = new ArrayList<>();     
         String sql = "SELECT * FROM Account WHERE username = ?";
-        try (Connection connection = this.connect(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                users.add(new User(rs.getInt("id"), rs.getString("username")));
-            }
-            rs.close();
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            Logger.getLogger(SQLIncomeDao.class.getName()).log(Level.SEVERE, null, e);
+        Connection connection = this.connect(); 
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, username);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            users.add(new User(rs.getInt("id"), rs.getString("username")));
         }
+        rs.close();
+        stmt.close();
+        connection.close();
+        
         if (users.isEmpty()) {
             return null;
         }
@@ -92,21 +87,19 @@ public class SQLUserDao implements UserDao {
      * @return users , list of all users in the database. 
      */
     @Override
-    public List<User> getAll() {
+    public List<User> getAll() throws SQLException {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM Account";
-        try (Connection connection = this.connect()) {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                users.add(new User(rs.getInt("id"), rs.getString("username")));
-            }
-            stmt.close();
-            rs.close();
-            connection.close();
-        } catch (SQLException e) {
-            Logger.getLogger(SQLIncomeDao.class.getName()).log(Level.SEVERE, null, e);
+        Connection connection = this.connect();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            users.add(new User(rs.getInt("id"), rs.getString("username")));
         }
+        stmt.close();
+        rs.close();
+        connection.close();
+
         return users;
     }
    

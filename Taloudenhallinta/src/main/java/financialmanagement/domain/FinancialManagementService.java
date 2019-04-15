@@ -51,7 +51,7 @@ public class FinancialManagementService {
      * @param username
      * @return true, if user exists and was successfully locked in; false, if user does not exist
      */
-    public boolean login(String username) {
+    public boolean login(String username) throws Exception {
         User user = userDao.findByUsername(username);
         if (user == null) {
             return false;
@@ -74,8 +74,7 @@ public class FinancialManagementService {
     public void logout() {
         loggedIn = null;
     }
-    // End of User methods
-    
+
     // All Income related methods below
     
     /**

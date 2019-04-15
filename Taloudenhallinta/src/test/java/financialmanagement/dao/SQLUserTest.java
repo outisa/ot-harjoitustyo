@@ -4,6 +4,7 @@ package financialmanagement.dao;
 import financialmanagement.domain.User;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -32,16 +33,19 @@ public class SQLUserTest {
     @Before
     public void setUp() throws SQLException, IOException {
         properties = new Properties();
-        properties.load(new FileInputStream("src/main/resources/config.properties"));
+        InputStream is = getClass().getClassLoader().getResourceAsStream("config.properties");
+        properties.load(is);
+       
         testDatabase = properties.getProperty("testString");
         dao = new SQLUserDao(testDatabase);
         String sqlAddUser = "INSERT INTO Account (username) VALUES (?)";
-        try (Connection connection = DriverManager.getConnection(testDatabase); PreparedStatement stmt = connection.prepareStatement(sqlAddUser)) {
-            stmt.setString(1, "tester");
-            stmt.executeUpdate();
-            stmt.close();
-            connection.close();
-        } 
+        Connection connection = DriverManager.getConnection(testDatabase); 
+        PreparedStatement stmt = connection.prepareStatement(sqlAddUser);
+        stmt.setString(1, "tester");
+        stmt.executeUpdate();
+        stmt.close();
+        connection.close();
+        
     }
     @Test
     public void userCanBeCreated() throws Exception {
@@ -51,32 +55,31 @@ public class SQLUserTest {
         assertEquals("another", userTest.getUsername());
     }
     @Test
-    public void userIsFoundByUsername() {
+    public void userIsFoundByUsername() throws Exception {
         User user = dao.findByUsername("tester");
         assertEquals("tester", user.getUsername());
     }
     
     @Test
-    public void nonExistingUserIsFoundByUsename() {
+    public void nonExistingUserIsFoundByUsename() throws Exception {
         User user = dao.findByUsername("Another");
         assertEquals(null, user);
     }
     
     @Test
-    public void usersAreListedCorrectly() {
+    public void usersAreListedCorrectly() throws Exception {
         List<User> users = dao.getAll();
         assertEquals(1, users.size());
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws SQLException {
         String sql = "DROP TABLE Account";
-        try (Connection connection = DriverManager.getConnection(testDatabase); Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
-            stmt.close();
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(SQLUserTest.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        Connection connection = DriverManager.getConnection(testDatabase); 
+        Statement stmt = connection.createStatement();
+        stmt.execute(sql);
+        stmt.close();
+        connection.close();
+
     }
 }

@@ -8,6 +8,7 @@ import financialmanagement.domain.Expense;
 import financialmanagement.domain.FinancialManagementService;
 import financialmanagement.domain.Income;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 import java.util.Properties;
@@ -47,12 +48,12 @@ public class FinancialManagementUi extends Application {
    
     private FinancialManagementService financialManagementService;
     
-
     
     @Override
     public void init() throws Exception {
        Properties properties = new Properties();
-       properties.load(new FileInputStream("./src/main/resources/config.properties"));
+       InputStream is = getClass().getClassLoader().getResourceAsStream("config.properties");
+       properties.load(is);
        
        String database = properties.getProperty("String");
        
@@ -84,14 +85,18 @@ public class FinancialManagementUi extends Application {
         loginButton.setOnAction(e-> {
             String username = usernameInput.getText();
             menuLabel.setText(username + " is logged in.");            
-            if (financialManagementService.login(username) == true) {
-                loginMessage.setText("");
-                primaryStage.setScene(mainScene);
-                usernameInput.setText("");
-            } else {
-                loginMessage.setText("User does not exist!");
-                loginMessage.setTextFill(Color.RED);
-                primaryStage.setScene(loginScene);
+            try {
+                if (financialManagementService.login(username) == true) {
+                    loginMessage.setText("");
+                    primaryStage.setScene(mainScene);
+                    usernameInput.setText("");
+                } else {
+                    loginMessage.setText("User does not exist!");
+                    loginMessage.setTextFill(Color.RED);
+                    primaryStage.setScene(loginScene);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
             }
        
         });
