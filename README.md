@@ -13,6 +13,7 @@ Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sek
 
 ## Releaset
 
+[Viikko 5](https://github.com/outisa/ot-harjoitustyo/releases)
 
 ## Komentorivitoiminnot
 
@@ -26,7 +27,7 @@ Testikattavuusraportti luodaan komennolla
 
 `mvn jacoco:report`
 
-Kattaavuusraporttia voidaan tarkastella avaamalla selaimella tiedosto _target/jacoco/index.html_
+Kattaavuusraporttia voidaan tarkastella avaamalla selaimella tiedosto _target/jacoco/index.html_.
 
 ## Suoritettavan jarin generointi
 
@@ -34,7 +35,7 @@ Komennolla
 
 `mvn package`
 
-generoidaan hakemistoon target suoritettavan jar-tiedoston _FinancialManagement-1.0-SNAPSHOT.jar_
+generoidaan suoritettava jar-tiedosto _FinancialManagement-1.0-SNAPSHOT.jar_. Tiedosto löytyy hakemistosta _target_.
 
 ### Checkstyle
 
