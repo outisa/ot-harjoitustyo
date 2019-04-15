@@ -22,5 +22,7 @@ päivä | aika | mitä tein
 12.4. | 4 | Springin kertausta, mutta koska ei tullut toivottua tulosta, niin siirtyminen SQLite jdbc:n käyttöön.
 12.4. | 2 | Tietokannan luominen ja tietokantaoperaatioiden luonti käyttäjälle, sekä sen toimivuuden kokeilua.
 13.4. | 5 | Tietokannan luominen menoille ja tuloille, sekä niiden käyttöön otto.
-14.5. | 5 | Toiminnallisuuden lisäämistä, testit SQLUserDaolle.
-Yhteensä:| 52 |
+14.4. | 5 | Toiminnallisuuden lisäämistä, testit SQLUserDaolle.
+15.4. | 3 | jar-tiedoston luonti ja siihen liittyvien ongelmien, kuten tietokantojen muukaanotto, ratkaisemista
+15.4. | 1.5 | Dokumentaatiota ajantasalle: arkkitehtuuri.md päivitystä, README:n päivitystä
+Yhteensä:| 56.5 |
