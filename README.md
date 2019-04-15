@@ -29,13 +29,19 @@ Testikattavuusraportti luodaan komennolla
 
 Kattaavuusraporttia voidaan tarkastella avaamalla selaimella tiedosto _target/jacoco/index.html_.
 
-## Suoritettavan jarin generointi
+### Suoritettavan jarin generointi
 
 Komennolla
 
 `mvn package`
 
 generoidaan suoritettava jar-tiedosto _FinancialManagement-1.0-SNAPSHOT.jar_. Tiedosto löytyy hakemistosta _target_.
+
+### jar-tiedoston ajo komentoriviltä
+
+Generoitu jar-tiedosto voidaan suorittaa komennolla
+
+`java -jar FinancialManagement-1.0-SNAPSHOT.jar`
 
 ### Checkstyle
 
