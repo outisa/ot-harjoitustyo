@@ -2,7 +2,6 @@
 package financialmanagement.dao;
 
 import financialmanagement.domain.User;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -10,11 +9,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,11 +20,11 @@ import static org.junit.Assert.*;
  *
  * @author ousavola
  */
-public class SQLUserTest {
+public class SQLUserDaoTest {
     
-    UserDao dao;
-    Properties properties;
-    String testDatabase;
+    private UserDao dao;
+    private Properties properties;
+    private String testDatabase;
     
     @Before
     public void setUp() throws SQLException, IOException {

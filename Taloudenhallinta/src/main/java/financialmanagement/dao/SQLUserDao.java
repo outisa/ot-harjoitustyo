@@ -75,7 +75,6 @@ public class SQLUserDao implements UserDao {
         rs.close();
         stmt.close();
         connection.close();
-        
         if (users.isEmpty()) {
             return null;
         }

@@ -3,7 +3,6 @@ package financialmanagement.domain;
 
 import financialmanagement.dao.IncomeDao;
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,11 +37,6 @@ class FakeIncomeDao implements IncomeDao {
             }    
         }
         return null;
-    }
-
-    @Override
-    public List<Income> getAllBetween(Date dateFrom, Date dateTo, Integer userId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

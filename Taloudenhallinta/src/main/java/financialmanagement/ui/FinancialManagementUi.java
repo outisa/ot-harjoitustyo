@@ -80,8 +80,10 @@ public class FinancialManagementUi extends Application {
         Label loginMessage = new Label(" ");
         
         Button loginButton = new Button("login");
+        loginButton.setPadding(new Insets(10, 10, 10, 10));
         Button createButton = new Button("create new user");
-
+        createButton.setPadding(new Insets(10, 10, 10, 10));
+        
         loginButton.setOnAction(e-> {
             String username = usernameInput.getText();
             menuLabel.setText(username + " is logged in.");            
@@ -125,15 +127,19 @@ public class FinancialManagementUi extends Application {
         Label userCreationMessage = new Label();
         
         Button backToLogin = new Button("Back to login!");
+        backToLogin.setPadding(new Insets(10, 10, 10, 10));
         Button createNewUserButton = new Button("create new user");
-        createNewUserButton.setPadding(new Insets(10));
+        createNewUserButton.setPadding(new Insets(10, 10, 10, 10));
         
         createNewUserButton.setOnAction(e->{
             String username = newUsernameInput.getText();
             newUsernameInput.setText("");
-            if (username.length() < 3){
-                userCreationMessage.setText("Username is too short, you need at least 3 characters");
+            if (username.length() < 3 || username.length() >= 100){
+                userCreationMessage.setText("Username must be between 3 and 99 characters long");
                 userCreationMessage.setTextFill(Color.RED);
+            } else if(!username.matches("[a-z0-9A-Z]*")) {
+                userCreationMessage.setText("Use characters a-z, A-Z, 0-9");
+                userCreationMessage.setTextFill(Color.RED);                
             } else try {
                 if (financialManagementService.createUser(username)) {
                     userCreationMessage.setText("");

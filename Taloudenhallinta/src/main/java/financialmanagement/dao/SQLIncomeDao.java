@@ -59,7 +59,12 @@ public class SQLIncomeDao implements IncomeDao {
             connection.close();
         }
     }
-
+    
+    /**
+     * Creates HashMap, which keys are categories and values are total amount of received income per category.
+     * 
+     * @return 
+     */
     @Override
     public HashMap<String, Integer> incomeForEachCategory() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -93,11 +98,6 @@ public class SQLIncomeDao implements IncomeDao {
             }
         }
         return null;
-    }
-
-    @Override
-    public List<Income> getAllBetween(Date dateFrom, Date dateTo, Integer userId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

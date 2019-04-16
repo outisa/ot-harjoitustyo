@@ -1,13 +1,12 @@
-/*
- * This class
- */
+
 package financialmanagement.domain;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
-
+/**
+ * This class represents a singular Income
+ * @author ousavola
+ */
 public class Income {
-    private Integer id;
     private Date datetime;
     private Double amount;
     private String category;
@@ -35,13 +34,20 @@ public class Income {
     public Integer getUserId() {
         return userId;
     }
-    
+
+    /**
+     * Investigates whether given object equals with Income or not.
+     * 
+     * @param object 
+     * @return true, if object equals with Income; false, if object is not instance of Income
+     * or it does not equals with Income.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Income)) {
+    public boolean equals(Object object) {
+        if (!(object instanceof Income)) {
             return false;
         }
-        Income other = (Income) o;
+        Income other = (Income) object;
         return this.datetime.equals(other.getDatetime()) && this.userId.equals(other.getUserId()) && (this.category.equals(other.getCategory()) && this.amount.equals(other.getAmount()));
     }
        
