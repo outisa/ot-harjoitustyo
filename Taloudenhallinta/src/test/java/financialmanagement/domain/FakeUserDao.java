@@ -30,9 +30,4 @@ public class FakeUserDao implements UserDao {
        return null;
     }
 
-    @Override
-    public List<User> getAll() {
-        return users;
-    }
-    
 }

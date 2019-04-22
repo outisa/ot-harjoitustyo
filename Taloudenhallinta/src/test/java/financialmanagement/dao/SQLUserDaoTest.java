@@ -9,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
@@ -60,12 +59,6 @@ public class SQLUserDaoTest {
     public void nonExistingUserIsFoundByUsename() throws Exception {
         User user = dao.findByUsername("Another");
         assertEquals(null, user);
-    }
-    
-    @Test
-    public void usersAreListedCorrectly() throws Exception {
-        List<User> users = dao.getAll();
-        assertEquals(1, users.size());
     }
 
     @After

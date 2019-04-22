@@ -3,7 +3,7 @@ package financialmanagement.domain;
 
 import java.sql.Date;
 /**
- * This class represents a singular Income
+ * This class represents a singular Income.
  * @author ousavola
  */
 public class Income {
@@ -12,6 +12,13 @@ public class Income {
     private String category;
     private Integer userId;
 
+    /**
+     * Constructor creates new income.
+     * @param userId id from the current user
+     * @param datetime date, when income was paid
+     * @param category name of the category
+     * @param amount decimal number between 0 and 9999999.99
+     */
     public Income(Integer userId, Date datetime, String category, Double amount) {
         this.userId = userId;
         this.datetime = datetime;
@@ -37,7 +44,6 @@ public class Income {
 
     /**
      * Investigates whether given object equals with Income or not.
-     * 
      * @param object 
      * @return true, if object equals with Income; false, if object is not instance of Income
      * or it does not equals with Income.

@@ -1,13 +1,12 @@
 
 package financialmanagement.ui;
-import javafx.application.Application;
+
 import financialmanagement.dao.SQLExpenseDao;
 import financialmanagement.dao.SQLIncomeDao;
 import financialmanagement.dao.SQLUserDao;
 import financialmanagement.domain.Expense;
 import financialmanagement.domain.FinancialManagementService;
 import financialmanagement.domain.Income;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
         
-
+import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -430,7 +429,7 @@ public class FinancialManagementUi extends Application {
         newIncomePane.add(new Label("year"), 1, 1);
         newIncomePane.add(new Label("month"), 2, 1);
         newIncomePane.add(new Label("day"), 3, 1);
-        newIncomePane.add(notAnumberError, 1, 4);
+        newIncomePane.add(notAnumberError, 2, 3);
         newIncomePane.add(new Label("Give date here:"), 0, 2);
         newIncomePane.add(setYear, 1, 2);
         newIncomePane.add(setMonth, 2, 2);
@@ -440,7 +439,7 @@ public class FinancialManagementUi extends Application {
         newIncomePane.add(new Label("Choose category"), 0, 4);
         newIncomePane.add(setCategory, 1, 4);
         newIncomePane.add(newIncome, 1, 5);
-        newIncomePane.add(errormessageIncome, 2,5);
+        newIncomePane.add(errormessageIncome, 2, 5);
 
         menuBox.getChildren().addAll(headerLabel, backtoMain, logout);
         setAmount.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {

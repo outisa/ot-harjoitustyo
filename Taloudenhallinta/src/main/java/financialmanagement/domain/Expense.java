@@ -11,6 +11,14 @@ public class Expense {
     private String category;
     private Integer userId;
 
+    /**
+     * Constructor creates new Expense.
+     * 
+     * @param userId id from the current user.
+     * @param date date, when expense was paid.
+     * @param category name of the category from the given list
+     * @param amount decimal number between 0.0 and 9999999.99 in form xxx.xx
+     */
     public Expense(Integer userId, Date date, String category, Double amount) {
         this.userId = userId;
         this.date = date;

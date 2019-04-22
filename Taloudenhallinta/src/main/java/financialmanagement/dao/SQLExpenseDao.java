@@ -21,7 +21,13 @@ import java.util.logging.Logger;
  */
 public class SQLExpenseDao implements ExpenseDao {
     private String database;
-
+     
+    /**
+     * Constructor creates Expense table, if not already exists.
+     * 
+     * @param database database, which will be used in the methods of this class
+     * @throws Exception 
+     */
     public SQLExpenseDao(String database) throws Exception {
         this.database = database;
         createExpenseTable();
@@ -42,9 +48,11 @@ public class SQLExpenseDao implements ExpenseDao {
     }
 
     /**
-     * Inserts new expense in to the database.
-     * @param expense
-     * @throws Exception 
+     * Inserts a new expense in to the database.
+     * 
+     * @param expense expense, which will be inserted into database
+     * 
+     * @throws Exception
      */
     @Override
     public void create(Expense expense) throws Exception {
@@ -68,11 +76,13 @@ public class SQLExpenseDao implements ExpenseDao {
     
     /**
      * Controls, if there is an expense for given parameters.
-     * @param date
-     * @param amount
-     * @param category
-     * @param userId
-     * @return null, if nothing was founds; expense, if expense was found.
+     * 
+     * @param date date, when expense was paid
+     * @param amount in form xxx.xx, a positive decimal number
+     * @param category name of the given category
+     * @param userId automatic generated user id from the current user.
+     * 
+     * @return null if nothing was found, expense if expense was found.
      */
     @Override
     public Expense findExpense(Date date, Double amount, String category, Integer userId) {
@@ -98,10 +108,12 @@ public class SQLExpenseDao implements ExpenseDao {
 
     /**
      * Gives all expenses between given dates.
-     * @param dateFrom
-     * @param dateTo
-     * @param userId
-     * @return list of expenses
+     * 
+     * @param dateFrom date, begin of the search
+     * @param dateTo date, end of the search
+     * @param userId id from the current user
+     * 
+     * @return list of the expenses from the current user
      */
     @Override
     public List<Expense> getAllBetween(Date dateFrom, Date dateTo, Integer userId) {
@@ -125,7 +137,9 @@ public class SQLExpenseDao implements ExpenseDao {
 
     /**
      * Search ten by date newest expenses from database for current user.
-     * @param userId
+     * 
+     * @param userId id from the current user
+     * 
      * @return list of expenses 
      */
     @Override

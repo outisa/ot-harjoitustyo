@@ -8,9 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class communicates with database with user related data.
@@ -19,27 +16,31 @@ import java.util.logging.Logger;
 public class SQLUserDao implements UserDao {
     private String database;
 
+    /**
+     * Constructor creates Account table, if not already exists.
+     * 
+     * @param database database, which will be used in the methods of this class 
+     * @throws java.sql.SQLException 
+     */    
     public SQLUserDao(String database) throws SQLException {
         this.database = database;
         createTableIfNotExist();
     }
     
-    /**
-    * Connect to the database
-    *
+    /*
+    * Connects to the database.
     * @return the Connection object
     */
     private Connection connect() throws SQLException {
-        Connection connection = null;
-        connection = DriverManager.getConnection(database);
+        Connection connection = DriverManager.getConnection(database);
         return connection;
     }
     
     /**
-     * Insert a new User to the table Account 
+     * Inserts a new User to the table Account.
      * 
-     * @param user
-     * @return Current user of this application
+     * @param user user, which will be inserted to database
+     * @return user
      * @throws Exception 
      */
     @Override
@@ -55,10 +56,10 @@ public class SQLUserDao implements UserDao {
     }
   
     /**
-     * Search from table Account with given username whether user does exist.
+     * Searches from table Account with given username whether user does exist.
      * 
-     * @param username
-     * @return user, if already exists; null, if no user exists with given username 
+     * @param username username from the user
+     * @return user, if user already exists and otherwise null 
      * @throws java.sql.SQLException 
      */
     @Override
@@ -81,31 +82,9 @@ public class SQLUserDao implements UserDao {
         return users.get(0);
     }
     
-    /**
-     * List all users from the database.
-     * @return users , list of all users in the database. 
-     */
-    @Override
-    public List<User> getAll() throws SQLException {
-        List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM Account";
-        Connection connection = this.connect();
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            users.add(new User(rs.getInt("id"), rs.getString("username")));
-        }
-        stmt.close();
-        rs.close();
-        connection.close();
-
-        return users;
-    }
-   
-    /**
-     * Create a table Account in the management database,
-     * if it does not already exists.
-     * 
+    /*
+     * Creates a table Account in the management database,
+     * if it does not already exists. 
      * @throws SQLException 
      */
     private void createTableIfNotExist() throws SQLException {

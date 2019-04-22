@@ -21,15 +21,17 @@ import java.util.logging.Logger;
 public class SQLIncomeDao implements IncomeDao {
     private String database;
 
-    public SQLIncomeDao(String database) {
+    /**
+     * Constructor creates Income table, if not already exists.
+     * @param database database, which will be used in the methods of this class 
+     * @throws java.sql.SQLException 
+     */
+    public SQLIncomeDao(String database) throws SQLException {
         this.database = database;
         createIncomeTable();
     }
-    /**
-     * Creates the connection with the database.
-     * 
-     * @return connection to the database.
-     */
+
+    // Creates connection to the given database
     private Connection connect() {
         Connection connection = null;
         try {
@@ -42,7 +44,7 @@ public class SQLIncomeDao implements IncomeDao {
 
     /**
      * Inserts the given income to the database.
-     * @param income
+     * @param income income, which will be inserted into database
      * @throws Exception 
      */
     @Override
@@ -61,9 +63,9 @@ public class SQLIncomeDao implements IncomeDao {
     }
     
     /**
-     * Creates HashMap, which keys are categories and values are total amount of received income per category.
-     * 
-     * @return 
+     * Creates HashMap, which keys are categories and values
+     * are total amount of received income per category.
+     * @return HashMap
      */
     @Override
     public HashMap<String, Integer> incomeForEachCategory() {
@@ -71,11 +73,11 @@ public class SQLIncomeDao implements IncomeDao {
     }
 
     /**
-     * Controls, if there is an existing income to the given data
-     * @param date
-     * @param amount
-     * @param category
-     * @param userId
+     * Controls, if there is an existing income to the given data.
+     * @param date date, when income was paid
+     * @param amount decimal number between 0.0 and 9999999.99
+     * @param category name of the category from the given list
+     * @param userId id from the current user
      * @return null, if no income was found; income, if it was found
      */
     @Override
@@ -101,8 +103,8 @@ public class SQLIncomeDao implements IncomeDao {
     }
 
     /**
-     * Search ten by date newest income from database for current user.
-     * @param userId
+     * Search ten by date newest incomes from database for the current user.
+     * @param userId id from the current user
      * @return list of incomes
      */
     @Override
@@ -122,23 +124,15 @@ public class SQLIncomeDao implements IncomeDao {
         }
         return incomesForCurrentUser;
     }
-    /**
-     * Close connection for given parameters.
-     * @param stmt
-     * @param rs
-     * @param connection
-     * @throws SQLException 
-     */
+
+    // closes connecttion to the database
     private void closeConnection(PreparedStatement stmt, ResultSet rs, Connection connection) throws SQLException {
         stmt.close();
         rs.close();
         connection.close();
     }
     
-     /**
-     * Creates Income table in the database, if not already exists.
-     */
-    private void createIncomeTable() {
+    private void createIncomeTable() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Income("
                 + " id integer PRIMARY KEY AUTOINCREMENT,"
                 + " account_id INTEGER,"
@@ -147,11 +141,12 @@ public class SQLIncomeDao implements IncomeDao {
                 + " amount NUMERIC(10,2),"
                 + " FOREIGN KEY (account_id) REFERENCES Account(id)"
                 + ");";
-        try (Connection connection = DriverManager.getConnection(database); Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            Logger.getLogger(SQLIncomeDao.class.getName()).log(Level.SEVERE, null, e);           
-        }
+        Connection connection = DriverManager.getConnection(database); 
+        Statement stmt = connection.createStatement();
+        stmt.execute(sql);
+        stmt.close();
+        connection.close();
+    
     }
     
 }
