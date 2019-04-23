@@ -22,7 +22,8 @@ Sovellus aukeaa ensimmäiseksi kirjautumisnäkymään, josta on mahdollista siir
 "luo uusi käyttäjä" -näkymään tai onnistuneen kirjautumisen yhteydessä 
 yleisnäkymään. Yleisnäkymässä on mahdollisuus siirtyä lisää uusi tulo tai 
 meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysytään tulo- tai menonäkymässä ja käyttäjä saa viestin onnistuneesta lisäyksestä. Jos tarkalleen samoilla tiedoilla oleva tulo tai meno on jo olemassa, saadaan virheilmoitus. Käyttäjä voi halutessaan siirtyä päänäkymään. 
- Lisäksi yleisnäkymässä voidaan hakea menoja joltakin aikaväliltä. Jos halutulla aikavälillä on menoja, siirrytään näkymään, jossa on  menot listattuna kategorioittain sekä diagrammi menojen %-osuuksista kategorioittain. Päänäkymästä pääsee myös listausnäkymään, jossa on viimeisimmät kymmenen menoa ja tuloa listattuna. 
+ Lisäksi yleisnäkymässä voidaan hakea menoja joltakin aikaväliltä. Tästä siirrytään näkymään, jossa on  menot listattuna kategorioittain. Päänäkymästä pääsee myös listausnäkymään, jossa on viimeisimmät kymmenen menoa ja tuloa listattuna. Lisäksi päänäkymästä onnapit listaus kategorioittain sekä menoille ja tuloille. Näistä molemmille avautuu nappia painamalla näkymä, jossa on pylväsdiagrammi kategorioille ja niiden prosenttiosuus kokonaismäärästä. Sen lisäksi käyttäjä näkee listamuodossa käytetyt (tai saadut)
+ rahamäärät kategorioittain.
 
 ## Perusversion tarjoama toiminnallisuus
 
@@ -67,10 +68,9 @@ meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysyt
   * Käyttäjä voi palata perusnäkymään.
   * Käyttäjä voi kirjautua ulos.
   
-* Yhteenvetonäkymässä
-  * käyttäjä näkee menot kategorioittain.
+* Yhteenvetonäkymässä (menoille ja tuloille omat)
+  * käyttäjä näkee menot (tai tulot) kategorioittain.
   * käyttäjä voi palata perusnäkymään.
-  * Käyttäjä voi kirjautua ulos.
 
 
 ## Jatkokehitysideoita
