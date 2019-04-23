@@ -68,6 +68,11 @@ meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysyt
   * Käyttäjä voi palata perusnäkymään.
   * Käyttäjä voi kirjautua ulos.
   
+* Yhteenvetonäkymässä jollekin aikavälille
+  * käyttäjä näkee menot haluamaltaan aika väliltä
+  * Käyttäjä voi palata perusnäkymään
+  * käyttäjä voi kirjautua ulos
+  
 * Yhteenvetonäkymässä (menoille ja tuloille omat)
   * käyttäjä näkee menot (tai tulot) kategorioittain.
   * käyttäjä voi palata perusnäkymään.
