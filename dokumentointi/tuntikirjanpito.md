@@ -25,5 +25,8 @@ päivä | aika | mitä tein
 14.4. | 5 | Toiminnallisuuden lisäämistä, testit SQLUserDaolle.
 15.4. | 3 | jar-tiedoston luonti ja siihen liittyvien ongelmien, kuten tietokantojen muukaanotto, ratkaisemista
 15.4. | 1.5 | Dokumentaatiota ajantasalle: arkkitehtuuri.md päivitystä, README:n päivitystä
-16.5. | 1 | Testit SQLIncomeDao, SQLExpenseDao ja lisäksi validointi käyttäjätunnukselle 
-Yhteensä:| 57.5 |
+16.4. | 1 | Testit SQLIncomeDao, SQLExpenseDao ja lisäksi validointi käyttäjätunnukselle
+21.4. | 2 | JavaDoc ajantasaistaminen
+22.4. | 2 | Toiminnallisuuden lisääminen
+23.4 | 3 | Toiminnallisuuden kasvatus, koodin siistimistä
+Yhteensä:| 64.5 |
