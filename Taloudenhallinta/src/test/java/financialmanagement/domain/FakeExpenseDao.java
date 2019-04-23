@@ -22,10 +22,6 @@ class FakeExpenseDao implements ExpenseDao{
         expenses.add(expense);
     }
 
-    @Override
-    public HashMap<String, Integer> expenseForEachCategory() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public Expense findExpense(Date date, Double amount, String category, Integer userId) {
@@ -50,6 +46,11 @@ class FakeExpenseDao implements ExpenseDao{
             expensesForCurrentUser.add(expense);
         });
         return expensesForCurrentUser;
+    }
+
+    @Override
+    public HashMap<String, ArrayList<Double>> expenseForEachCategory(Integer userId) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

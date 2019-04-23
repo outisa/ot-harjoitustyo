@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 
 /**
  * Communicates with database with expense related data.
- * @author ousavola
  */
 public class SQLExpenseDao implements ExpenseDao {
     private String database;
@@ -26,7 +25,7 @@ public class SQLExpenseDao implements ExpenseDao {
      * Constructor creates Expense table, if not already exists.
      * 
      * @param database database, which will be used in the methods of this class
-     * @throws Exception 
+     * @throws Exception if something goes wrong by creating connection to the database
      */
     public SQLExpenseDao(String database) throws Exception {
         this.database = database;
@@ -52,7 +51,7 @@ public class SQLExpenseDao implements ExpenseDao {
      * 
      * @param expense expense, which will be inserted into database
      * 
-     * @throws Exception
+     * @throws Exception if something goes wrong with the database
      */
     @Override
     public void create(Expense expense) throws Exception {
@@ -69,11 +68,7 @@ public class SQLExpenseDao implements ExpenseDao {
         }
     }
 
-    @Override
-    public HashMap<String, Integer> expenseForEachCategory() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+   
     /**
      * Controls, if there is an expense for given parameters.
      * 
@@ -134,6 +129,32 @@ public class SQLExpenseDao implements ExpenseDao {
         }
         return expenses;
     }
+    
+     /**
+     * Creates HashMap, which keys are categories and values are ArrayLists, 
+     * which contains amount of received expenses per category and percentage of total.
+     * @return HashMap
+     * @throws java.sql.SQLException if there is any database related problems
+     */
+    @Override
+    public HashMap<String, ArrayList<Double>> expenseForEachCategory(Integer userId) throws SQLException {
+        HashMap<String, ArrayList<Double>> overview = createOverview();
+        Connection connection = this.connect();
+        String sql = "SELECT DISTINCT category, SUM(amount) AS sum, SUM(Amount) * 100.0 /"
+                + " (SELECT SUM(Amount) FROM Expense JOIN Account ON Account.id = Expense.account_id WHERE Account.id = ?) AS percentage"
+                + " FROM Expense JOIN Account ON Account.id = Expense.account_id WHERE Account.id = ? GROUP BY category";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        stmt.setInt(2, userId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            String category = rs.getString("category");
+            overview.get(category).add(rs.getDouble("sum"));
+            overview.get(category).add(rs.getDouble("percentage"));
+        }
+        closeConnection(stmt, rs, connection);
+        return overview;
+    }
 
     /**
      * Search ten by date newest expenses from database for current user.
@@ -185,5 +206,22 @@ public class SQLExpenseDao implements ExpenseDao {
         rs.close();
         connection.close();
     }
+
+    private HashMap<String, ArrayList<Double>> createOverview() {
+        HashMap<String, ArrayList<Double>> overview = new HashMap<>();
+        overview.putIfAbsent("Other", new ArrayList<>());
+        overview.putIfAbsent("Food", new ArrayList<>());
+        overview.putIfAbsent("Home", new ArrayList<>());
+        overview.putIfAbsent("Car", new ArrayList<>());
+        overview.putIfAbsent("Hobbies", new ArrayList<>());
+        overview.putIfAbsent("Education", new ArrayList<>());
+        overview.putIfAbsent("Restaurants", new ArrayList<>());
+        overview.putIfAbsent("Travelling", new ArrayList<> ());
+        overview.putIfAbsent("Insurances", new ArrayList<>());
+        overview.putIfAbsent("Other", new ArrayList<>());        
+                                
+        return overview;
+    }
+
     
 }

@@ -63,13 +63,29 @@ public class SQLIncomeDao implements IncomeDao {
     }
     
     /**
-     * Creates HashMap, which keys are categories and values
-     * are total amount of received income per category.
+     * Creates HashMap, which keys are categories and values are another HashMaps
+     * with total amount of received income per category and percentage from total.
      * @return HashMap
+     * @throws java.sql.SQLException
      */
     @Override
-    public HashMap<String, Integer> incomeForEachCategory() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public HashMap<String, ArrayList<Double>> incomeForEachCategory(Integer userId) throws SQLException {
+        HashMap<String, ArrayList<Double>> overview = createOverview();
+        Connection connection = this.connect();
+        String sql = "SELECT DISTINCT category, SUM(amount) AS sum, SUM(Amount) * 100.0 /"
+                + " (SELECT SUM(Amount) FROM Income JOIN Account ON Account.id = Income.account_id WHERE Account.id = ?) AS percentage"
+                + " FROM Income JOIN Account ON Account.id = Income.account_id WHERE Account.id = ? GROUP BY category";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        stmt.setInt(2, userId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            String category = rs.getString("category");
+            overview.get(category).add(rs.getDouble("sum"));
+            overview.get(category).add(rs.getDouble("percentage"));
+        }
+        closeConnection(stmt, rs, connection);
+        return overview;
     }
 
     /**
@@ -147,6 +163,15 @@ public class SQLIncomeDao implements IncomeDao {
         stmt.close();
         connection.close();
     
+    }
+
+    private HashMap<String, ArrayList<Double>> createOverview() {
+        HashMap<String, ArrayList<Double>> overview = new HashMap<>();
+        overview.putIfAbsent("Other", new ArrayList<>());
+        overview.put("Salary", new ArrayList<>());
+        overview.put("Present", new ArrayList<>());
+        
+        return overview;
     }
     
 }

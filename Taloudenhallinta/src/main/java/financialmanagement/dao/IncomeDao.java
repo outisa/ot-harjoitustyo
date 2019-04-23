@@ -3,6 +3,7 @@ package financialmanagement.dao;
 
 import financialmanagement.domain.Income;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,10 +17,12 @@ public interface IncomeDao {
     
     /**
      * Lists incomes for each category.
-     * @return HashMap, in which key is category and value incomes for this category
+     * @param userId id from the current user
+     * @return HashMap, in which key is category and value is ArrayList, which includes
+     * incomes as amount and percentage from total per category
      * @throws Exception 
      */
-    HashMap<String, Integer> incomeForEachCategory() throws Exception;
+    HashMap<String, ArrayList<Double>> incomeForEachCategory(Integer userId) throws Exception;
     
     /**
      * Searches if given income does already exists.

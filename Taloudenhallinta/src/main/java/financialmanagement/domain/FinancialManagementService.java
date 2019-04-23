@@ -5,6 +5,8 @@ import financialmanagement.dao.IncomeDao;
 import financialmanagement.dao.UserDao;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,7 +36,7 @@ public class FinancialManagementService {
      * Creates new user, if the username is unique.
      * @param username username for the new user
      * @return false, if there is already user with the same name, otherwise true
-     * @throws Exception 
+     * @throws Exception if there were databse related problems
      */
     public boolean createUser(String username) throws Exception {
         if (userDao.findByUsername(username) != null) {
@@ -53,7 +55,7 @@ public class FinancialManagementService {
      * Logs in the user with given username.
      * @param username username from the user, who wants to log in
      * @return true, if user exists and was successfully locked in, otherwise false
-     * @throws Exception 
+     * @throws Exception if there were problems with collecting userdata from database
      */
     public boolean login(String username) throws Exception {
         User user = userDao.findByUsername(username);
@@ -88,7 +90,7 @@ public class FinancialManagementService {
      * @param category name of the category
      * @param userid id from the current user
      * @return true, if the income was successfully added and false, if income already exists.
-     * @throws Exception 
+     * @throws Exception if there were problems with collecting or creating data from database
      */
     public boolean createIncome(Date datetime, Double amount, String category, Integer userid) throws Exception {
         if (incomeDao.findIncome(datetime, amount, category, userid) != null) {
@@ -112,6 +114,17 @@ public class FinancialManagementService {
         return incomes;
     }
     
+    /**
+     * Computes amount and percentage from total for each category in incomes for the current user.
+     * @param userId if from the current user
+     * @return amount of incomes and percentage from total for each category
+     * @throws Exception if there were problems with collecting data from database
+     */
+    public HashMap<String, ArrayList<Double>> overviewIncomes(Integer userId) throws Exception {
+        HashMap<String, ArrayList<Double>> overview = incomeDao.incomeForEachCategory(userId);
+        return overview;
+    }
+    
     // All Expense related methods below
     /**
      * Creates a new expense, if not exists.
@@ -120,7 +133,7 @@ public class FinancialManagementService {
      * @param category name of the category
      * @param userid id for the current user
      * @return false, if given expense already exists; true, if expense was successfully created
-     * @throws Exception 
+     * @throws Exception if there were problems with creating or collecting data from database
      */
     public boolean createExpense(Date datetime, Double amount, String category, Integer userid) throws Exception {
         if (expenseDao.findExpense(datetime, amount, category, userid) != null) {
@@ -154,5 +167,15 @@ public class FinancialManagementService {
     public List<Expense> listExpenses(Integer userId) {
         List<Expense> expenses = expenseDao.getTenResentlyAdded(userId);
         return expenses;
+    }
+    /**
+     * Computes amount of costs and percentage from total for each category in expenses for the current user.
+     * @param userId if from the current user
+     * @return amount of incomes and percentage from total for each category
+     * @throws Exception if there were problems with collecting data from database
+     */
+    public HashMap<String, ArrayList<Double>> overviewExpenses(Integer userId) throws Exception {
+        HashMap<String, ArrayList<Double>> overview = expenseDao.expenseForEachCategory(userId);
+        return overview;
     }
 }

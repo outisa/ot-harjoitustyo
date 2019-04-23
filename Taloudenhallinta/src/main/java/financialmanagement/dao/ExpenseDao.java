@@ -3,6 +3,7 @@ package financialmanagement.dao;
 
 import financialmanagement.domain.Expense;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,10 +19,12 @@ public interface ExpenseDao {
     
     /**
      * Lists all expenses for each category.
-     * @return HashMap, which includes name of the category and amount of the costs for this category
-     * @throws Exception 
+     * @param userId id from the current user
+     * @return HashMap, which includes name of the category and value is
+     * ArrayList, which contains amount and percentage of total
+     * @throws Exception if there is a database related problem 
      */
-    HashMap<String, Integer> expenseForEachCategory() throws Exception;
+    HashMap<String, ArrayList<Double>> expenseForEachCategory(Integer userId) throws Exception;
     
     /**
      * Searches if given expense exists.

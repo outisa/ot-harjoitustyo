@@ -9,6 +9,9 @@ import financialmanagement.domain.FinancialManagementService;
 import financialmanagement.domain.Income;
 import java.io.InputStream;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -21,6 +24,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -169,8 +176,8 @@ public class FinancialManagementUi extends Application {
         menuPane.setPadding(new Insets(20,20,20,20));
         menuPane.setSpacing(10);
         
-        HBox selectButtons = new HBox(10);
-        selectButtons.setPadding(new Insets(20,20,100,100));
+        VBox selectButtons = new VBox(10);
+        selectButtons.setPadding(new Insets(20,20,100,20));
         selectButtons.setSpacing(10);
         
         Button logoutButton = new Button("logout");
@@ -179,12 +186,16 @@ public class FinancialManagementUi extends Application {
         searchBetween.setPadding(new Insets(10, 10, 10, 10));
         
         // Select buttons in the main scene
-        Button addIncome = new Button("Add new income");
+        Button addIncome = new Button("New income");
         addIncome.setPadding(new Insets(10, 10, 10, 10));
-        Button addExpense = new Button("Add new expense");
+        Button addExpense = new Button("New expense");
         addExpense.setPadding(new Insets(10, 10, 10, 10));
-        Button listLastTenAdds = new Button("List last 10 expenses and 10 incomes");
+        Button listLastTenAdds = new Button("List last 10 expenses and incomes");
         listLastTenAdds.setPadding(new Insets(10, 10, 10, 10));
+        Button categoriesExpenses = new Button("Expenses per category");
+        categoriesExpenses.setPadding(new Insets(10));
+        Button categoriesIncome = new Button("Incomes per category");
+        categoriesIncome.setPadding(new Insets(10));
         
         // Expenses between selection
         final ComboBox yearFrom = new ComboBox(createYears());
@@ -212,13 +223,14 @@ public class FinancialManagementUi extends Application {
         expensesBetween.add(searchBetween, 1, 3);
         expensesBetween.add(errorMessage, 0, 4);
 
-        selectButtons.getChildren().addAll(addIncome, addExpense, listLastTenAdds);
+        selectButtons.getChildren().addAll(addIncome, addExpense, listLastTenAdds, categoriesExpenses, categoriesIncome);
         menuPane.getChildren().addAll(menuLabel, logoutButton);
        
         mainPane.setTop(menuPane);
         mainPane.setCenter(expensesBetween);
         mainPane.setBottom(selectButtons);
         
+        // Buttons on action
         searchBetween.setOnAction(e->{
             Date dateFrom = Date.valueOf(yearFrom.getValue().toString() + "-" + monthFrom.getValue().toString() + "-01");
             Date dateTo = Date.valueOf(yearTo.getValue().toString() + "-" + monthTo.getValue().toString() + "-01");
@@ -243,12 +255,31 @@ public class FinancialManagementUi extends Application {
         addExpense.setOnAction(e->{
             primaryStage.setScene(newExpenseScene);
         });
+        
         listLastTenAdds.setOnAction(e->{             
             listResentTenScene = new Scene(listLastTenIncomesAndOutcomes(primaryStage), 900, 700);
             primaryStage.setScene(listResentTenScene);
         });
-        mainScene = new Scene(mainPane, 900, 700);
         
+        categoriesExpenses.setOnAction(e->{
+            try {
+                Scene showCategoriesExpense = new Scene(overviewCategoriesExpenses(primaryStage), 900, 700);
+                primaryStage.setScene(showCategoriesExpense);
+            } catch (Exception ex) {
+                Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
+        categoriesIncome.setOnAction(e->{
+            try {
+                Scene showCategoriesIncome = new Scene(overviewCategoriesIncome(primaryStage), 900, 700);
+                primaryStage.setScene(showCategoriesIncome);
+            } catch (Exception ex) {
+                Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
+        mainScene = new Scene(mainPane, 900, 700);
         //new income scene
         newIncomeScene = new Scene(addNewIncome(primaryStage), 900, 700); 
         
@@ -274,6 +305,79 @@ public class FinancialManagementUi extends Application {
     public static void main(String[] args) {
         launch(args);        
     } 
+    
+    // Expenses and their percentage from total for each category.
+    public BorderPane overviewCategoriesExpenses(Stage primaryStage) throws Exception {
+        BorderPane organizePane = new BorderPane();
+        
+        VBox categoriesList = new VBox();
+        categoriesList.setPadding(new Insets(10));
+        categoriesList.setSpacing(10);
+
+        BarChart<String, Number> expensesChart = createBarChart("Expenses per category");       
+
+        Button backToMain = new Button("Back to main");
+        backToMain.setPadding(new Insets(10));
+        
+        backToMain.setOnAction(e -> {
+            primaryStage.setScene(mainScene);
+        });
+        
+        HashMap<String, ArrayList<Double>> expenseCategories = financialManagementService.overviewExpenses(financialManagementService.getLoggedUser().getId());
+       
+        XYChart.Series categories = new XYChart.Series<>();
+        for (String category: expenseCategories.keySet()) {
+            if (expenseCategories.get(category).isEmpty()) {
+                categories.getData().add(new XYChart.Data<>(category, 0.0));
+                categoriesList.getChildren().add(new Label(category + ":   0.0€"));
+            } else {
+                categories.getData().add(new XYChart.Data<>(category, expenseCategories.get(category).get(1), expenseCategories.get(category).get(1)));
+                categoriesList.getChildren().add(new Label(category + ":   " + expenseCategories.get(category).get(0) + "€"));
+            }    
+        }
+        expensesChart.getData().add(categories);
+        organizePane.setPadding(new Insets(10));
+        organizePane.setTop(backToMain);
+        organizePane.setCenter(expensesChart);
+        organizePane.setBottom(categoriesList);
+        return organizePane;
+    }
+    // Incomes and their percentage from total for each category.
+    public BorderPane overviewCategoriesIncome(Stage primaryStage) throws Exception {
+        BorderPane organizePane = new BorderPane();
+
+        BarChart<String, Number> expensesChart = createBarChart("Incomes per category");
+        
+        VBox categoriesList = new VBox();
+        categoriesList.setPadding(new Insets(10));
+        categoriesList.setSpacing(10);
+       
+        Button backToMain = new Button("Back to main");
+        backToMain.setPadding(new Insets(10));
+        
+        backToMain.setOnAction(e -> {
+            primaryStage.setScene(mainScene);
+        });
+        
+        HashMap<String, ArrayList<Double>> expenseCategories = financialManagementService.overviewIncomes(financialManagementService.getLoggedUser().getId());
+       
+        XYChart.Series categories = new XYChart.Series<>();
+        for (String category: expenseCategories.keySet()) {
+            if (expenseCategories.get(category).isEmpty()) {
+                categories.getData().add(new XYChart.Data<>(category, 0.0));
+                categoriesList.getChildren().add(new Label(category + ":   0.0€"));
+            } else {
+                categories.getData().add(new XYChart.Data<>(category, expenseCategories.get(category).get(1), expenseCategories.get(category).get(1)));
+                categoriesList.getChildren().add(new Label(category + ":   " + expenseCategories.get(category).get(0) + "€"));
+            }    
+        }
+        expensesChart.getData().add(categories);
+        organizePane.setPadding(new Insets(10));
+        organizePane.setTop(backToMain);
+        organizePane.setCenter(expensesChart);
+        organizePane.setBottom(categoriesList);
+        return organizePane;
+    }
     // List all expenses between given Period
     public BorderPane listExpensesBetween(Stage primaryStage, Date dateFrom, Date dateTo) {
         ScrollPane scrollExpenses = new ScrollPane();
@@ -414,26 +518,18 @@ public class FinancialManagementUi extends Application {
         Button logout = new Button("logout");
         logout.setPadding(new Insets(10,10,10,10));
         
-        final ComboBox setYear = new ComboBox(createYears());
-        setYear.setValue("2018");
-        final ComboBox setMonth = new ComboBox(createMonths());
-        setMonth.setValue("01");
-        final ComboBox setday = new ComboBox(createDays());
-        setday.setValue("01");
+        ComboBox date = createdays();
+
         final ComboBox setCategory = new ComboBox(createCategories());
         setCategory.setValue("Other");
         
         Label notAnumberError = new Label();
         newIncomePane.setHgap(10);
         newIncomePane.setVgap(10);
-        newIncomePane.add(new Label("year"), 1, 1);
-        newIncomePane.add(new Label("month"), 2, 1);
-        newIncomePane.add(new Label("day"), 3, 1);
+
         newIncomePane.add(notAnumberError, 2, 3);
         newIncomePane.add(new Label("Give date here:"), 0, 2);
-        newIncomePane.add(setYear, 1, 2);
-        newIncomePane.add(setMonth, 2, 2);
-        newIncomePane.add(setday, 3, 2);
+        newIncomePane.add(date, 1, 2);
         newIncomePane.add( new Label("Give amount here (xxx.xx)"), 0, 3);
         newIncomePane.add(setAmount, 1, 3);
         newIncomePane.add(new Label("Choose category"), 0, 4);
@@ -463,19 +559,14 @@ public class FinancialManagementUi extends Application {
         
         newIncome.setOnAction(e->{
             double amount = Double.valueOf(setAmount.getText());
-            String year = setYear.getValue().toString();
-            String month = setMonth.getValue().toString();
-            String day = setday.getValue().toString();
-            
-            Date datetime = Date.valueOf(year +"-"+ month +"-"+day);
+            String selectedDate = date.getValue().toString();
+            Date datetime = Date.valueOf(selectedDate);
             
             try {
                 if (financialManagementService.createIncome(datetime, amount, setCategory.getValue().toString(), financialManagementService.getLoggedUser().getId()) == false) {
                     errormessageIncome.setText("Income exists already");
                     errormessageIncome.setTextFill(Color.RED);
-                    setYear.setValue("2018");
-                    setMonth.setValue("01");
-                    setday.setValue("01");
+                    date.setValue(date.getItems().get(0).toString());
                     
                 } else {
                     errormessageIncome.setText("Income is added");
@@ -509,12 +600,7 @@ public class FinancialManagementUi extends Application {
         Button logout = new Button("Logout");
         logout.setPadding(new Insets(10, 10, 10, 10));
                 
-        final ComboBox setYear = new ComboBox(createYears());
-        setYear.setValue("2018");
-        final ComboBox setMonth = new ComboBox(createMonths());
-        setMonth.setValue("01");
-        final ComboBox setday = new ComboBox(createDays());
-        setday.setValue("01");
+        ComboBox setDate = createdays();
         final ComboBox setCategory = new ComboBox(createExpenseCategories());
         setCategory.setValue("Other");
         
@@ -523,14 +609,10 @@ public class FinancialManagementUi extends Application {
         Label notAnumberError = new Label();
         expensePane.setHgap(10);
         expensePane.setVgap(10);
-        expensePane.add(new Label("year"), 1, 0);
-        expensePane.add(new Label("month"), 2, 0);
-        expensePane.add(new Label("day"), 3, 0);
+
         expensePane.add(notAnumberError, 1, 4);
         expensePane.add(new Label("Give date here:"), 0, 1);
-        expensePane.add(setYear, 1, 1);
-        expensePane.add(setMonth, 2, 1);
-        expensePane.add(setday, 3, 1);
+        expensePane.add(setDate, 1, 1);
         expensePane.add( new Label("Give amount here (xxx.xx)"), 0, 2);
         expensePane.add(setAmount, 1, 2);
         expensePane.add(new Label("Choose category"), 0, 3);
@@ -559,19 +641,14 @@ public class FinancialManagementUi extends Application {
         
         newExpense.setOnAction((ActionEvent e)->{
             double price = Double.valueOf(setAmount.getText());
-            String year = setYear.getValue().toString();
-            String month = setMonth.getValue().toString();
-            String day = setday.getValue().toString();
-            
-            Date datetime = Date.valueOf(year+"-"+ month+"-"+day);
+            String date = setDate.getValue().toString();
+            Date datetime = Date.valueOf(date);
             
             try {
                 if (financialManagementService.createExpense(datetime, price, setCategory.getValue().toString(), financialManagementService.getLoggedUser().getId()) == false) {
                     errormessageExpense.setText("Expense exists already");
                     errormessageExpense.setTextFill(Color.RED);
-                    setYear.setValue("2018");
-                    setMonth.setValue("01");
-                    setday.setValue("01");
+                    setDate.setValue(setDate.getItems().get(0).toString());
                     
                 } else {
                     errormessageExpense.setText("Expense is added");
@@ -622,43 +699,6 @@ public class FinancialManagementUi extends Application {
                 );
         return months;        
     }
-    private ObservableList createDays() {
-                ObservableList<String> days = 
-                FXCollections.observableArrayList(
-                        "01",
-                        "02",
-                        "03",
-                        "04",
-                        "05",
-                        "06",
-                        "07",
-                        "08",
-                        "09",
-                        "10",
-                        "11",
-                        "12",
-                        "13",
-                        "14",
-                        "15",
-                        "16",
-                        "17",
-                        "18",
-                        "19",
-                        "20",
-                        "21",
-                        "22",
-                        "23",
-                        "24",
-                        "25",
-                        "26",
-                        "27",
-                        "28",
-                        "29",
-                        "30",
-                        "31"
-                );
-        return days;        
-    }
 
     private ObservableList createCategories() {
         ObservableList<String> categories = 
@@ -680,9 +720,31 @@ public class FinancialManagementUi extends Application {
                         "Hobbies",
                         "Restaurants",
                         "Education",
-                        "Travelling"                        
+                        "Travelling",
+                        "Insurances"                         
                 );
         return categories;
+    }
+
+    private BarChart<String, Number> createBarChart(String text) {
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("% from total");
+        
+        BarChart<String, Number> newChart = new BarChart<>(xAxis, yAxis);
+        newChart.setTitle(text);
+        newChart.setLegendVisible(false);
+
+        return newChart;
+    }
+
+    private ComboBox createdays() {
+        ComboBox date = new ComboBox();
+        for (int i = 0; i < 92; i++) {
+            date.getItems().add(LocalDate.now().minusDays(i));
+        }
+        date.setValue(date.getItems().get(0).toString());
+        return date;
     }
 
 }
