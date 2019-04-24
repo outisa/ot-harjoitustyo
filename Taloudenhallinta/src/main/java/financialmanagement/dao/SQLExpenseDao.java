@@ -133,7 +133,7 @@ public class SQLExpenseDao implements ExpenseDao {
      /**
      * Creates HashMap, which keys are categories and values are ArrayLists, 
      * which contains amount of received expenses per category and percentage of total.
-     * @return categories with category ralated data
+     * @return categories with category related data
      * @throws java.sql.SQLException if there is any database related problems
      */
     @Override
@@ -182,16 +182,15 @@ public class SQLExpenseDao implements ExpenseDao {
     }
     
     /**
-     * Creates Expense table in the database, if not already exists.
+     * Creates Expense table into the database, if not already exists.
      */
     private void createExpenseTable() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Expense("
                 + " id integer PRIMARY KEY AUTOINCREMENT,"
-                + " account_id INTEGER,"
-                + " date DATE," 
-                + " category VARCHAR(100) NOT NULL,"
-                + " amount NUMERIC(10,2),"
-                + " place VARCHAR(100),"
+                + " account_id INTEGER NOT NULL,"
+                + " date DATE NOT NULL," 
+                + " category VARCHAR(30) NOT NULL,"
+                + " amount NUMERIC(9,2) NOT NULL,"
                 + " FOREIGN KEY (account_id) REFERENCES Account(id)"
                 + ");";
         try (Connection connection = DriverManager.getConnection(database); Statement stmt = connection.createStatement()) {

@@ -151,10 +151,10 @@ public class SQLIncomeDao implements IncomeDao {
     private void createIncomeTable() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Income("
                 + " id integer PRIMARY KEY AUTOINCREMENT,"
-                + " account_id INTEGER,"
-                + " date DATE," 
-                + " category VARCHAR(100) NOT NULL,"
-                + " amount NUMERIC(10,2),"
+                + " account_id INTEGER NOT NULL,"
+                + " date DATE NOT NULL," 
+                + " category VARCHAR(30) NOT NULL,"
+                + " amount NUMERIC(9,2) NOT NULL,"
                 + " FOREIGN KEY (account_id) REFERENCES Account(id)"
                 + ");";
         Connection connection = DriverManager.getConnection(database); 
