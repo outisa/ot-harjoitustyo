@@ -1,6 +1,6 @@
 # FinancialManagement
 
-Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sekä menoista että tuloista. Sovellusta voi käyttää useampi rekisteröitynyt käyttäjä, joilla jokaisella on oma yksilöllinen menojen ja tulojen kirjanpito. Käyttäjä voi lisätä menoja ja tuloja. Viimeiset kymmenen menoa ja tuloa voidaan listata, sekä käyttäjä voi tehdä hakuja, joiden perusteella hän näkee menot määrittelemällään aikavälillä tai haun, jonka perusteella hän näkee kaikki menot ja tulot kategoriottain. 
+Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sekä menoista että tuloista. Sovellusta voi käyttää useampi rekisteröitynyt käyttäjä, joilla jokaisella on oma yksilöllinen menojen ja tulojen kirjanpito. Käyttäjä voi lisätä menoja ja tuloja. Viimeiset kymmenen menoa ja tuloa voidaan listata, sekä käyttäjä voi tehdä hakuja, joiden perusteella hän näkee menot määrittelemällään aikavälillä tai haut, joiden perusteella hän näkee kaikki menot tai tulot kategoriottain. 
 
 
 ## Dokumentaatio
@@ -11,7 +11,13 @@ Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sek
 
 [Työaikakirjanpito](/dokumentointi/tuntikirjanpito.md)
 
+[Käyttöohje](/dokumentointi/käyttöohje.md)
+
+
+
 ## Releaset
+
+[Viikko 6](https://github.com/outisa/ot-harjoitustyo/releases/tag/0.1)
 
 [Viikko 5](https://github.com/outisa/ot-harjoitustyo/releases)
 
