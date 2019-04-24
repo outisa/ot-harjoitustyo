@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +32,9 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -87,7 +90,7 @@ public class FinancialManagementUi extends Application {
         
         Button loginButton = new Button("login");
         loginButton.setPadding(new Insets(10, 10, 10, 10));
-        Button createButton = new Button("create new user");
+        Button createButton = new Button("Create new user");
         createButton.setPadding(new Insets(10, 10, 10, 10));
         
         loginButton.setOnAction(e-> {
@@ -134,7 +137,7 @@ public class FinancialManagementUi extends Application {
         
         Button backToLogin = new Button("Back to login!");
         backToLogin.setPadding(new Insets(10, 10, 10, 10));
-        Button createNewUserButton = new Button("create new user");
+        Button createNewUserButton = new Button("Create user");
         createNewUserButton.setPadding(new Insets(10, 10, 10, 10));
         
         createNewUserButton.setOnAction(e->{
@@ -386,26 +389,20 @@ public class FinancialManagementUi extends Application {
     // List all expenses between given Period
     
     public BorderPane listExpensesBetween(Stage primaryStage, Date dateFrom, Date dateTo) {
-        ScrollPane scrollExpenses = new ScrollPane();
-        BorderPane organizePane = new BorderPane(scrollExpenses);
-        GridPane listExpensesPane = new GridPane();
-        
-        listExpensesPane.setPadding(new Insets(10, 10, 10, 10));
-        listExpensesPane.setHgap(20);
-        listExpensesPane.setVgap(10);
+        BorderPane organizePane = new BorderPane();
         
         List<Expense> expenses = financialManagementService.listExpensesBetween(financialManagementService.getLoggedUser().getId(), dateFrom, dateTo);
-        listExpensesPane.add(new Label("Date:"), 0, 0);
-        listExpensesPane.add(new Label("Category:"), 1, 0);
-        listExpensesPane.add(new Label("Amount:"), 2, 0);
+        
+        ObservableList<String> data = FXCollections.observableArrayList();
+        ListView expensesView = new ListView(data);
+        expensesView.setPrefSize(200, 250);
+        expensesView.setEditable(true);
+        data.add("Date        Category        Amount");
         for (int i = 0; i < expenses.size(); i++) {
             String date = expenses.get(i).getDate().toString();
-            listExpensesPane.add(new Label(date), 0, i + 1);
-            listExpensesPane.add(new Label(expenses.get(i).getCategory()), 1, i + 1);
-            listExpensesPane.add(new Label(String.valueOf(expenses.get(i).getAmount())), 2, i + 1);
-                    
+            data.add( date + "  " + expenses.get(i).getCategory() + "  " +String.valueOf(expenses.get(i).getAmount()) + " €");
         }
-        
+        expensesView.setItems(data);
         HBox menuBox = new HBox();
         menuBox.setPadding(new Insets(10, 10, 10, 10));
         menuBox.setSpacing(30);
@@ -427,7 +424,7 @@ public class FinancialManagementUi extends Application {
         });
         
         organizePane.setTop(menuBox);
-        organizePane.setCenter(listExpensesPane);
+        organizePane.setCenter(expensesView);
         return organizePane;
     }
     
@@ -436,12 +433,12 @@ public class FinancialManagementUi extends Application {
         ScrollPane listPane = new ScrollPane();
         BorderPane organizePane = new BorderPane(listPane);
         GridPane incomesPane = new GridPane();
-        incomesPane.setPadding(new Insets(20,20,20,20));
+        incomesPane.setPadding(new Insets(20,50,20,20));
         incomesPane.setHgap(20);
         incomesPane.setVgap(10);
         
         GridPane expensesPane= new GridPane();
-        expensesPane.setPadding(new Insets(20,20,20,20));
+        expensesPane.setPadding(new Insets(20,20,20,50));
         expensesPane.setHgap(20);
         expensesPane.setVgap(10);        
         HBox menu = new HBox(10);
@@ -462,35 +459,32 @@ public class FinancialManagementUi extends Application {
         List<Expense> expenses = financialManagementService.listExpenses(account_id);
         List<Income> incomes = financialManagementService.listIncomes(account_id);
        
-        incomesPane.add(new Label("Date:"), 0, 0);
-        incomesPane.add(new Label("Category:"), 1, 0);
-        incomesPane.add(new Label("Amount:"), 2, 0);
+        incomesPane.add(new Label("Incomes:"), 0, 0);
+        incomesPane.add(new Label("Date:"), 0, 1);
+        incomesPane.add(new Label("Category:"), 1, 1);
+        incomesPane.add(new Label("Amount:"), 2, 1);
         for (int i = 0; i < incomes.size(); i++) {
             String date = incomes.get(i).getDatetime().toString();
-            incomesPane.add(new Label(date), 0, i + 1);
-            incomesPane.add(new Label(incomes.get(i).getCategory()), 1, i + 1);
-            incomesPane.add(new Label(String.valueOf(incomes.get(i).getAmount())), 2, i + 1);
+            incomesPane.add(new Label(date), 0, i + 2);
+            incomesPane.add(new Label(incomes.get(i).getCategory()), 1, i + 2);
+            incomesPane.add(new Label(String.valueOf(incomes.get(i).getAmount())), 2, i + 2);
 
         }
-        expensesPane.add(new Label("Date:"), 0, 0);
-        expensesPane.add(new Label("Category:"), 1, 0);
-        expensesPane.add(new Label("Price:"), 2, 0);
+        expensesPane.add(new Label("Expenses:"), 0, 0);
+        expensesPane.add(new Label("Date:"), 0, 1);
+        expensesPane.add(new Label("Category:"), 1, 1);
+        expensesPane.add(new Label("Price:"), 2, 1);
         for (int i = 0; i < expenses.size(); i++) {
             String date = expenses.get(i).getDate().toString();
-            expensesPane.add(new Label(date), 0, i + 1);
-            expensesPane.add(new Label(expenses.get(i).getCategory()), 1, i + 1);
-            expensesPane.add(new Label(String.valueOf(expenses.get(i).getAmount())), 2, i + 1);
+            expensesPane.add(new Label(date), 0, i + 2);
+            expensesPane.add(new Label(expenses.get(i).getCategory()), 1, i + 2);
+            expensesPane.add(new Label(String.valueOf(expenses.get(i).getAmount())), 2, i + 2);
         }
-        Label income = new Label("Incomes:");
-        Label expense = new Label("Expenses:");
-        VBox listLayout = new VBox(10);
-        
-        listLayout.setPadding(new Insets(20,10,10,20));
-        listLayout.setSpacing(20);
-        listLayout.getChildren().addAll(income, incomesPane, expense, expensesPane);
-        
+     
+
         organizePane.setTop(menu);
-        organizePane.setCenter(listLayout);
+        organizePane.setLeft(incomesPane);
+        organizePane.setCenter(expensesPane);
        
         backtoMain.setOnAction(e -> {
             primaryStage.setScene(mainScene);
@@ -520,7 +514,7 @@ public class FinancialManagementUi extends Application {
         TextField setAmount = new TextField("0.00");
         Button backtoMain = new Button("Back to overview");
         backtoMain.setPadding(new Insets(10,10,10,10));
-        Button newIncome = new Button("create new income");
+        Button newIncome = new Button("Add income");
         newIncome.setPadding(new Insets(10,10,10,10));
         Button logout = new Button("logout");
         logout.setPadding(new Insets(10,10,10,10));
@@ -604,7 +598,7 @@ public class FinancialManagementUi extends Application {
         TextField setAmount = new TextField("0.00");
         Button backtoMain = new Button("Back to overview");
         backtoMain.setPadding(new Insets(10,10,10,10));
-        Button newExpense = new Button("Add");
+        Button newExpense = new Button("Add expense");
         newExpense.setPadding(new Insets(10, 10, 10, 10));
         Button logout = new Button("Logout");
         logout.setPadding(new Insets(10, 10, 10, 10));

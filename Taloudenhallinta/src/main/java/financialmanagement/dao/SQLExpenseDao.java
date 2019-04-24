@@ -215,7 +215,7 @@ public class SQLExpenseDao implements ExpenseDao {
         overview.putIfAbsent("Hobbies", new ArrayList<>());
         overview.putIfAbsent("Education", new ArrayList<>());
         overview.putIfAbsent("Restaurants", new ArrayList<>());
-        overview.putIfAbsent("Travelling", new ArrayList<> ());
+        overview.putIfAbsent("Travelling", new ArrayList<>());
         overview.putIfAbsent("Insurances", new ArrayList<>());
         overview.putIfAbsent("Other", new ArrayList<>());        
                                 
