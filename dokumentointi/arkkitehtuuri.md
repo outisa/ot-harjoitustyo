@@ -30,7 +30,9 @@ Eri näkymien muodostamisessa hyödynnetään käyttäjän id.tä, jonka avulla 
 
 ## Sovelluslogiikka
 
-Sovelluksen loogisen datamallin muodostavat luokat User, Expense ja Income, jotka kuvaavat käyttäjiä ja käyttäjäkohtaisia tuloja sekä menoja.
+Sovelluksen loogisen datamallin muodostavat luokat User, Expense ja Income, jotka kuvaavat käyttäjiä ja käyttäjäkohtaisia tuloja sekä menoja:
+
+<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/domainLuokat.png">
 
 Toiminnallisista kokonaisuuksista vastaa luokka FinancialManagementService, joka tarjoaa kaikille käyttöliittymän toimille oman metodinsa, kuten:
  
