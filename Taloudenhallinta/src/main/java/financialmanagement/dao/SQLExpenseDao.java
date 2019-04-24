@@ -133,7 +133,7 @@ public class SQLExpenseDao implements ExpenseDao {
      /**
      * Creates HashMap, which keys are categories and values are ArrayLists, 
      * which contains amount of received expenses per category and percentage of total.
-     * @return HashMap
+     * @return categories with category ralated data
      * @throws java.sql.SQLException if there is any database related problems
      */
     @Override

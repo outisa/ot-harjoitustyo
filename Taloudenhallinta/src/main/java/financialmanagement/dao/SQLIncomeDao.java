@@ -24,7 +24,7 @@ public class SQLIncomeDao implements IncomeDao {
     /**
      * Constructor creates Income table, if not already exists.
      * @param database database, which will be used in the methods of this class 
-     * @throws java.sql.SQLException 
+     * @throws java.sql.SQLException if there is problems with creating a new table
      */
     public SQLIncomeDao(String database) throws SQLException {
         this.database = database;
@@ -45,7 +45,7 @@ public class SQLIncomeDao implements IncomeDao {
     /**
      * Inserts the given income to the database.
      * @param income income, which will be inserted into database
-     * @throws Exception 
+     * @throws Exception if problems with inserting data into the database
      */
     @Override
     public void create(Income income) throws Exception {
@@ -64,9 +64,9 @@ public class SQLIncomeDao implements IncomeDao {
     
     /**
      * Creates HashMap, which keys are categories and values are another HashMaps
-     * with total amount of received income per category and percentage from total.
-     * @return HashMap
-     * @throws java.sql.SQLException
+     * with total amount of received income per category and percentage of total.
+     * @return categories, money received and percentage of total per category
+     * @throws java.sql.SQLException if problems with collecting data
      */
     @Override
     public HashMap<String, ArrayList<Double>> incomeForEachCategory(Integer userId) throws SQLException {
@@ -141,7 +141,7 @@ public class SQLIncomeDao implements IncomeDao {
         return incomesForCurrentUser;
     }
 
-    // closes connecttion to the database
+    // closes connection to the database
     private void closeConnection(PreparedStatement stmt, ResultSet rs, Connection connection) throws SQLException {
         stmt.close();
         rs.close();

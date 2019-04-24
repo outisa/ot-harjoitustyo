@@ -11,16 +11,16 @@ public interface IncomeDao {
     /**
      * Creates a new income.
      * @param income new income, which needs to be created
-     * @throws Exception 
+     * @throws Exception  for the database related problems
      */
     void create(Income income) throws Exception;
     
     /**
-     * Lists incomes for each category.
+     * Collects incomes for each category.
      * @param userId id from the current user
      * @return HashMap, in which key is category and value is ArrayList, which includes
-     * incomes as amount and percentage from total per category
-     * @throws Exception 
+     * incomes as amount and percentage of total per category
+     * @throws Exception for database related problems
      */
     HashMap<String, ArrayList<Double>> incomeForEachCategory(Integer userId) throws Exception;
     

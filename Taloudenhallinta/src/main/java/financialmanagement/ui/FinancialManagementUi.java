@@ -280,6 +280,7 @@ public class FinancialManagementUi extends Application {
         });
         
         mainScene = new Scene(mainPane, 900, 700);
+    
         //new income scene
         newIncomeScene = new Scene(addNewIncome(primaryStage), 900, 700); 
         
@@ -307,6 +308,7 @@ public class FinancialManagementUi extends Application {
     } 
     
     // Expenses and their percentage from total for each category.
+    
     public BorderPane overviewCategoriesExpenses(Stage primaryStage) throws Exception {
         BorderPane organizePane = new BorderPane();
         
@@ -329,10 +331,10 @@ public class FinancialManagementUi extends Application {
         for (String category: expenseCategories.keySet()) {
             if (expenseCategories.get(category).isEmpty()) {
                 categories.getData().add(new XYChart.Data<>(category, 0.0));
-                categoriesList.getChildren().add(new Label(category + ":   0.0€"));
+                categoriesList.getChildren().add(new Label(category + ":   0.0 €"));
             } else {
                 categories.getData().add(new XYChart.Data<>(category, expenseCategories.get(category).get(1), expenseCategories.get(category).get(1)));
-                categoriesList.getChildren().add(new Label(category + ":   " + expenseCategories.get(category).get(0) + "€"));
+                categoriesList.getChildren().add(new Label(category + ":   " + expenseCategories.get(category).get(0) + " €"));
             }    
         }
         expensesChart.getData().add(categories);
@@ -342,7 +344,9 @@ public class FinancialManagementUi extends Application {
         organizePane.setBottom(categoriesList);
         return organizePane;
     }
+    
     // Incomes and their percentage from total for each category.
+    
     public BorderPane overviewCategoriesIncome(Stage primaryStage) throws Exception {
         BorderPane organizePane = new BorderPane();
 
@@ -365,10 +369,10 @@ public class FinancialManagementUi extends Application {
         for (String category: expenseCategories.keySet()) {
             if (expenseCategories.get(category).isEmpty()) {
                 categories.getData().add(new XYChart.Data<>(category, 0.0));
-                categoriesList.getChildren().add(new Label(category + ":   0.0€"));
+                categoriesList.getChildren().add(new Label(category + ":   0.0 €"));
             } else {
                 categories.getData().add(new XYChart.Data<>(category, expenseCategories.get(category).get(1), expenseCategories.get(category).get(1)));
-                categoriesList.getChildren().add(new Label(category + ":   " + expenseCategories.get(category).get(0) + "€"));
+                categoriesList.getChildren().add(new Label(category + ":   " + expenseCategories.get(category).get(0) + " €"));
             }    
         }
         expensesChart.getData().add(categories);
@@ -378,7 +382,9 @@ public class FinancialManagementUi extends Application {
         organizePane.setBottom(categoriesList);
         return organizePane;
     }
+    
     // List all expenses between given Period
+    
     public BorderPane listExpensesBetween(Stage primaryStage, Date dateFrom, Date dateTo) {
         ScrollPane scrollExpenses = new ScrollPane();
         BorderPane organizePane = new BorderPane(scrollExpenses);
@@ -499,6 +505,7 @@ public class FinancialManagementUi extends Application {
     }
     
     // creates add new income scene
+    
     public BorderPane addNewIncome(Stage primaryStage) {
         Label errormessageIncome = new Label ();
         GridPane newIncomePane = new GridPane();
@@ -530,9 +537,9 @@ public class FinancialManagementUi extends Application {
         newIncomePane.add(notAnumberError, 2, 3);
         newIncomePane.add(new Label("Give date here:"), 0, 2);
         newIncomePane.add(date, 1, 2);
-        newIncomePane.add( new Label("Give amount here (xxx.xx)"), 0, 3);
+        newIncomePane.add( new Label("Give amount here (xxx.xx):"), 0, 3);
         newIncomePane.add(setAmount, 1, 3);
-        newIncomePane.add(new Label("Choose category"), 0, 4);
+        newIncomePane.add(new Label("Choose category:"), 0, 4);
         newIncomePane.add(setCategory, 1, 4);
         newIncomePane.add(newIncome, 1, 5);
         newIncomePane.add(errormessageIncome, 2, 5);
@@ -580,7 +587,9 @@ public class FinancialManagementUi extends Application {
         organizePane.setCenter(newIncomePane);
         return organizePane;
     }
-    //loggedIn.getId must be added when SQL in use
+    
+    // Add new expense scene
+    
     public BorderPane addNewExpense(Stage primaryStage) {
         Label errormessageExpense = new Label ();
         GridPane expensePane = new GridPane();

@@ -36,7 +36,7 @@ public class FinancialManagementService {
      * Creates new user, if the username is unique.
      * @param username username for the new user
      * @return false, if there is already user with the same name, otherwise true
-     * @throws Exception if there were databse related problems
+     * @throws Exception if there were database related problems
      */
     public boolean createUser(String username) throws Exception {
         if (userDao.findByUsername(username) != null) {
@@ -55,7 +55,7 @@ public class FinancialManagementService {
      * Logs in the user with given username.
      * @param username username from the user, who wants to log in
      * @return true, if user exists and was successfully locked in, otherwise false
-     * @throws Exception if there were problems with collecting userdata from database
+     * @throws Exception if there were problems with collecting user data from database
      */
     public boolean login(String username) throws Exception {
         User user = userDao.findByUsername(username);
@@ -117,7 +117,7 @@ public class FinancialManagementService {
     /**
      * Computes amount and percentage from total for each category in incomes for the current user.
      * @param userId if from the current user
-     * @return amount of incomes and percentage from total for each category
+     * @return amount of incomes and percentage of total for each category
      * @throws Exception if there were problems with collecting data from database
      */
     public HashMap<String, ArrayList<Double>> overviewIncomes(Integer userId) throws Exception {
@@ -150,9 +150,9 @@ public class FinancialManagementService {
     
     /**
      * Lists all the expenses for the current user between the given dates.
-     * @param accountId -id from the current user
-     * @param dateFrom -begin date of the search
-     * @param dateTo -end date of the search
+     * @param accountId id from the current user
+     * @param dateFrom begin date of the search
+     * @param dateTo end date of the search
      * @return list of the expenses between given dates.
      */
     public List<Expense> listExpensesBetween(Integer accountId, Date dateFrom, Date dateTo) {
@@ -169,9 +169,9 @@ public class FinancialManagementService {
         return expenses;
     }
     /**
-     * Computes amount of costs and percentage from total for each category in expenses for the current user.
+     * Computes amount of costs and percentage of total for each category in expenses for the current user.
      * @param userId if from the current user
-     * @return amount of incomes and percentage from total for each category
+     * @return amount of incomes and percentage of total for each category
      * @throws Exception if there were problems with collecting data from database
      */
     public HashMap<String, ArrayList<Double>> overviewExpenses(Integer userId) throws Exception {
