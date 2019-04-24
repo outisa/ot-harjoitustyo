@@ -29,4 +29,5 @@ päivä | aika | mitä tein
 21.4. | 2 | JavaDoc ajantasaistaminen
 22.4. | 2 | Toiminnallisuuden lisääminen
 23.4 | 3 | Toiminnallisuuden kasvatus, koodin siistimistä
-Yhteensä:| 64.5 |
+24.4. | 4.5 | Käyttöliittymän muokkausta, käyttöohjeen tekoa, arkkitehtuurin päivitystä
+Yhteensä:| 69 |
