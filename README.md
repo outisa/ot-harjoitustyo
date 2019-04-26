@@ -49,6 +49,14 @@ Generoitu jar-tiedosto voidaan suorittaa komennolla
 
 `java -jar FinancialManagement-1.0-SNAPSHOT.jar`
 
+### JavaDoc
+
+JavaDoc saadaan generoitua komennolla
+
+`mvn javadoc:javadoc`
+
+JavaDocia voi tarkastella avaamalla tiedosto index.html selaimeen kansiosta _target/site/apidocs_.
+
 ### Checkstyle
 
 Tiedostoon [checkstyle.xml](https://github.com/outisa/ot-harjoitustyo/blob/master/Taloudenhallinta/checkstyle.xml) määritellyt tarkistukset suoritetaan komennolla
