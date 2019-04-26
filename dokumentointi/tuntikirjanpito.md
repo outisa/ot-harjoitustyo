@@ -30,4 +30,5 @@ päivä | aika | mitä tein
 22.4. | 2 | Toiminnallisuuden lisääminen
 23.4 | 3 | Toiminnallisuuden kasvatus, koodin siistimistä
 24.4. | 4.5 | Käyttöliittymän muokkausta, käyttöohjeen tekoa, arkkitehtuurin päivitystä
-Yhteensä:| 69 |
+26.4. | 2 | Sekvenssikaavioiden ja niihin liittyvän tekstin lisäystä
+Yhteensä:| 71 |
