@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 /**
  * This class communicates with database with user related data.
- * @author outisa
  */
 public class SQLUserDao implements UserDao {
     private String database;

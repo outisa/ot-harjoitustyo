@@ -1,8 +1,8 @@
-/*
+
+package financialmanagement.domain;
+/**
  * This class represents a singular user.
  */
-package financialmanagement.domain;
-
 public class User {
     private Integer id;
     private String username;

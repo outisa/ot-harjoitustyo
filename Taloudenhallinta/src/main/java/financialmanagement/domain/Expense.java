@@ -1,10 +1,10 @@
-/*
- * This class represents a single expense.
- */
+
 package financialmanagement.domain;
 
 import java.sql.Date;
-
+/**
+ * This class represents a single expense.
+ */
 public class Expense {
     private Date date;
     private Double amount;

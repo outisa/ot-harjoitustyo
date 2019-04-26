@@ -37,7 +37,7 @@ public interface ExpenseDao {
     Expense findExpense(Date date, Double amount, String category, Integer userId);
     
     /**
-     * Searches expenses between given dates for given user.
+     * Searches expenses between given dates for the current user.
      * @param dateFrom begin date of the search
      * @param dateTo end date of the search
      * @param userId id from the current user
