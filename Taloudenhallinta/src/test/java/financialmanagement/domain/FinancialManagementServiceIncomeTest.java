@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package financialmanagement.domain;
 
 import java.sql.Date;
@@ -11,8 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author ousavola
+ * Tests all Income related methods from FinancialManagementService.
  */
 public class FinancialManagementServiceIncomeTest {
     FakeUserDao userDao;

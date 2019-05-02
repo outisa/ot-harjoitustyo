@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test all user related methods from FinancialManagementService.
+ * Tests all user related methods from FinancialManagementService.
  */
 public class FinancialManagementServiceUserTest {
     FakeUserDao userDao;

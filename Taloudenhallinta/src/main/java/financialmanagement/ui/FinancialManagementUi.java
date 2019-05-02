@@ -120,16 +120,18 @@ public class FinancialManagementUi extends Application {
         
         // createNewUserScene
         VBox newUserPane = new VBox(10);
+        newUserPane.setPadding(new Insets(10));
         newUserPane.setSpacing(20);
         
         HBox newUsernamePane = new HBox(10);
+        newUsernamePane.setPadding(new Insets(10));
         newUsernamePane.setSpacing(20);
         
         newUsernamePane.setPadding(new Insets(10));
         TextField newUsernameInput = new TextField();
         
         Label newUsernameLabel = new Label("Username:");
-        newUsernameLabel.setPrefWidth(100);
+        newUsernameLabel.setPrefWidth(120);
         newUsernamePane.getChildren().addAll(newUsernameLabel, newUsernameInput);
         Label userCreationMessage = new Label();
         

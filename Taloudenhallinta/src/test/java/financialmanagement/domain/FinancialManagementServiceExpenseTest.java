@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests all Expense related methods from FinancialManagementSercvice
+ * Tests all Expense related methods from FinancialManagementSercvice.
  */
 public class FinancialManagementServiceExpenseTest {
     FakeUserDao userDao;
