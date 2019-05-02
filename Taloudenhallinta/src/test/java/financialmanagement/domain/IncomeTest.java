@@ -11,13 +11,16 @@ public class IncomeTest {
     Income income;
     Income income2;
     Income income3;
+    Income income4;
     
     @Before
     public void setUp() {
         Date date = Date.valueOf("2019-12-12");
+        Date date2 = Date.valueOf("2018-12-01");
         this.income = new Income(2, date, "Present", 128.22);
         this.income2= new Income(2, date, "Present", 128.22);
-        this.income3= new Income(1, date, "Salary", 12.12);
+        this.income3= new Income(1, date2, "Salary", 12.12);
+        this.income4 = new Income(2, date2, "Present", 128.22);
     }
     
     @Test
@@ -48,6 +51,11 @@ public class IncomeTest {
     @Test
     public void incomeNonequalsWhenAllParametersNotSame(){
         assertFalse(income.equals(income3));
+    }
+    
+    @Test
+    public void incomeNonequalsWhenDateNotSame(){
+        assertFalse(income.equals(income4));
     }
     
     @Test

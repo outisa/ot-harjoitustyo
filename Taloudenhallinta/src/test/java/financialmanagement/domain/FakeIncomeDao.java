@@ -11,7 +11,6 @@ import java.util.List;
 class FakeIncomeDao implements IncomeDao {
     private List<Income> incomes;
 
-
     public FakeIncomeDao() {
         this.incomes = new ArrayList<>();
         Date date = Date.valueOf("2019-12-24");
@@ -33,9 +32,9 @@ class FakeIncomeDao implements IncomeDao {
         double present = 0;
         for (int i = 0; i < incomes.size(); i++) {
             if (incomes.get(i).getCategory().equals("Present") && incomes.get(i).getUserId().equals(userId)) {
-                present += incomes.get(i).getAmount();
-            } else if (incomes.get(i).getCategory().equals("Present") && incomes.get(i).getUserId().equals(userId)) {
-                salary = incomes.get(i).getAmount();
+                present += incomes.get(i).getAmount();                
+            } else if (incomes.get(i).getCategory().equals("Salary") && incomes.get(i).getUserId().equals(userId)) {
+                salary += incomes.get(i).getAmount();
             }
         }
 

@@ -2,6 +2,8 @@
 package financialmanagement.domain;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -25,6 +27,7 @@ public class FinancialManagementServiceTest {
     public void userCanBeCreated() throws Exception {
         assertTrue(service.createUser("Another"));
     }
+    
     @Test
     public void existingUserCanNotBeCreated() throws Exception {
         assertFalse(service.createUser("Tester"));
@@ -62,16 +65,26 @@ public class FinancialManagementServiceTest {
     @Test 
     public void incomeCanNotBeCreatedIfAlreadyExists() throws Exception {
         Date date = Date.valueOf("2019-12-24");
-        assertFalse(service.createIncome(date, 120.00, "Present", 1));
-        
+        assertFalse(service.createIncome(date, 120.00, "Present", 1));    
     }
     
     @Test
+    public void incomeListIsReturned() throws Exception {
+        assertEquals(1, service.listIncomes(1).size());
+    }
+    
+    @Test
+    public void incomePerCategoryForUserIncludesRightData() throws Exception {
+        HashMap<String, ArrayList<Double>> overview = service.overviewIncomes(1);
+        assertEquals(120, overview.get("Present").get(0), 1);          
+    }
+            
+    @Test
     public void expenseCanBeCreated() throws Exception {
         Date date = Date.valueOf("2019-05-11");
-        assertTrue(service.createExpense(date, 128.90, "Car", 1));
-        
+        assertTrue(service.createExpense(date, 128.90, "Car", 1));        
     }
+
     @Test 
     public void expenseCanNotBeCreatedIfAlreadyExists() throws Exception {
         Date date = Date.valueOf("2019-07-26");
@@ -84,8 +97,13 @@ public class FinancialManagementServiceTest {
     }
     
     @Test
-    public void incomeListIsReturned() throws Exception {
-        assertEquals(1, service.listIncomes(1).size());
+    public void expensesBetweenReturnsCorrect() {
+        assertEquals(5, service.listExpensesBetween(1, Date.valueOf("2019-05-01"), Date.valueOf("2019-08-01")).size());
     }
-        
+    
+    // It would be better test perhaps more values.
+    @Test
+    public void expensesPerCategoryDataIsCorrect() throws Exception {
+        assertEquals(300.00, service.overviewExpenses(1).get("Food").get(0), 0.001);
+    }
 }

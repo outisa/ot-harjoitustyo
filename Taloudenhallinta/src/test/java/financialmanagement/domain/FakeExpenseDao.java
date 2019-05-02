@@ -36,7 +36,14 @@ class FakeExpenseDao implements ExpenseDao{
 
     @Override
     public List<Expense> getAllBetween(Date dateFrom, Date dateTo, Integer userId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Expense> allExpenses = generateExpensesList();
+        List<Expense> expensesBetween = new ArrayList<>();
+        for (int i = 0; i < allExpenses.size(); i++) {
+            if (allExpenses.get(i).getDate().before(dateTo) && allExpenses.get(i).getDate().after(dateFrom) && allExpenses.get(i).getUserId() == 1) {
+                expensesBetween.add(allExpenses.get(i));
+            }
+        }
+        return expensesBetween;
     }
 
     @Override
@@ -50,7 +57,39 @@ class FakeExpenseDao implements ExpenseDao{
 
     @Override
     public HashMap<String, ArrayList<Double>> expenseForEachCategory(Integer userId) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HashMap<String, ArrayList<Double>> expensesPerCategory = new HashMap<>();
+        List<Expense> allExpenses = generateExpensesList();
+        double food = 0;
+        double education = 0; 
+        for (int i = 0; i < allExpenses.size(); i++) {
+            if (allExpenses.get(i).getCategory().equals("Food") && allExpenses.get(i).getUserId().equals(userId)) {
+                food += allExpenses.get(i).getAmount();
+            } else if (allExpenses.get(i).getCategory().equals("Education") && allExpenses.get(i).getUserId().equals(userId)) {
+                education += allExpenses.get(i).getAmount();
+            }            
+        }
+        
+        expensesPerCategory.putIfAbsent("Food", new ArrayList<>());
+        expensesPerCategory.putIfAbsent("Education", new ArrayList<>());
+        expensesPerCategory.get("Food").add(food);
+        expensesPerCategory.get("Food").add(food/(food+education));
+        expensesPerCategory.get("Education").add(education);
+        expensesPerCategory.get("Education").add(education/(food+education));        
+        return expensesPerCategory;
+    }
+    
+    private List<Expense> generateExpensesList() {
+        List<Expense> generated = new ArrayList<>();
+        Date date = Date.valueOf("2019-01-04");
+        for (int i = 0; i < 3; i++) {
+            generated.add(new Expense(1, date, "Food", 100.00));
+        }
+        date = Date.valueOf("2019-07-04");
+        for (int i = 0; i < 5; i++) {
+            generated.add(new Expense(1, date, "Education", 100.00));
+        }
+        generated.add(new Expense(3, date, "Food", 100.00));        
+        return generated;
     }
     
 }

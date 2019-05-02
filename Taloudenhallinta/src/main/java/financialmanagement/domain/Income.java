@@ -4,7 +4,6 @@ package financialmanagement.domain;
 import java.sql.Date;
 /**
  * This class represents a singular Income.
- * @author ousavola
  */
 public class Income {
     private Date datetime;

@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observable;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +33,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -440,7 +438,7 @@ public class FinancialManagementUi extends Application {
         GridPane expensesPane= new GridPane();
         expensesPane.setPadding(new Insets(20,20,20,50));
         expensesPane.setHgap(20);
-        expensesPane.setVgap(10);        
+        expensesPane.setVgap(10); 
         HBox menu = new HBox(10);
         menu.setSpacing(20);
         menu.setPadding(new Insets(10,10,10,10));
@@ -654,7 +652,7 @@ public class FinancialManagementUi extends Application {
                     setDate.setValue(setDate.getItems().get(0).toString());
                     
                 } else {
-                    errormessageExpense.setText("Expense is added");
+                    errormessageExpense.setText("Expense added");
                     errormessageExpense.setTextFill(Color.GREEN);    
                 }
             } catch (Exception ex) {
