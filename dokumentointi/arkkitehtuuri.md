@@ -76,7 +76,7 @@ atribuutti | kuvaus | pakollisuus | esimerkki
 ---| --- | --- | ---
 id| automaattisesti muodostuva kokonaisluku ja samalla pääavain, uniikki| kyllä | 1
 account_id | menon lisänneen käyttäjän id, joka muodostuu kokonaisluvusta | kyllä | 2
-date | käyttäjän lisäämä päiväys javan sql.date muodossa | kyllä | lisätään muodossa 2019-04-08, mutta on tallennettuna long muuttujana
+date | käyttäjän lisäämä päiväys javan sql.date muodossa | kyllä | lisätään muodossa 2019-04-08, mutta on tallennettuna Date-oliona
 category | käyttäjän lisäämän kategorian nimi, joka muodostuu merkeistä a-z ja A-Z ja voi olla maksimissaan 30 merkkiä pitkä| kyllä | Education
 amount | NUMERIC(9,2) eli desimaaliluku, sallitaan luvut väliltä 0 - 9999999.99 | kyllä | 12.99
 
@@ -86,7 +86,7 @@ atribuutti | kuvaus | pakollisuus | esimerkki
 ---| --- | --- | ---
 id| automaattisesti muodostuva kokonaisluku ja samalla pääavain, uniikki| kyllä | 1
 account_id | menon lisänneen käyttäjän id, joka on kokonaisluku | kyllä | 2
-date | käyttäjän lisäämä päiväys javan sql.date muodossa | kyllä | lisätään muodossa 2019-01-13, mutta on tallennettuna long muuttujana
+date | käyttäjän lisäämä päiväys javan sql.date muodossa | kyllä | lisätään muodossa 2019-01-13, mutta on tallennettuna Date-oliona
 category | käyttäjän lisäämän kategorian nimi, joka muodostuu merkeistä a-z ja A-Z ja voi olla maksimissaan 30 merkkiä pitkä| kyllä | Salary
 amount | NUMERIC(9,2) eli desimaaliluku, sallitaan luvut väliltä 0 - 9999999.99 | kyllä | 2132.43
 
