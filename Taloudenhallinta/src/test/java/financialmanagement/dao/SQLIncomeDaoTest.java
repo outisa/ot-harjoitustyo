@@ -103,7 +103,7 @@ public class SQLIncomeDaoTest {
     }
     
     @Test
-    public void tenResentIncomesAreFoundSizeCoorect() throws Exception {
+    public void tenResentIncomesAreFoundSizeCorrect() throws Exception {
         Integer id = 1;
         for (int i = 0; i < 12; i++) {
             Double amount = 12.0 + i;

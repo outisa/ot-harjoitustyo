@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,7 +117,7 @@ public class SQLExpenseDaoTest {
     }
     
     @Test
-    public void ExpensesPerCategoryIsCorrect() throws Exception {
+    public void expensesPerCategoryIsCorrect() throws Exception {
         Integer id = 1;
         for (int i = 0; i < 3; i++) {
             Double amount = 100.0 + i;

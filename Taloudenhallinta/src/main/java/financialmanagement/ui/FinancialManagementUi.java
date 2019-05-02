@@ -293,7 +293,6 @@ public class FinancialManagementUi extends Application {
         primaryStage.setScene(loginScene);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e-> {
-            System.out.println("closing");
             if(financialManagementService.getLoggedUser()!= null){
                 financialManagementService.logout();
             }    
@@ -301,7 +300,6 @@ public class FinancialManagementUi extends Application {
     }
     @Override
     public void stop() {
-        System.out.println("Application is closing");
     }
     
     public static void main(String[] args) {
