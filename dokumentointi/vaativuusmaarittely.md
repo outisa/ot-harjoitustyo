@@ -8,21 +8,21 @@ joilla jokaisella on oma yksilöllinen talouden kirjanpito.
 
 ## Käyttäjät
 
-Sovelluksella on alussa ainoastaan yksi käyttäjärooli eli _normaali käyttäjä_.
-Sovelluksen kehittyessä siihen saatetaan lisätä _pääkäyttäjä_, jolla on 
+Sovellukselle on tehty alussa ja sillä on tämän hetkisessä releasessa ainoastaan yksi käyttäjärooli _normaali käyttäjä_.
+Sovelluksen mahdollisesessa jatkokehityksessä siihen saatetaan lisätä _pääkäyttäjä_, jolla on 
 peruskäyttäjää suuremmat käyttöoikeudet.
 
 ## Käyttöliittymäluonnos
 
 Sovellus koostuu alustavasti seitsämästä eri näkymästä:
 
-<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/kayttoliittymaluonnos.jpg" width="850">
+
 
 Sovellus aukeaa ensimmäiseksi kirjautumisnäkymään, josta on mahdollista siirtyä
 "luo uusi käyttäjä" -näkymään tai onnistuneen kirjautumisen yhteydessä 
 yleisnäkymään. Yleisnäkymässä on mahdollisuus siirtyä lisää uusi tulo tai 
 meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysytään tulo- tai menonäkymässä ja käyttäjä saa viestin onnistuneesta lisäyksestä. Jos tarkalleen samoilla tiedoilla oleva tulo tai meno on jo olemassa, saadaan virheilmoitus. Käyttäjä voi halutessaan siirtyä päänäkymään. 
- Lisäksi yleisnäkymässä voidaan hakea menoja joltakin aikaväliltä. Tästä siirrytään näkymään, jossa on  menot listattuna kategorioittain. Päänäkymästä pääsee myös listausnäkymään, jossa on viimeisimmät kymmenen menoa ja tuloa listattuna. Lisäksi päänäkymästä onnapit listaus kategorioittain sekä menoille ja tuloille. Näistä molemmille avautuu nappia painamalla näkymä, jossa on pylväsdiagrammi kategorioille ja niiden prosenttiosuus kokonaismäärästä. Sen lisäksi käyttäjä näkee listamuodossa käytetyt (tai saadut)
+ Lisäksi yleisnäkymässä voidaan hakea menoja joltakin aikaväliltä. Tästä siirrytään näkymään, jossa on  menot listattuna kategorioittain. Päänäkymästä pääsee myös listausnäkymään, jossa on viimeisimmät kymmenen menoa ja tuloa listattuna. Lisäksi päänäkymästä on napit listaus kategorioittain sekä menoille ja tuloille. Näistä molemmille avautuu nappia painamalla näkymä, jossa on pylväsdiagrammi kategorioille ja niiden prosenttiosuus kokonaismäärästä. Sen lisäksi käyttäjä näkee listamuodossa käytetyt (tai saadut)
  rahamäärät kategorioittain.
 
 ## Perusversion tarjoama toiminnallisuus
@@ -30,7 +30,7 @@ meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysyt
 ### Ennen kirjautumista
 
 * Käyttäjä voi luoda järjestelmään käyttäjätunnuksen
-  *Käyttäjätunnuksen täytyy olla uniikki ja vähintään 3 merkkiä.
+  *Käyttäjätunnuksen täytyy olla uniikki ja vähintään 3 merkkiä, mutta maksimissaan 99 merkkiä.
 
 * Käyttäjä voi kirjautua järjestelmään
   * Krjautuminen onnistuu syötettäessä olemassaoleva käyttäjätunnus aloitusnäkymän kirjautumislomakkeelle.
@@ -80,13 +80,13 @@ meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysyt
 
 ## Jatkokehitysideoita
 
-Perusversion jälkeen järjestelmää voidaan täydentää ajan salliessa esimerkiksi seuraavilla toiminnallisuuksilla
- * Haku tuloista tietyllä aikavälillä ja haun ryhmittely kategorioittain.
- * Kategorioiden lisäysmahdollisuus.
- * Haku menoista tietyllä aikavälillä ja haun ryhmittely ostopaikan perusteella.
+Seuraavissa versioissa järjestelmää voidaan täydentää esimerkiksi seuraavilla toiminnallisuuksilla
+ * Haku tuloista tietyllä aikavälillä.
+ * Kategorioiden lisäysmahdollisuus..
  * Lisätä tarkempi kuvaus -kenttä, jossa voi tarkemmin kuvata menoerää tai tuloa.
     * Esimerkiksi "Tepon synttärijuhlien tarjoilut ja rekvisiitta"
  * Menon ja tulon lähempi tarkastelu, jossa näytetään kyseiseen menoon tai tuloon liittyvät tiedot.
  * Käyttäjälle mahdollisuus poistaa tili ja siihen liittyvät tiedot. 
- * Käyttäjille salasana, jota vaaditaan kirjautuessa.
+ * Käyttäjille salasana, jota vaaditaan kirjautuessa ja mahdollisuus muokata salasanaa.
+ * Menojen ja tulojen muokkaustoiminnot.
  * Useamman käyttäjän versio, jossa voidaan listata myös tulojen ja menojen yhteydessä niitä lisännyt käyttäjä
