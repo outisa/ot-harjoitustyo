@@ -6,7 +6,7 @@ Ohjelman rakenne mukailee kolmitasoista kerrosarkkitehtuuria ja koodin pakkausra
 
 <img src ="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/pakkauskaavio1.png" width=200>
 
-Pakkaus financialmanagement.ui sisältää JavaFX:n avulla toteutetun graaffisen käyttöliittymän koodin. Sovelluslogiikasta vastaava koodi on tehty pakkaukseen financialmanagement.domain ja financialmanagement.dao pakkauksessa oleva koodi vastaa tiedon pysyväistallennuksesta.
+Pakkaus financialmanagement.ui sisältää graaffisen käyttöliittymän koodin, joka on toteutettu JavaFX:n avulla. Sovelluslogiikasta vastaava koodi on löytyy pakkauksesta financialmanagement.domain ja financialmanagement.dao pakkauksessa oleva koodi vastaa tiedon pysyväistallennuksesta.
 
 ## Käyttöliittymä
 
@@ -22,15 +22,15 @@ Käyttöliittymä sisältää yhteensä yhdeksän erillistä näkymää
   * menot kategorioittain
   * tulot kategorioittain
 
-Jokainen näkymä on totetutettu omana Scene-oliona, joista näkyvissä on yksi näkymä kerrallaan. Näkymät on sijoitettu sovelluksessa Stage-olioon. Käyttöliittymän ohjelmallinen toteutus on financialmanagement.ui pakkauksen luokassa financialManagementUi.
+Jokaista näkymää vastaa oma Scene-olio toteutus ja vain yksi näkymä kerrallaan voi olla näkyvissä. Näkymät on sijoitettu sovelluksessa Stage-olioon. Käyttöliittymä toteutetaan ohjelmallisesti financialmanagement.ui pakkauksen luokassa [FinancialManagementUi](https://github.com/outisa/ot-harjoitustyo/blob/master/Taloudenhallinta/src/main/java/financialmanagement/ui/FinancialManagementUi.java).
 
 Käyttöliittymä on pyritty erottamaan sovelluslogiikasta, mutta syötteiden tarkistus ja jonkin verran sovelluslogiikan (_financialManagementService_) tekemien listojen käsittelyä tapahtuu myös käyttöliittymässä.
 
-Eri näkymien muodostamisessa hyödynnetään käyttäjän id.tä, jonka avulla sovelluslogiikan avulla haettu tieto yksilöidään ja vain kulloinkin kirjautuneen käyttäjän tietoja näytetään käyttäjälle.
+Eri näkymien muodostamisessa hyödynnetään käyttäjän id.tä, jonka avulla sovelluslogiikan haettu tieto yksilöidään ja vain kulloinkin kirjautuneen käyttäjän tietoja näytetään käyttäjälle.
 
 ## Sovelluslogiikka
 
-Sovelluksen loogisen datamallin muodostavat luokat User, Expense ja Income, jotka kuvaavat käyttäjiä ja käyttäjäkohtaisia tuloja sekä menoja:
+Sovelluksen loogiikasta vastaavat luokat User, Expense ja Income, jotka kuvaavat käyttäjiä ja käyttäjäkohtaisia tuloja sekä menoja:
 
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/domainLuokat.png">
 
@@ -117,8 +117,12 @@ _addExpense_ napin painallukseen reagoiva [tapahtumankäsittelijä](https://gith
 
 #### Muut toiminnallisuudet
 
-Sovelluksen muissa toiminnallisuuksissa toistuu sama periaate kuten yllä kuvatuissa. Käyttöliittymän tapahtumankäsittelijä kutsuu kulloinkin sopivaa sovelluslogiikan metodia, joka puolestaan päivittää, hakee ja tallentaa käyttäjäkohtaisia tietoja rajapintojen avuilla. Sovelluslogiikan palauttamien arvojen ja tietojen perusteella käyttäjälle näytetään eri viestejä tai siirretään näkymästä toiseen.
+Sovelluksen muissa toiminnallisuuksissa tapahtuman kulut ovat yllä olevan kaltaisia. Käyttöliittymän tapahtumankäsittelijä kutsuu kulloinkin sopivaa metodia sovelluslogiikasta, joka puolestaan hakee ja tallentaa käyttäjäkohtaisia tietoja rajapintojen avuilla. Sovelluslogiikan käyttöliittymälle palauttamien arvojen ja tietojen perusteella käyttäjälle näytetään eri viestejä tai siirretään näkymästä toiseen.
 
 
 
 ## Ohjelman rakenteeseen jääneet heikkoudet
+ 
+Käyttöliittymän koodi on aika sekavaa johtuen siitä, että liittymän elementtien muotoilu on osana koodia. Tämän ongleman voisi poistaa käyttämällä tyyleihin FXML-määrittelyä. Lisäksi käyttöliittymässä on nyt aika paljon samannimisiä nappeja kuten _logout_ ja _Back to overview_. Tässä kannattaisi tehdä jonkunlainen 'menubar', joka helpoittaisi navigointia sekä vähentäisi toisteisuutta. Näkymien luonti voitaisiin eristää ehkä omiin luokkiin metodien sijaan, jolloin jonkin tietyn näkymän etsiminen tutkiskelua tai muokkaamista varten nopeutuisi ja helpottuisi.
+
+Poikkeuksien käsittely on osin puutteellista sillä, vaikka ne napataan ja ohjelman ei pitäisi sen perusteella jäädä totaalisesti jumiin. Kuitenkaan käyttäjä ei saa esimerkiksi poikkeustilanteessa minkäänlaista viestiä siitä, onnistuiko tietokantaan tiedon lisäys vai ei.
