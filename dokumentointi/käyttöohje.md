@@ -1,25 +1,44 @@
 # Käyttöohje
 
+Lataa tiedosto FinancialManagement.jar [täältä](https://github.com/outisa/ot-harjoitustyo/releases).
+
 ## Konfigurointi
 
+Sovelluksen mukana tulee kaikki tarvittavat tiedostot.
+
 ## Ohjelman käynnistäminen
+
+Mene ensin terminaalissa siihen kansioon, johon latasit tidoston. Windowsissa "terminaali" löytyy Command Prompt nimellä. Aja sitten komento
+
+`java -jar FinancialManagement.jar`
 
 ## Kirjautuminen
 
 Sovellus käynnistyy kirjautumisnäkymään
+
+<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/login.png">
+
 1. Syötä käyttäjänimi **_username_** -kenttään ja kirjaudu sisään painamalla nappia **_login_**.
-2. Onnistuneen sisäänkirjautumisen jälkeen siirryt automaattisesti perusnäkymään.
+2. Onnistuneen sisäänkirjautumisen jälkeen siirryt automaattisesti perusnäkymään
+
+<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/overview.png">
 
 ## Uuden käyttäjätilin luominen
 
-1. Painamalla nappia **_create new user_** kirjautumisnäkymässä.
+1. Painamalla nappia **_create new user_** kirjautumisnäkymässä, jolloin sovellus avautuu tilinluomisnäkymään
+
+<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/newUser.png">
+
 2. Anna haluttu käyttäjänimi **_Username_** kenttään ja paina **_Create user_** -nappia.
 3. Jos käyttäjänimi on jo käytössä, saat siitä virheilmoituksen, jolloin toista kohta 2.
 4. Onnistuneen lisäyksen jälkeen siirryt automaattisesti takaisin kirjautumissivulle.
 
 ## Uuden menon lisäys
 
-1. Paina perusnäkymässä nappia **_New expense_**.
+1. Paina perusnäkymässä nappia **_New expense_**, jolloin siirryt menonluomisnäkymään
+
+<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/newIncome.png">
+
 2. Valitse menotapahtuman päivämäärä valikosta.
 3. Anna maksettu rahamäärä väliltä 0 - 9999999.99.
 4. Valitse menoon sopiva kategoria valikosta.
@@ -28,7 +47,10 @@ Sovellus käynnistyy kirjautumisnäkymään
 
 ## Uuden tulon lisäys
 
-1. Paina perusnäkymässä nappia **_New Income_**.
+1. Paina perusnäkymässä nappia **_New Income_**, jolloin siirryt tulonluomisnäkymään
+
+<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/newExpenseUI.png">
+
 2. Valitse tulon päivämäärä valikosta.
 3. Anna saatu rahamäärä väliltä 0 - 9999999.99.
 4. Valitse tuloon sopiva kategoria valikosta.
