@@ -13,6 +13,10 @@ import java.sql.SQLException;
 public class DatabaseConnector {
     String database;
 
+    /**
+     * Constructor creates a new DatabaseConnector.
+     * @param database to be connected
+     */
     public DatabaseConnector(String database) {
         this.database = database;
     }
@@ -20,14 +24,10 @@ public class DatabaseConnector {
     /**
     * Connects to the database.
     * @return connection to the database. 
+    * @throws java.sql.SQLException if there is database related errors 
     */
-    public Connection connect() {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(database);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    public Connection connect() throws SQLException {
+        Connection connection = DriverManager.getConnection(database);
         return connection;
     }
     

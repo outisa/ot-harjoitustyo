@@ -42,7 +42,7 @@ public class FinancialManagementServiceExpenseTest {
     }
     
     @Test
-    public void expensesBetweenReturnsCorrect() {
+    public void expensesBetweenReturnsCorrect() throws Exception {
         assertEquals(5, service.listExpensesBetween(1, Date.valueOf("2019-05-01"), Date.valueOf("2019-08-01")).size());
     }
     

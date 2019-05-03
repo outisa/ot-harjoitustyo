@@ -136,11 +136,11 @@ public class SQLIncomeDao implements IncomeDao {
                 + " amount NUMERIC(9,2) NOT NULL,"
                 + " FOREIGN KEY (account_id) REFERENCES Account(id)"
                 + ");";
-        Connection connection = connector.connect(); 
-        Statement stmt = connection.createStatement();
-        stmt.execute(sql);
-        stmt.close();
-        connection.close();
+        try (Connection connection = connector.connect(); Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+            stmt.close();
+            connection.close();
+        }
     
     }
 
