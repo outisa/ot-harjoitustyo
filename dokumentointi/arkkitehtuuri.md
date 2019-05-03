@@ -2,11 +2,11 @@
 
 ## Rakenne
 
-Ohjelman rakenne mukailee kolmitasoista kerrosarkkitehtuuria ja koodin pakkausrakenne on seuraava:
+Ohjelman rakenne muodostuu kolmesta pakkauksesta, jolle jokaiselle on oma vastuualueensa. Pakkausrakenne on seuraava
 
 <img src ="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/pakkauskaavio1.png" width=200>
 
-Pakkaus financialmanagement.ui sisältää graaffisen käyttöliittymän koodin, joka on toteutettu JavaFX:n avulla. Sovelluslogiikasta vastaava koodi on löytyy pakkauksesta financialmanagement.domain ja financialmanagement.dao pakkauksessa oleva koodi vastaa tiedon pysyväistallennuksesta.
+Pakkaus financialmanagement.ui sisältää graaffisen käyttöliittymän koodin, joka on toteutettu JavaFX:n avulla. Sovelluslogiikasta vastaava koodi löytyy pakkauksesta financialmanagement.domain ja financialmanagement.dao pakkauksessa oleva koodi vastaa tiedon pysyväistallennuksesta tietokantaan.
 
 ## Käyttöliittymä
 
@@ -22,9 +22,9 @@ Käyttöliittymä sisältää yhteensä yhdeksän erillistä näkymää
   * menot kategorioittain
   * tulot kategorioittain
 
-Jokaista näkymää vastaa oma Scene-olio toteutus ja vain yksi näkymä kerrallaan voi olla näkyvissä. Näkymät on sijoitettu sovelluksessa Stage-olioon. Käyttöliittymä toteutetaan ohjelmallisesti financialmanagement.ui pakkauksen luokassa [FinancialManagementUi](https://github.com/outisa/ot-harjoitustyo/blob/master/Taloudenhallinta/src/main/java/financialmanagement/ui/FinancialManagementUi.java).
+Näkymät on sijoitettu yksi kerrallaan Stage-olioon ja näkymän toteutuksesta vastaa Scene-olio. Käyttöliittymä eli kaikkien näkymien toteutus tapahtuu ohjelmallisesti financialmanagement.ui pakkauksen luokassa [FinancialManagementUi](https://github.com/outisa/ot-harjoitustyo/blob/master/Taloudenhallinta/src/main/java/financialmanagement/ui/FinancialManagementUi.java). Pakkaus sisältää vain kyseisen luokan. 
 
-Käyttöliittymä on pyritty erottamaan sovelluslogiikasta, mutta syötteiden tarkistus ja jonkin verran sovelluslogiikan (_financialManagementService_) tekemien listojen käsittelyä tapahtuu myös käyttöliittymässä.
+Käyttöliittymä on pyritty erottamaan sovelluslogiikasta, mutta syötteiden tarkistus pituuden ja oikean tyypin osalta tapahtuu käyttöliittymässä.
 
 Eri näkymien muodostamisessa hyödynnetään käyttäjän id.tä, jonka avulla sovelluslogiikan haettu tieto yksilöidään ja vain kulloinkin kirjautuneen käyttäjän tietoja näytetään käyttäjälle.
 
@@ -34,7 +34,7 @@ Sovelluksen loogiikasta vastaavat luokat User, Expense ja Income, jotka kuvaavat
 
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/domainLuokat.png">
 
-Toiminnallisista kokonaisuuksista vastaa luokka FinancialManagementService, joka tarjoaa kaikille käyttöliittymän toimille oman metodinsa, kuten:
+FinancialManagementService vastaa toiminnallisuudesta ja se tarjoaa kaikille käyttöliittymän toimille oman metodinsa, kuten:
  
  * boolean login()
  * void logout()
@@ -97,7 +97,7 @@ amount | NUMERIC(9,2) eli desimaaliluku, sallitaan luvut väliltä 0 - 9999999.9
 
 #### Käyttäjän kirjautuminen
 
-Kirjautumisnäkymässä kirjoitetaan ensin syötekenttään käyttäjätunnus, jonka jälkeen klikattaessa nappia _loginButton_ sovelluksen kontrolli etenenee seuraavasti: 
+Kirjautumisnäkymässä kirjoitetaan ensin syötekenttään käyttäjätunnusja painetaan nappia _loginButton_. Sovelluksen kontrolli etenenee seuraavasti napin painalluksen jälkeen:
 
 <img src = "https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/loginKaavio.png" width= 800>
 
@@ -105,11 +105,15 @@ _LoginButton_ painikkeen painamiseen reagoiva [tapahtumankäsittelijä](https://
 
 #### Käyttäjän tilin luonti
 
+Käyttäjä on tilinluonti näkymässä ja syöttänyt syötekenttään uuden käyttäjätunnuksen. Kun painetaan _createNewUserButton_ -nappia, etenee sovelluksen toiminta seuraavasti:
+
 <img src = "https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/createUser.png" width= 800>
 
 _createNewUserButton_ klikkaukseen reagoiva [tapahtumankäsittelijä](https://github.com/outisa/ot-harjoitustyo/blob/b4dd57e6770016abe81485134ddede53736e03f2/Taloudenhallinta/src/main/java/financialmanagement/ui/FinancialManagementUi.java#L143) kutsuu sovelluslogiikan luokkaa FinancialManagementService ja sen metodia [createUser](https://github.com/outisa/ot-harjoitustyo/blob/b4dd57e6770016abe81485134ddede53736e03f2/Taloudenhallinta/src/main/java/financialmanagement/domain/FinancialManagementService.java#L41), joka saa parametrikseen syötekenttään syötetyn uuden (uniikin) käyttäjätunnuksen. Sovelluslogiikka selvittää puolestaan _UserDaon_ avulla mahdollisen käyttäjätunnuksen olemassaolon. Tapahtuman kululla on kaksi vaihtoehtoista tapaa toteutua: Jos käyttäjätunnus on jo olemassa UserDao palauttaa käyttäjän ja FinancialManagementService palauttaa vuorostaan arvon false. Käyttäjälle näytetään tällöin virheviesti "Username has to be unique". Jos käyttäjätunnusta ei ole olemassa, palauttaa UserDao arvon null. FinancialManagementService luo uuden käyttäjä olion kyseiselle tunnukselle, ja kutsuu sen jälkeen metodilla create(user) UserDao, jolloin uuden olion tiedot tallennetaan. Onnistuneen lisäyksen jälkeen FinancialManagementUser palatuttaa käyttöliittymälle arvon true ja käyttäjä ohjataan _loginScene_ näkymään.
 
 #### Uuden menon luonti
+
+Käyttäjä siirtyy ensin perusnäkymästä _New expense_ -napin painalluksella menonluomisnäkymään, jossa käyttäjä valitsee tai syöttää vaadittavat parametrit. Tämän jälkeen käyttäjä painaa käyttöliittymän  _Add expense_ nappia. Menon lisäyksessä tapahtumat etenevät seuraavasti:
 
 <img src = "https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/newExpense.png" width=900>
 
@@ -125,4 +129,4 @@ Sovelluksen muissa toiminnallisuuksissa tapahtuman kulut ovat yllä olevan kalta
  
 Käyttöliittymän koodi on aika sekavaa johtuen siitä, että liittymän elementtien muotoilu on osana koodia. Tämän ongleman voisi poistaa käyttämällä tyyleihin FXML-määrittelyä. Lisäksi käyttöliittymässä on nyt aika paljon samannimisiä nappeja kuten _logout_ ja _Back to overview_. Tässä kannattaisi tehdä jonkunlainen 'menubar', joka helpoittaisi navigointia sekä vähentäisi toisteisuutta. Näkymien luonti voitaisiin eristää ehkä omiin luokkiin metodien sijaan, jolloin jonkin tietyn näkymän etsiminen tutkiskelua tai muokkaamista varten nopeutuisi ja helpottuisi.
 
-Poikkeuksien käsittely on osin puutteellista sillä, vaikka ne napataan ja ohjelman ei pitäisi sen perusteella jäädä totaalisesti jumiin. Kuitenkaan käyttäjä ei saa esimerkiksi poikkeustilanteessa minkäänlaista viestiä siitä, onnistuiko tietokantaan tiedon lisäys vai ei.
+Poikkeuksien käsittely on osin puutteellista sillä, vaikka ne napataan ja ohjelman ei pitäisi sen perusteella jäädä totaalisesti jumiin. En kuitenkaan ole varma toimiiko nuo alert -ilmoitukset oikein tai sammuuko sovellus tietokannassa tapahtueen virheen jälkeen vai jääkö se jostain systä kuitenkin jumiin. Lisäksi käynnistyykö ohjelma tämän jälkeen normaalisti. Nämä asiat jäivät vielä mietityttämään ja näitä pitäisikin jollain tapaa pystyä testaamaan, ennen lopullisen vastauksen saantia.
