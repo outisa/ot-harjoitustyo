@@ -8,9 +8,7 @@ joilla jokaisella on oma yksilöllinen talouden kirjanpito.
 
 ## Käyttäjät
 
-Sovellukselle on tehty alussa ja sillä on tämän hetkisessä releasessa ainoastaan yksi käyttäjärooli _normaali käyttäjä_.
-Sovelluksen mahdollisesessa jatkokehityksessä siihen saatetaan lisätä _pääkäyttäjä_, jolla on 
-peruskäyttäjää suuremmat käyttöoikeudet.
+Sovelluksella on vain yksi käyttäjärooli eli niin kutsuttu _normaali käyttäjä_.
 
 ## Käyttöliittymäluonnos
 
@@ -21,9 +19,8 @@ Sovellus koostuu kahdeksasta eri näkymästä (Käyttöohjeissa on osasta näkym
 Sovellus aukeaa ensimmäiseksi kirjautumisnäkymään, josta on mahdollista siirtyä
 "luo uusi käyttäjä" -näkymään tai onnistuneen kirjautumisen yhteydessä 
 yleisnäkymään. Yleisnäkymässä on mahdollisuus siirtyä lisää uusi tulo tai 
-meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysytään tulo- tai menonäkymässä ja käyttäjä saa viestin onnistuneesta lisäyksestä. Jos tarkalleen samoilla tiedoilla oleva tulo tai meno on jo olemassa, saadaan virheilmoitus. Käyttäjä voi halutessaan siirtyä päänäkymään. 
- Lisäksi yleisnäkymässä voidaan hakea menoja joltakin aikaväliltä. Tästä siirrytään näkymään, jossa on  menot listattuna kategorioittain. Päänäkymästä pääsee myös listausnäkymään, jossa on viimeisimmät kymmenen menoa ja tuloa listattuna. Lisäksi päänäkymästä on napit listaus kategorioittain sekä menoille ja tuloille. Näistä molemmille avautuu nappia painamalla näkymä, jossa on pylväsdiagrammi kategorioille ja niiden prosenttiosuus kokonaismäärästä. Sen lisäksi käyttäjä näkee listamuodossa käytetyt (tai saadut)
- rahamäärät kategorioittain.
+meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysytään tulo- tai menonäkymässä ja käyttäjä saa viestin onnistuneesta lisäyksestä. Jos tarkalleen samoilla tiedoilla oleva tulo tai meno on jo olemassa, saadaan virheilmoitus. Käyttäjä voi halutessaan siirtyä päänäkymään tai kirjautua ulos.  
+  Lisäksi yleisnäkymässä voidaan hakea menoja joltakin aikaväliltä. Tästä siirrytään näkymään, jossa on menot listattuna kyseisellä aikavälillä. Päänäkymästä pääsee myös listausnäkymään, jossa on viimeisimmät kymmenen menoa ja tuloa listattuna. Lisäksi päänäkymästä on napit listaus kategorioittain sekä menoille ja tuloille. Näistä molemmille avautuu nappia painamalla näkymä, jossa on pylväsdiagrammi kategorioille ja niiden prosenttiosuus kokonaismäärästä. Sen lisäksi käyttäjä näkee listamuodossa käytetyt (tai saadut) rahamäärät kategorioittain. 
 
 ## Loppupalautuksen tarjoama toiminnallisuus
 
@@ -95,3 +92,4 @@ Seuraavissa versioissa järjestelmää voidaan täydentää esimerkiksi seuraavi
  * Käyttäjille salasana, jota vaaditaan kirjautuessa ja mahdollisuus muokata salasanaa.
  * Menojen ja tulojen muokkaustoiminnot.
  * Useamman käyttäjän versio, jossa voidaan listata myös tulojen ja menojen yhteydessä niitä lisännyt käyttäjä
+
