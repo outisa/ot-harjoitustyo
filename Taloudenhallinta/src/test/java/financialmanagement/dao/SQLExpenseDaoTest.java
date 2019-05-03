@@ -19,10 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author ousavola
- */
+
 public class SQLExpenseDaoTest {
     
     private ExpenseDao dao;

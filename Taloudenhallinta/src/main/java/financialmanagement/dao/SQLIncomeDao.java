@@ -10,8 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class communicates with database with income related data.
@@ -32,7 +30,7 @@ public class SQLIncomeDao implements IncomeDao {
     /**
      * Inserts the given income to the database.
      * @param income income, which will be inserted into database
-     * @throws Exception if problems with inserting data into the database
+     * @throws Exception  if there is database related errors
      */
     @Override
     public void create(Income income) throws Exception {
@@ -52,7 +50,7 @@ public class SQLIncomeDao implements IncomeDao {
      * Creates HashMap, which keys are categories and values are another HashMaps
      * with total amount of received income per category and percentage of total.
      * @return categories, money received and percentage of total per category
-     * @throws java.sql.SQLException if problems with collecting data
+     * @throws java.sql.SQLException  if there is database related errors
      */
     @Override
     public HashMap<String, ArrayList<Double>> incomeForEachCategory(Integer userId) throws SQLException {
@@ -81,21 +79,21 @@ public class SQLIncomeDao implements IncomeDao {
      * @param category name of the category from the given list
      * @param userId id from the current user
      * @return null, if no income was found; income, if it was found
+     * @throws java.sql.SQLException  if there is database related errors 
      */
     @Override
-    public Income findIncome(Date date, Double amount, String category, Integer userId) {
+    public Income findIncome(Date date, Double amount, String category, Integer userId) throws SQLException {
         List<Income> incomes = new ArrayList<>();
         Income newIncome = new Income(userId, date, category, amount);
         String sql = "SELECT * FROM Income";
-        try (Connection connection = connector.connect(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                incomes.add(new Income(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
-            }
-            connector.closeConnection(stmt, rs, connection);
-        } catch (SQLException ex) {
-            Logger.getLogger(SQLIncomeDao.class.getName()).log(Level.SEVERE, null, ex);
+        Connection connection = connector.connect();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            incomes.add(new Income(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
         }
+        connector.closeConnection(stmt, rs, connection);
+
         for (Income income: incomes) {
             if (income.equals(newIncome)) {
                 return income;                
@@ -108,22 +106,22 @@ public class SQLIncomeDao implements IncomeDao {
      * Search ten by date newest incomes from database for the current user.
      * @param userId id from the current user
      * @return list of incomes
+     * @throws java.sql.SQLException if there is database related errors
      */
     @Override
-    public List<Income> getTenResentAdded(Integer userId)  {
+    public List<Income> getTenResentAdded(Integer userId) throws SQLException  {
         List<Income> incomesForCurrentUser = new ArrayList<>();
         String sql = "SELECT * FROM Income WHERE account_id = ? ORDER BY date DESC LIMIT 10";
-        try (Connection connection = connector.connect()) {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                incomesForCurrentUser.add(new Income(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
-            }            
-            connector.closeConnection(stmt, rs, connection);
-        } catch (SQLException ex) {
-            Logger.getLogger(SQLIncomeDao.class.getName()).log(Level.SEVERE, null, ex);           
-        }
+        Connection connection = connector.connect();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            incomesForCurrentUser.add(new Income(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
+        }            
+        connector.closeConnection(stmt, rs, connection);
+
+           
         return incomesForCurrentUser;
     }
 

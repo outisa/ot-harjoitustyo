@@ -13,7 +13,7 @@ public interface ExpenseDao {
     /**
      * Creates new expense.
      * @param expense new expense, which needs to be created
-     * @throws Exception 
+     * @throws Exception if there is database related errors
      */
     void create(Expense expense) throws Exception;
     
@@ -22,7 +22,7 @@ public interface ExpenseDao {
      * @param userId id from the current user
      * @return HashMap, which includes name of the category and value is
      * ArrayList, which contains amount and percentage of total
-     * @throws Exception if there is a database related problem 
+     * @throws Exception if there is database related errors
      */
     HashMap<String, ArrayList<Double>> expenseForEachCategory(Integer userId) throws Exception;
     
@@ -33,8 +33,9 @@ public interface ExpenseDao {
      * @param category name of the category
      * @param userId id from the current user
      * @return expense if found, otherwise null
+     * @throws java.lang.Exception if there is database related errors
      */
-    Expense findExpense(Date date, Double amount, String category, Integer userId);
+    Expense findExpense(Date date, Double amount, String category, Integer userId) throws Exception;
     
     /**
      * Searches expenses between given dates for the current user.
@@ -42,13 +43,15 @@ public interface ExpenseDao {
      * @param dateTo end date of the search
      * @param userId id from the current user
      * @return result of the search as list
+     * @throws java.lang.Exception if there is database related errors
      */
-    List<Expense> getAllBetween(Date dateFrom, Date dateTo, Integer userId);
+    List<Expense> getAllBetween(Date dateFrom, Date dateTo, Integer userId) throws Exception;
     
     /**
      * Lists newest ten expenses.
      * @param userId id from the current user
      * @return list of the expenses
+     * @throws java.lang.Exception if there is database related errors
      */
-    List<Expense> getTenResentlyAdded(Integer userId);
+    List<Expense> getTenResentlyAdded(Integer userId) throws Exception;
 }

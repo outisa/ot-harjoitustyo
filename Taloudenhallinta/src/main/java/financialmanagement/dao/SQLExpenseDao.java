@@ -11,8 +11,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Communicates with database with expense related data.
@@ -36,7 +34,7 @@ public class SQLExpenseDao implements ExpenseDao {
      * 
      * @param expense expense, which will be inserted into database
      * 
-     * @throws Exception if something goes wrong with the database
+     * @throws Exception if something goes wrong with inserting data 
      */
     @Override
     public void create(Expense expense) throws Exception {
@@ -61,21 +59,21 @@ public class SQLExpenseDao implements ExpenseDao {
      * @param userId automatic generated user id from the current user.
      * 
      * @return null if nothing was found, expense if expense was found.
+     * @throws java.sql.SQLException if there exists database related errors
      */
     @Override
-    public Expense findExpense(Date date, Double amount, String category, Integer userId) {
+    public Expense findExpense(Date date, Double amount, String category, Integer userId) throws SQLException  {
         List<Expense> expenses = new ArrayList<>();
         Expense newExpense = new Expense(userId, date, category, amount);
         String sql = "SELECT * FROM Expense";
-        try (Connection connection = connector.connect(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                expenses.add(new Expense(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
-            }
-            connector.closeConnection(stmt, rs, connection);
-        } catch (SQLException ex) {
-            Logger.getLogger(SQLExpenseDao.class.getName()).log(Level.SEVERE, null, ex);
+        Connection connection = connector.connect(); 
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            expenses.add(new Expense(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
         }
+        connector.closeConnection(stmt, rs, connection);
+    
         for (Expense expense: expenses) {
             if (expense.equals(newExpense)) {
                 return expense;                
@@ -92,24 +90,22 @@ public class SQLExpenseDao implements ExpenseDao {
      * @param userId id from the current user
      * 
      * @return list of the expenses from the current user
+     * @throws java.sql.SQLException if there is database related errors 
      */
     @Override
-    public List<Expense> getAllBetween(Date dateFrom, Date dateTo, Integer userId) {
+    public List<Expense> getAllBetween(Date dateFrom, Date dateTo, Integer userId) throws SQLException {
         List<Expense> expenses = new ArrayList<>();
         String sql = "SELECT * FROM Expense WHERE account_id = ? AND date >= ? AND date < ? ORDER BY date";
-        try (Connection connection = connector.connect()) {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, userId);
-            stmt.setDate(2, dateFrom);
-            stmt.setDate(3, dateTo);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                expenses.add(new Expense(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
-            }            
-            connector.closeConnection(stmt, rs, connection);
-        } catch (SQLException ex) {
-            Logger.getLogger(SQLExpenseDao.class.getName()).log(Level.SEVERE, null, ex);           
-        }
+        Connection connection = connector.connect();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        stmt.setDate(2, dateFrom);
+        stmt.setDate(3, dateTo);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            expenses.add(new Expense(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
+        }            
+        connector.closeConnection(stmt, rs, connection);
         return expenses;
     }
     
@@ -145,22 +141,20 @@ public class SQLExpenseDao implements ExpenseDao {
      * @param userId id from the current user
      * 
      * @return list of expenses 
+     * @throws java.sql.SQLException if there is database related errors
      */
     @Override
-    public List<Expense> getTenResentlyAdded(Integer userId) {
+    public List<Expense> getTenResentlyAdded(Integer userId) throws SQLException {
         List<Expense> expensesForCurrentUser = new ArrayList<>();
         String sql = "SELECT * FROM Expense WHERE account_id = ? ORDER BY date DESC LIMIT 10";
-        try (Connection connection = connector.connect()) {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                expensesForCurrentUser.add(new Expense(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
-            }            
-            connector.closeConnection(stmt, rs, connection);
-        } catch (SQLException ex) {
-            Logger.getLogger(SQLExpenseDao.class.getName()).log(Level.SEVERE, null, ex);           
-        }
+        Connection connection = connector.connect();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            expensesForCurrentUser.add(new Expense(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
+        }            
+        connector.closeConnection(stmt, rs, connection);
         return expensesForCurrentUser;
     }
     
@@ -187,7 +181,6 @@ public class SQLExpenseDao implements ExpenseDao {
         HashMap<String, ArrayList<Double>> overview = new HashMap<>();
         overview.putIfAbsent("Other", new ArrayList<>());
         overview.putIfAbsent("Food", new ArrayList<>());
-        overview.putIfAbsent("Home", new ArrayList<>());
         overview.putIfAbsent("Car", new ArrayList<>());
         overview.putIfAbsent("Hobbies", new ArrayList<>());
         overview.putIfAbsent("Education", new ArrayList<>());

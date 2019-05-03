@@ -28,6 +28,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -68,12 +70,18 @@ public class FinancialManagementUi extends Application {
        SQLUserDao userDao = new SQLUserDao(database);
        SQLIncomeDao incomeDao = new SQLIncomeDao(database);
        SQLExpenseDao expenseDao = new SQLExpenseDao(database); 
+
        menuLabel = new Label();
        financialManagementService = new FinancialManagementService(userDao, incomeDao, expenseDao);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Exception error");
+        alert.setContentText("There was an error with connecting to the databases");
+        
         Label notUser = new Label("If you don't have any username, create new account.");
         notUser.setTextFill(Color.FORESTGREEN);
         //login scene
@@ -114,7 +122,8 @@ public class FinancialManagementUi extends Application {
                         primaryStage.setScene(loginScene);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
+                    alert.showAndWait();
+                    stop();
                 }
             }    
        
@@ -170,7 +179,8 @@ public class FinancialManagementUi extends Application {
                     userCreationMessage.setTextFill(Color.RED);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
+                alert.showAndWait();
+                stop();
             }
         });
         
@@ -251,7 +261,12 @@ public class FinancialManagementUi extends Application {
                 errorMessage.setText("Begin date must be before end date.");
             } else {
                 errorMessage.setText("");
-                listExpensesBetweenScene = new Scene(listExpensesBetween(primaryStage, dateFrom, dateTo), 900, 700);
+                try {
+                    listExpensesBetweenScene = new Scene(listExpensesBetween(primaryStage, dateFrom, dateTo), 900, 700);
+                } catch (Exception ex) {
+                    alert.showAndWait();
+                    stop();
+                }
                 primaryStage.setScene(listExpensesBetweenScene);
             }    
         });
@@ -270,7 +285,12 @@ public class FinancialManagementUi extends Application {
         });
         
         listLastTenAdds.setOnAction(e->{             
-            listResentTenScene = new Scene(listLastTenIncomesAndOutcomes(primaryStage), 900, 700);
+            try {
+                listResentTenScene = new Scene(listLastTenIncomesAndOutcomes(primaryStage), 900, 700);
+            } catch (Exception ex) {
+                alert.showAndWait();
+                stop();
+            }
             primaryStage.setScene(listResentTenScene);
         });
         
@@ -279,7 +299,8 @@ public class FinancialManagementUi extends Application {
                 Scene showCategoriesExpense = new Scene(overviewCategoriesExpenses(primaryStage), 900, 700);
                 primaryStage.setScene(showCategoriesExpense);
             } catch (Exception ex) {
-                Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
+                alert.showAndWait();
+                stop();
             }
         });
         
@@ -288,7 +309,8 @@ public class FinancialManagementUi extends Application {
                 Scene showCategoriesIncome = new Scene(overviewCategoriesIncome(primaryStage), 900, 700);
                 primaryStage.setScene(showCategoriesIncome);
             } catch (Exception ex) {
-                Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
+                alert.showAndWait();
+                stop();
             }
         });
         
@@ -320,7 +342,7 @@ public class FinancialManagementUi extends Application {
     
     // Expenses and their percentage from total for each category.
     
-    public BorderPane overviewCategoriesExpenses(Stage primaryStage) throws Exception {
+    public BorderPane overviewCategoriesExpenses(Stage primaryStage) throws Exception {    
         BorderPane organizePane = new BorderPane();
         
         VBox categoriesList = new VBox();
@@ -337,18 +359,19 @@ public class FinancialManagementUi extends Application {
         });
         
         HashMap<String, ArrayList<Double>> expenseCategories = financialManagementService.overviewExpenses(financialManagementService.getLoggedUser().getId());
+        
        
-        XYChart.Series categories = new XYChart.Series<>();
+        XYChart.Series categoriesXYData = new XYChart.Series<>();
         for (String category: expenseCategories.keySet()) {
             if (expenseCategories.get(category).isEmpty()) {
-                categories.getData().add(new XYChart.Data<>(category, 0.0));
+                categoriesXYData.getData().add(new XYChart.Data<>(category, 0.0));
                 categoriesList.getChildren().add(new Label(category + ":   0.0 €"));
             } else {
-                categories.getData().add(new XYChart.Data<>(category, expenseCategories.get(category).get(1), expenseCategories.get(category).get(1)));
+                categoriesXYData.getData().add(new XYChart.Data<>(category, expenseCategories.get(category).get(1), expenseCategories.get(category).get(1)));
                 categoriesList.getChildren().add(new Label(category + ":   " + expenseCategories.get(category).get(0) + " €"));
             }    
         }
-        expensesChart.getData().add(categories);
+        expensesChart.getData().add(categoriesXYData);
         organizePane.setPadding(new Insets(10));
         organizePane.setTop(backToMain);
         organizePane.setCenter(expensesChart);
@@ -358,10 +381,10 @@ public class FinancialManagementUi extends Application {
     
     // Incomes and their percentage from total for each category.
     
-    public BorderPane overviewCategoriesIncome(Stage primaryStage) throws Exception {
+    public BorderPane overviewCategoriesIncome(Stage primaryStage) throws Exception {    
         BorderPane organizePane = new BorderPane();
 
-        BarChart<String, Number> expensesChart = createBarChart("Incomes per category");
+        BarChart<String, Number> incomesChart = createBarChart("Incomes per category");
         
         VBox categoriesList = new VBox();
         categoriesList.setPadding(new Insets(10));
@@ -374,29 +397,29 @@ public class FinancialManagementUi extends Application {
             primaryStage.setScene(mainScene);
         });
         
-        HashMap<String, ArrayList<Double>> expenseCategories = financialManagementService.overviewIncomes(financialManagementService.getLoggedUser().getId());
+        HashMap<String, ArrayList<Double>>  incomeCategories = financialManagementService.overviewIncomes(financialManagementService.getLoggedUser().getId());
        
-        XYChart.Series categories = new XYChart.Series<>();
-        for (String category: expenseCategories.keySet()) {
-            if (expenseCategories.get(category).isEmpty()) {
-                categories.getData().add(new XYChart.Data<>(category, 0.0));
+        XYChart.Series categoriesXYData = new XYChart.Series<>();
+        for (String category: incomeCategories.keySet()) {
+            if (incomeCategories.get(category).isEmpty()) {
+                categoriesXYData.getData().add(new XYChart.Data<>(category, 0.0));
                 categoriesList.getChildren().add(new Label(category + ":   0.0 €"));
             } else {
-                categories.getData().add(new XYChart.Data<>(category, expenseCategories.get(category).get(1), expenseCategories.get(category).get(1)));
-                categoriesList.getChildren().add(new Label(category + ":   " + expenseCategories.get(category).get(0) + " €"));
+                categoriesXYData.getData().add(new XYChart.Data<>(category, incomeCategories.get(category).get(1), incomeCategories.get(category).get(1)));
+                categoriesList.getChildren().add(new Label(category + ":   " + incomeCategories.get(category).get(0) + " €"));
             }    
         }
-        expensesChart.getData().add(categories);
+        incomesChart.getData().add(categoriesXYData);
         organizePane.setPadding(new Insets(10));
         organizePane.setTop(backToMain);
-        organizePane.setCenter(expensesChart);
+        organizePane.setCenter(incomesChart);
         organizePane.setBottom(categoriesList);
         return organizePane;
     }
     
     // List all expenses between given Period
     
-    public BorderPane listExpensesBetween(Stage primaryStage, Date dateFrom, Date dateTo) {
+    public BorderPane listExpensesBetween(Stage primaryStage, Date dateFrom, Date dateTo) throws Exception {
         BorderPane organizePane = new BorderPane();
         
         List<Expense> expenses = financialManagementService.listExpensesBetween(financialManagementService.getLoggedUser().getId(), dateFrom, dateTo);
@@ -405,7 +428,7 @@ public class FinancialManagementUi extends Application {
         ListView expensesView = new ListView(data);
         expensesView.setPrefSize(200, 250);
         expensesView.setEditable(true);
-        data.add("Date        Category        Amount");
+        data.add("Date        Category      Amount");
         for (int i = 0; i < expenses.size(); i++) {
             String date = expenses.get(i).getDate().toString();
             data.add( date + "  " + expenses.get(i).getCategory() + "  " +String.valueOf(expenses.get(i).getAmount()) + " €");
@@ -437,7 +460,7 @@ public class FinancialManagementUi extends Application {
     }
     
     // List last ten newest incomes and outcomes.  
-    public BorderPane listLastTenIncomesAndOutcomes(Stage primaryStage) {
+    public BorderPane listLastTenIncomesAndOutcomes(Stage primaryStage) throws Exception {
         ScrollPane listPane = new ScrollPane();
         BorderPane organizePane = new BorderPane(listPane);
         GridPane incomesPane = new GridPane();
@@ -453,12 +476,12 @@ public class FinancialManagementUi extends Application {
         menu.setSpacing(20);
         menu.setPadding(new Insets(10,10,10,10));
         
-        Button backtoMain = new Button("Back to overview");
-        backtoMain.setPadding(new Insets(10, 10, 10, 10));
+        Button backToMain = new Button("Back to overview");
+        backToMain.setPadding(new Insets(10, 10, 10, 10));
         Button logout = new Button("Logout");
         logout.setPadding(new Insets(10, 10, 10, 10));
         
-        menu.getChildren().addAll(new Label("Last 10 added incomes and expenses"), backtoMain, logout);
+        menu.getChildren().addAll(new Label("Last 10 added incomes and expenses"), backToMain, logout);
         int account_id = 0;
         if(financialManagementService.getLoggedUser() != null) {
             account_id = financialManagementService.getLoggedUser().getId();
@@ -494,7 +517,7 @@ public class FinancialManagementUi extends Application {
         organizePane.setLeft(incomesPane);
         organizePane.setCenter(expensesPane);
        
-        backtoMain.setOnAction(e -> {
+        backToMain.setOnAction(e -> {
             primaryStage.setScene(mainScene);
         });
         
@@ -509,6 +532,11 @@ public class FinancialManagementUi extends Application {
     // creates add new income scene
     
     public BorderPane addNewIncome(Stage primaryStage) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Exception error");
+        alert.setContentText("There was an error in application");
+        
         Label errormessageIncome = new Label ();
         GridPane newIncomePane = new GridPane();
         BorderPane organizePane = new BorderPane();
@@ -520,14 +548,14 @@ public class FinancialManagementUi extends Application {
         
         Label headerLabel = new Label("Add new income");
         TextField setAmount = new TextField("0.00");
-        Button backtoMain = new Button("Back to overview");
-        backtoMain.setPadding(new Insets(10,10,10,10));
+        Button backToMain = new Button("Back to overview");
+        backToMain.setPadding(new Insets(10,10,10,10));
         Button newIncome = new Button("Add income");
         newIncome.setPadding(new Insets(10,10,10,10));
         Button logout = new Button("logout");
         logout.setPadding(new Insets(10,10,10,10));
         
-        ComboBox date = createdays();
+        ComboBox date = createDays();
 
         final ComboBox setCategory = new ComboBox(createCategories());
         setCategory.setValue("Other");
@@ -546,7 +574,7 @@ public class FinancialManagementUi extends Application {
         newIncomePane.add(newIncome, 1, 5);
         newIncomePane.add(errormessageIncome, 2, 5);
 
-        menuBox.getChildren().addAll(headerLabel, backtoMain, logout);
+        menuBox.getChildren().addAll(headerLabel, backToMain, logout);
         setAmount.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?") || newValue.isEmpty()) {
                 notAnumberError.setText("Invalid number form");
@@ -556,7 +584,7 @@ public class FinancialManagementUi extends Application {
             }
         });
 
-        backtoMain.setOnAction(e -> {
+        backToMain.setOnAction(e -> {
             errormessageIncome.setText("");
             primaryStage.setScene(mainScene);
         });
@@ -582,7 +610,8 @@ public class FinancialManagementUi extends Application {
                     errormessageIncome.setTextFill(Color.GREEN);    
                 }
             } catch (Exception ex) {
-                Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
+                alert.showAndWait();
+                stop();
             }
         });               
         organizePane.setTop(menuBox);
@@ -593,6 +622,11 @@ public class FinancialManagementUi extends Application {
     // Add new expense scene
     
     public BorderPane addNewExpense(Stage primaryStage) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Exception error");
+        alert.setContentText("There was an error in application");
+        
         Label errormessageExpense = new Label ();
         GridPane expensePane = new GridPane();
         BorderPane organizePane = new BorderPane();
@@ -604,18 +638,18 @@ public class FinancialManagementUi extends Application {
         Label headerLabel = new Label("Add new expense");
         
         TextField setAmount = new TextField("0.00");
-        Button backtoMain = new Button("Back to overview");
-        backtoMain.setPadding(new Insets(10,10,10,10));
+        Button backToMain = new Button("Back to overview");
+        backToMain.setPadding(new Insets(10,10,10,10));
         Button newExpense = new Button("Add expense");
         newExpense.setPadding(new Insets(10, 10, 10, 10));
         Button logout = new Button("Logout");
         logout.setPadding(new Insets(10, 10, 10, 10));
                 
-        ComboBox setDate = createdays();
+        ComboBox setDate = createDays();
         final ComboBox setCategory = new ComboBox(createExpenseCategories());
         setCategory.setValue("Other");
         
-        menuBox.getChildren().addAll(headerLabel, backtoMain, logout);
+        menuBox.getChildren().addAll(headerLabel, backToMain, logout);
         
         Label notAnumberError = new Label();
         expensePane.setHgap(10);
@@ -640,7 +674,7 @@ public class FinancialManagementUi extends Application {
             }
         });
 
-        backtoMain.setOnAction(e -> {
+        backToMain.setOnAction(e -> {
             errormessageExpense.setText("");
             primaryStage.setScene(mainScene);
         });
@@ -666,7 +700,8 @@ public class FinancialManagementUi extends Application {
                     errormessageExpense.setTextFill(Color.GREEN);    
                 }
             } catch (Exception ex) {
-                Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
+                alert.showAndWait();
+                stop();
             }
         });     
         organizePane.setTop(menuBox);
@@ -739,7 +774,7 @@ public class FinancialManagementUi extends Application {
         return newChart;
     }
 
-    private ComboBox createdays() {
+    private ComboBox createDays() {
         ComboBox date = new ComboBox();
         for (int i = 0; i < 92; i++) {
             date.getItems().add(LocalDate.now().minusDays(i));

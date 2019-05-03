@@ -11,7 +11,7 @@ public interface IncomeDao {
     /**
      * Creates a new income.
      * @param income new income, which needs to be created
-     * @throws Exception  for the database related problems
+     * @throws Exception if there is database related errors
      */
     void create(Income income) throws Exception;
     
@@ -20,7 +20,7 @@ public interface IncomeDao {
      * @param userId id from the current user
      * @return HashMap, in which key is category and value is ArrayList, which includes
      * incomes as amount and percentage of total per category
-     * @throws Exception for database related problems
+     * @throws Exception if there is database related errors
      */
     HashMap<String, ArrayList<Double>> incomeForEachCategory(Integer userId) throws Exception;
     
@@ -31,13 +31,15 @@ public interface IncomeDao {
      * @param category name of the category
      * @param userId id of the current user
      * @return  user if already exists, otherwise null
+     * @throws java.lang.Exception if there is database related errors
      */
-    Income findIncome(Date date, Double amount, String category, Integer userId);
+    Income findIncome(Date date, Double amount, String category, Integer userId) throws Exception;
     
     /**
      * Lists ten by date newest incomes.
      * @param userId id of the current user
      * @return list of the incomes
+     * @throws java.lang.Exception if there is database related errors
      */
-    List<Income> getTenResentAdded(Integer userId);
+    List<Income> getTenResentAdded(Integer userId) throws Exception;
 }

@@ -48,7 +48,7 @@ class FakeIncomeDao implements IncomeDao {
     }
 
     @Override
-    public Income findIncome(Date date, Double amount, String category, Integer userId) {
+    public Income findIncome(Date date, Double amount, String category, Integer userId) throws Exception {
         Income newIncome = new Income(userId, date, category, amount);
         for (Income income: incomes) {
             if (newIncome.equals(income)) {
@@ -59,7 +59,7 @@ class FakeIncomeDao implements IncomeDao {
     }
 
     @Override
-    public List<Income> getTenResentAdded(Integer userId) {
+    public List<Income> getTenResentAdded(Integer userId) throws Exception {
         List<Income> incomessForCurrentUser = new ArrayList<>();
         incomes.stream().filter((income) -> (income.getUserId().equals(userId))).forEachOrdered((income) -> {
             incomessForCurrentUser.add(income);

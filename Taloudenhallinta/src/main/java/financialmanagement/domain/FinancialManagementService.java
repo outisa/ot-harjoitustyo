@@ -90,7 +90,7 @@ public class FinancialManagementService {
      * @param category name of the category
      * @param userid id from the current user
      * @return true, if the income was successfully added and false, if income already exists.
-     * @throws Exception if there were problems with collecting or creating data from database
+     * @throws Exception  if there is database related errors
      */
     public boolean createIncome(Date datetime, Double amount, String category, Integer userid) throws Exception {
         if (incomeDao.findIncome(datetime, amount, category, userid) != null) {
@@ -108,8 +108,9 @@ public class FinancialManagementService {
      * Lists ten by date newest incomes. 
      * @param userId id from the current user
      * @return list of incomes
+     * @throws java.lang.Exception  if there is database related errors
      */
-    public List<Income> listIncomes(Integer userId) {
+    public List<Income> listIncomes(Integer userId) throws Exception {
         List<Income> incomes = incomeDao.getTenResentAdded(userId);
         return incomes;
     }
@@ -118,7 +119,7 @@ public class FinancialManagementService {
      * Computes amount and percentage from total for each category in incomes for the current user.
      * @param userId if from the current user
      * @return amount of incomes and percentage of total for each category
-     * @throws Exception if there were problems with collecting data from database
+     * @throws Exception  if there is database related errors
      */
     public HashMap<String, ArrayList<Double>> overviewIncomes(Integer userId) throws Exception {
         HashMap<String, ArrayList<Double>> overview = incomeDao.incomeForEachCategory(userId);
@@ -133,7 +134,7 @@ public class FinancialManagementService {
      * @param category name of the category
      * @param userid id for the current user
      * @return false, if given expense already exists; true, if expense was successfully created
-     * @throws Exception if there were problems with creating or collecting data from database
+     * @throws Exception  if there is database related errors
      */
     public boolean createExpense(Date datetime, Double amount, String category, Integer userid) throws Exception {
         if (expenseDao.findExpense(datetime, amount, category, userid) != null) {
@@ -154,8 +155,9 @@ public class FinancialManagementService {
      * @param dateFrom begin date of the search
      * @param dateTo end date of the search
      * @return list of the expenses between given dates.
+     * @throws java.lang.Exception  if there is database related errors
      */
-    public List<Expense> listExpensesBetween(Integer accountId, Date dateFrom, Date dateTo) {
+    public List<Expense> listExpensesBetween(Integer accountId, Date dateFrom, Date dateTo) throws Exception {
         List<Expense> expensesBetween = expenseDao.getAllBetween(dateFrom, dateTo, accountId);
         return expensesBetween;
     }
@@ -163,8 +165,9 @@ public class FinancialManagementService {
      * Lists by date ten newest expenses for the current user.
      * @param userId id for the current user
      * @return list of expenses
+     * @throws java.lang.Exception  if there is database related errors
      */
-    public List<Expense> listExpenses(Integer userId) {
+    public List<Expense> listExpenses(Integer userId) throws Exception {
         List<Expense> expenses = expenseDao.getTenResentlyAdded(userId);
         return expenses;
     }
@@ -172,7 +175,7 @@ public class FinancialManagementService {
      * Computes amount of costs and percentage of total for each category in expenses for the current user.
      * @param userId if from the current user
      * @return amount of incomes and percentage of total for each category
-     * @throws Exception if there were problems with collecting data from database
+     * @throws Exception  if there is database related errors
      */
     public HashMap<String, ArrayList<Double>> overviewExpenses(Integer userId) throws Exception {
         HashMap<String, ArrayList<Double>> overview = expenseDao.expenseForEachCategory(userId);
