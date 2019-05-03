@@ -24,10 +24,10 @@ lisätään sinne tilapäisesti testattavat tietokantataulut ja niihin testitiet
 
 ### Testauskattavuus
 
-Sovelluksen testauksessa käyttöliittymä jätettiin testauksen ulkopuolelle, jolloin sovelluksen rivikattavuudeksi tuli 94 % ja 
-haarautumiskattavuus saavutti 92 % 
+Sovelluksen testauksessa käyttöliittymä jätettiin testauksen ulkopuolelle, jolloin sovelluksen rivikattavuudeksi tuli 98 % ja 
+haarautumiskattavuus saavutti 92 %. Osaltaan korkeaan rivikattavuuteen vaikuttaa myös se, että poikkeukset käsiteltiin käyttöliittymässä, jotta voidaan antaa jonkinlainen virheilmoitus virhetilanteesta käyttäjälle siellä ja sammuttaa ohjelma. 
 
-<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/Jacoco_report.png">
+<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/jacoco_report.png">
 
 Seuraavia tilanteita ei testattu: Tietokantaa ja/tai sen tauluja ei ole olemassa, tiedonlisäys, -poisto tai -hakeminen tietokannasta ei jostain syystä onnistu. Lisäksi joitakin metodeja olisi syytä testata vielä suuremalla datalla ja useammalla testimetodilla, jotta voitaisiin olla täysin varma niiden toimivuudesta kaikissa tilanteissa. Näistä esimerkkejä ovat metodit
 
