@@ -1,4 +1,4 @@
-#TestausDokumentti
+# Testausdokumentti
 
 Ohjelman testaus suoritettiin yksikkö- ja integraatiotesteillä JUnit testiluokkia käyttäen. 
 Automaatisoidun testauksen lisäksi suoritettiin manuaalinen järjestelmätestaus.
