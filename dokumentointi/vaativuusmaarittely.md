@@ -14,9 +14,9 @@ peruskäyttäjää suuremmat käyttöoikeudet.
 
 ## Käyttöliittymäluonnos
 
-Sovellus koostuu alustavasti seitsämästä eri näkymästä:
+Sovellus koostuu kahdeksasta eri näkymästä (Käyttöohjeissa on osasta näkymiä paremmat kuvat):
 
-
+<img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/kayttoliittymaluonnos2.jpg" width=900>
 
 Sovellus aukeaa ensimmäiseksi kirjautumisnäkymään, josta on mahdollista siirtyä
 "luo uusi käyttäjä" -näkymään tai onnistuneen kirjautumisen yhteydessä 
@@ -25,7 +25,7 @@ meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysyt
  Lisäksi yleisnäkymässä voidaan hakea menoja joltakin aikaväliltä. Tästä siirrytään näkymään, jossa on  menot listattuna kategorioittain. Päänäkymästä pääsee myös listausnäkymään, jossa on viimeisimmät kymmenen menoa ja tuloa listattuna. Lisäksi päänäkymästä on napit listaus kategorioittain sekä menoille ja tuloille. Näistä molemmille avautuu nappia painamalla näkymä, jossa on pylväsdiagrammi kategorioille ja niiden prosenttiosuus kokonaismäärästä. Sen lisäksi käyttäjä näkee listamuodossa käytetyt (tai saadut)
  rahamäärät kategorioittain.
 
-## Perusversion tarjoama toiminnallisuus
+## Loppupalautuksen tarjoama toiminnallisuus
 
 ### Ennen kirjautumista
 
@@ -47,6 +47,8 @@ meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysyt
     * Loppupäivämäärän täytyy olla suurempi kuin alkupäivämäärä.
     * Jos tapahtumia ei löydy aikaväliltä, tulee siitä ilmoitus. 
   * Käyttäjä voi siirtyä uusimpien kymmenen menoerän ja tulon listaukseen.
+  * Käyttäjä voi siirtyä tarkastelemaan menoja kategorioittain.
+  * Käyttäjä voi siirtyä tarkastelemaan tuloja kategorioittain.
   * Käyttäjä voi kirjautua ulos järjestelmästä.
 
 * Tulonlisäysnäkymä
@@ -73,18 +75,21 @@ meno lomakkeeseen. Onnistuneen uuden tulon tai menon lisäämisen jälkeen pysyt
   * Käyttäjä voi palata perusnäkymään
   * käyttäjä voi kirjautua ulos
   
-* Yhteenvetonäkymässä (menoille ja tuloille omat)
-  * käyttäjä näkee menot (tai tulot) kategorioittain.
+* Yhteenvetonäkymässä menot kategorioittain
+  * käyttäjä näkee menot kategorioittain.
   * käyttäjä voi palata perusnäkymään.
 
-
+* Yhteenvetonäkymässä tulot kategorioittain
+  * käyttäjä näkee tulot kategorioittain.
+  * käyttäjä voi palata perusnäkymään.
+  
 ## Jatkokehitysideoita
 
 Seuraavissa versioissa järjestelmää voidaan täydentää esimerkiksi seuraavilla toiminnallisuuksilla
  * Haku tuloista tietyllä aikavälillä.
  * Kategorioiden lisäysmahdollisuus..
  * Lisätä tarkempi kuvaus -kenttä, jossa voi tarkemmin kuvata menoerää tai tuloa.
-    * Esimerkiksi "Tepon synttärijuhlien tarjoilut ja rekvisiitta"
+    * Esimerkiksi "Kuntosalikortti"
  * Menon ja tulon lähempi tarkastelu, jossa näytetään kyseiseen menoon tai tuloon liittyvät tiedot.
  * Käyttäjälle mahdollisuus poistaa tili ja siihen liittyvät tiedot. 
  * Käyttäjille salasana, jota vaaditaan kirjautuessa ja mahdollisuus muokata salasanaa.
