@@ -24,17 +24,20 @@ lisätään sinne tilapäisesti testattavat tietokantataulut ja niihin testitiet
 
 ### Testauskattavuus
 
-Sovelluksen testauksessa käyttöliittymä jätettiin testauksen ulkopuolelle, jolloin sovelluksen rivikattavuudeksi tuli ja 
-haarautumiskattavuus on
+Sovelluksen testauksessa käyttöliittymä jätettiin testauksen ulkopuolelle, jolloin sovelluksen rivikattavuudeksi tuli 94 % ja 
+haarautumiskattavuus saavutti 92 % 
 
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/Jacoco_report.png">
 
-Tilanteita, joissa tietokantaa ja/tai sen tauluja ei ole olemassa, tiedonlisäys, -poisto tai -hakeminen ei jostain syystä onnistu.
+Tilanteita, joissa tietokantaa ja/tai sen tauluja ei ole olemassa, tiedonlisäys, -poisto tai -hakeminen ei jostain syystä onnistu. Lisäksi joitakin metodeja olisi syytä testata vielä suuremalla datalla ja useammalla testimetodilla, jotta voitaisiin olla täysin varma niiden toimivuudesta kaikissa tilanteissa. Näistä esimerkkejä ovat metodit 
+
+* HashMap<String, ArrayList<Double>> overviewExpenses(Integer userId) 
+* HashMap<String, ArrayList<Double>> overviewIncomes(Integer userId)
 
 ## Järjestelmätestaus
 
-Järjestelmätestaus toteutettiin manuaalisesti.
-
+Järjestelmätestaus toteutettiin manuaalisesti syöttämällä erilaisia syötteitä sovelluksen eri syötekenttiin. Syötteinä käytettiin käyttöohjeen arvoja sekä niiden ulkopuolelle jääviä arvoja, kuten negatiivisia lukuja.
+  
 ## Asennus ja konfigurointi
 
 Sovellus haettiin ja sitä testattiin [käyttöohjeen](https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/k%C3%A4ytt%C3%B6ohje.md) mukaisesti Windows- ja Linux-ympäristössä.
