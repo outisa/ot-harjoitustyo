@@ -13,6 +13,7 @@ Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sek
 
 [Käyttöohje](/dokumentointi/käyttöohje.md)
 
+[Testausdokumentti](/dokumentointi/testausdokumentti.md)
 
 
 ## Releaset
@@ -42,12 +43,6 @@ Komennolla
 `mvn package`
 
 generoidaan suoritettava jar-tiedosto _FinancialManagement-1.0-SNAPSHOT.jar_. Tiedosto löytyy hakemistosta _target_.
-
-### jar-tiedoston ajo komentoriviltä
-
-Generoitu jar-tiedosto voidaan suorittaa komennolla
-
-`java -jar FinancialManagement-1.0-SNAPSHOT.jar`
 
 ### JavaDoc
 
