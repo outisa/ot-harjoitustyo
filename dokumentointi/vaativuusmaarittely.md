@@ -12,7 +12,7 @@ Sovelluksella on vain yksi käyttäjärooli eli niin kutsuttu _normaali käyttä
 
 ## Käyttöliittymäluonnos
 
-Sovellus koostuu kahdeksasta eri näkymästä (Käyttöohjeissa on osasta näkymiä paremmat kuvat):
+Sovellus koostuu yhdeksästä eri näkymästä (Käyttöohjeissa on osasta näkymiä paremmat kuvat):
 
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/kayttoliittymaluonnos2.jpg" width=900>
 
