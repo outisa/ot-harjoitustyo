@@ -3,7 +3,6 @@ package financialmanagement.dao;
 import financialmanagement.domain.Income;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,10 +15,9 @@ import java.util.logging.Logger;
 
 /**
  * This class communicates with database with income related data.
- * @author ousavola
  */
 public class SQLIncomeDao implements IncomeDao {
-    private String database;
+    private DatabaseConnector connector;
 
     /**
      * Constructor creates Income table, if not already exists.
@@ -27,19 +25,8 @@ public class SQLIncomeDao implements IncomeDao {
      * @throws java.sql.SQLException if there is problems with creating a new table
      */
     public SQLIncomeDao(String database) throws SQLException {
-        this.database = database;
+        connector = new DatabaseConnector(database);
         createIncomeTable();
-    }
-
-    // Creates connection to the given database
-    private Connection connect() {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(database);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return connection;
     }
 
     /**
@@ -50,15 +37,14 @@ public class SQLIncomeDao implements IncomeDao {
     @Override
     public void create(Income income) throws Exception {
         String sql = "INSERT INTO Income(account_id, date, category, amount) VALUES (?, ?, ?, ?)";
-        try (Connection connection = this.connect()) {
+        try (Connection connection = connector.connect()) {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, income.getUserId());
             stmt.setDate(2, income.getDatetime());
             stmt.setString(3, income.getCategory());
             stmt.setDouble(4, income.getAmount());
             stmt.executeUpdate();
-            stmt.close();
-            connection.close();
+            connector.closeConnectionShort(stmt, connection);
         }
     }
     
@@ -71,7 +57,7 @@ public class SQLIncomeDao implements IncomeDao {
     @Override
     public HashMap<String, ArrayList<Double>> incomeForEachCategory(Integer userId) throws SQLException {
         HashMap<String, ArrayList<Double>> overview = createOverview();
-        Connection connection = this.connect();
+        Connection connection = connector.connect();
         String sql = "SELECT DISTINCT category, SUM(amount) AS sum, SUM(Amount) * 100.0 /"
                 + " (SELECT SUM(Amount) FROM Income JOIN Account ON Account.id = Income.account_id WHERE Account.id = ?) AS percentage"
                 + " FROM Income JOIN Account ON Account.id = Income.account_id WHERE Account.id = ? GROUP BY category";
@@ -84,7 +70,7 @@ public class SQLIncomeDao implements IncomeDao {
             overview.get(category).add(rs.getDouble("sum"));
             overview.get(category).add(rs.getDouble("percentage"));
         }
-        closeConnection(stmt, rs, connection);
+        connector.closeConnection(stmt, rs, connection);
         return overview;
     }
 
@@ -101,12 +87,12 @@ public class SQLIncomeDao implements IncomeDao {
         List<Income> incomes = new ArrayList<>();
         Income newIncome = new Income(userId, date, category, amount);
         String sql = "SELECT * FROM Income";
-        try (Connection connection = this.connect(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = connector.connect(); PreparedStatement stmt = connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 incomes.add(new Income(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
             }
-            closeConnection(stmt, rs, connection);
+            connector.closeConnection(stmt, rs, connection);
         } catch (SQLException ex) {
             Logger.getLogger(SQLIncomeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -127,14 +113,14 @@ public class SQLIncomeDao implements IncomeDao {
     public List<Income> getTenResentAdded(Integer userId)  {
         List<Income> incomesForCurrentUser = new ArrayList<>();
         String sql = "SELECT * FROM Income WHERE account_id = ? ORDER BY date DESC LIMIT 10";
-        try (Connection connection = this.connect()) {
+        try (Connection connection = connector.connect()) {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 incomesForCurrentUser.add(new Income(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
             }            
-            closeConnection(stmt, rs, connection);
+            connector.closeConnection(stmt, rs, connection);
         } catch (SQLException ex) {
             Logger.getLogger(SQLIncomeDao.class.getName()).log(Level.SEVERE, null, ex);           
         }
@@ -142,12 +128,7 @@ public class SQLIncomeDao implements IncomeDao {
     }
 
     // closes connection to the database
-    private void closeConnection(PreparedStatement stmt, ResultSet rs, Connection connection) throws SQLException {
-        stmt.close();
-        rs.close();
-        connection.close();
-    }
-    
+
     private void createIncomeTable() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Income("
                 + " id integer PRIMARY KEY AUTOINCREMENT,"
@@ -157,7 +138,7 @@ public class SQLIncomeDao implements IncomeDao {
                 + " amount NUMERIC(9,2) NOT NULL,"
                 + " FOREIGN KEY (account_id) REFERENCES Account(id)"
                 + ");";
-        Connection connection = DriverManager.getConnection(database); 
+        Connection connection = connector.connect(); 
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
         stmt.close();

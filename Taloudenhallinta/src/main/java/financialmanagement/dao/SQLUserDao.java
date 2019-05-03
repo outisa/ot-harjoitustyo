@@ -2,7 +2,6 @@ package financialmanagement.dao;
 
 import financialmanagement.domain.User;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,26 +12,17 @@ import java.util.ArrayList;
  * This class communicates with database with user related data.
  */
 public class SQLUserDao implements UserDao {
-    private String database;
+    private DatabaseConnector connector;
 
     /**
      * Constructor creates Account table, if not already exists.
      * 
-     * @param database database, which will be used in the methods of this class 
+     * @param database database, in which the data is stored.
      * @throws java.sql.SQLException 
      */    
     public SQLUserDao(String database) throws SQLException {
-        this.database = database;
+        connector = new DatabaseConnector(database);
         createTableIfNotExist();
-    }
-    
-    /*
-    * Connects to the database.
-    * @return the Connection object
-    */
-    private Connection connect() throws SQLException {
-        Connection connection = DriverManager.getConnection(database);
-        return connection;
     }
     
     /**
@@ -45,12 +35,11 @@ public class SQLUserDao implements UserDao {
     @Override
     public User create(User user) throws Exception {
         String sql = "INSERT INTO Account (username) VALUES (?)";       
-        Connection connection = this.connect();
+        Connection connection = connector.connect();
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, user.getUsername());
         stmt.executeUpdate();
-        stmt.close();
-        connection.close();
+        connector.closeConnectionShort(stmt, connection);
         return user;
     }
   
@@ -65,16 +54,15 @@ public class SQLUserDao implements UserDao {
     public User findByUsername(String username) throws SQLException {
         ArrayList<User> users = new ArrayList<>();     
         String sql = "SELECT * FROM Account WHERE username = ?";
-        Connection connection = this.connect(); 
+        Connection connection = connector.connect(); 
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, username);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             users.add(new User(rs.getInt("id"), rs.getString("username")));
         }
-        rs.close();
-        stmt.close();
-        connection.close();
+        
+        connector.closeConnection(stmt, rs, connection);
         if (users.isEmpty()) {
             return null;
         }
@@ -91,7 +79,7 @@ public class SQLUserDao implements UserDao {
                 + " id integer PRIMARY KEY AUTOINCREMENT,"
                 + " username VARCHAR(100) NOT NULL"
                 + ");";
-        try (Connection connection = DriverManager.getConnection(database); Statement stmt = connection.createStatement()) {
+        try (Connection connection = connector.connect(); Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
             stmt.close();
             connection.close();
