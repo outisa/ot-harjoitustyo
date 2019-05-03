@@ -18,9 +18,7 @@ Sovelluksen avulla käyttäjä voi hallinoida talouttaan pitämällä kirjaa sek
 
 ## Releaset
 
-[Viikko 6](https://github.com/outisa/ot-harjoitustyo/releases/tag/0.1)
-
-[Viikko 5](https://github.com/outisa/ot-harjoitustyo/releases)
+[Loppupalautus](https://github.com/outisa/ot-harjoitustyo/releases/tag/1.0)
 
 ## Komentorivitoiminnot
 
