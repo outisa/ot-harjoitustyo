@@ -29,10 +29,12 @@ haarautumiskattavuus saavutti 92 %
 
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/Jacoco_report.png">
 
-Seuraavia tilanteita ei testattu: Tietokantaa ja/tai sen tauluja ei ole olemassa, tiedonlisäys, -poisto tai -hakeminen tietokannasta ei jostain syystä onnistu. Lisäksi joitakin metodeja olisi syytä testata vielä suuremalla datalla ja useammalla testimetodilla, jotta voitaisiin olla täysin varma niiden toimivuudesta kaikissa tilanteissa. Näistä esimerkkejä ovat metodit 
+Seuraavia tilanteita ei testattu: Tietokantaa ja/tai sen tauluja ei ole olemassa, tiedonlisäys, -poisto tai -hakeminen tietokannasta ei jostain syystä onnistu. Lisäksi joitakin metodeja olisi syytä testata vielä suuremalla datalla ja useammalla testimetodilla, jotta voitaisiin olla täysin varma niiden toimivuudesta kaikissa tilanteissa. Näistä esimerkkejä ovat metodit
 
 * HashMap<String, ArrayList<Double>> overviewExpenses(Integer userId) 
 * HashMap<String, ArrayList<Double>> overviewIncomes(Integer userId)
+
+Toinen metodeista on peräisin _SQLExpenseDao_ -luokasta ja toinen _SQLIncomeDao_ -luokasta.
 
 ## Järjestelmätestaus
 
@@ -51,6 +53,4 @@ Tällaisia syötteitä olivat muunmuassa negatiiviset luvut, liian pitkät tai l
  
 ## Sovellukseen jääneet laatuongelmat 
 
-Sovellus ei anna järkeviä virheilmoituksia tällä hetkellä, jos tietokantaan lisääminen tai sieltä tiedon hakeminen ei onnistu.
-Poikkeukset napataan aina jossain vaiheessa ohjelmaa kiinni, mutta virheilmoitukset käyttäjälle puuttuvat. 
-Lisäksi tällä hetkellä poikkeuksia nappaillaan milloin missäkin, joten tarvittaisiin yhtenäisempi tapa reagoida näihin poikkeuksiin.
+Poikkeukset napataan aina jossain vaiheessa ohjelmaa kiinni, ja niistä pitäisi tulla virheilmoitus, jossa kerrotaan vain virheen sattuneen, mutta ei sen kummemmin eritellä virheen syntyperää. Toisaalta ei olla testattu tilannetta, jossa tapahtuu tiedon tallennukseen tai sen hakuun liittyvä virhe, joten ei olla varmoja siitä tuleeko suunniteltua virheilmoitusta ja sammuuko ohjelma.
