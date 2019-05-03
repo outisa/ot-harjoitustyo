@@ -40,6 +40,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.runtime.NumberToString;
 
 public class FinancialManagementUi extends Application {
       
@@ -93,20 +94,29 @@ public class FinancialManagementUi extends Application {
         
         loginButton.setOnAction(e-> {
             String username = usernameInput.getText();
-            menuLabel.setText(username + " is logged in.");            
-            try {
-                if (financialManagementService.login(username) == true) {
-                    loginMessage.setText("");
-                    primaryStage.setScene(mainScene);
-                    usernameInput.setText("");
-                } else {
-                    loginMessage.setText("User does not exist!");
-                    loginMessage.setTextFill(Color.RED);
-                    primaryStage.setScene(loginScene);
+            if(username.length() > 100) {
+                loginMessage.setText("Your input is too long!");
+                loginMessage.setTextFill(Color.RED);
+                primaryStage.setScene(loginScene);
+            } else if(!username.matches("[a-z0-9A-Z]*")) {
+                loginMessage.setText("Use characters a-z, A-Z, 0-9");
+                loginMessage.setTextFill(Color.RED);                 
+            } else {
+                menuLabel.setText(username + " is logged in.");            
+                try {
+                    if (financialManagementService.login(username) == true) {
+                        loginMessage.setText("");
+                        primaryStage.setScene(mainScene);
+                        usernameInput.setText("");
+                    } else {
+                        loginMessage.setText("User does not exist!");
+                        loginMessage.setTextFill(Color.RED);
+                        primaryStage.setScene(loginScene);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(FinancialManagementUi.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }    
        
         });
 
@@ -143,7 +153,7 @@ public class FinancialManagementUi extends Application {
         createNewUserButton.setOnAction(e->{
             String username = newUsernameInput.getText();
             newUsernameInput.setText("");
-            if (username.length() < 3 || username.length() >= 100){
+            if (username.length() < 3 || username.length() > 100){
                 userCreationMessage.setText("Username must be between 3 and 99 characters long");
                 userCreationMessage.setTextFill(Color.RED);
             } else if(!username.matches("[a-z0-9A-Z]*")) {
@@ -201,10 +211,10 @@ public class FinancialManagementUi extends Application {
         categoriesIncome.setPadding(new Insets(10));
         
         // Expenses between selection
-        final ComboBox yearFrom = new ComboBox(createYears());
-        yearFrom.setValue("2018");
-        final ComboBox yearTo = new ComboBox(createYears());
-        yearTo.setValue("2018");
+        final ComboBox yearFrom = createYears();
+        yearFrom.setValue("2019");
+        final ComboBox yearTo = createYears();
+        yearTo.setValue("2019");
 
         final ComboBox monthFrom = new ComboBox(createMonths());
         final ComboBox monthTo = new ComboBox(createMonths());
@@ -664,40 +674,30 @@ public class FinancialManagementUi extends Application {
         return organizePane;
     }    
     
-    private ObservableList createYears() {
-                ObservableList<String> years = 
-                FXCollections.observableArrayList(
-                        "2018",
-                        "2019",
-                        "2020",
-                        "2021",
-                        "2022",
-                        "2023",
-                        "2024",
-                        "2025",
-                        "2026",
-                        "2027",
-                        "2028"
-                );
+    private ComboBox createYears() {
+        ComboBox years = new ComboBox();
+        for (int i = 2019; i < 2029; i++) {
+           years.getItems().add(NumberToString.stringFor(i));
+        }        
         return years;
     }
 
-    private ObservableList createMonths() {
-                ObservableList<String> months = 
-                FXCollections.observableArrayList(
-                        "01",
-                        "02",
-                        "03",
-                        "04",
-                        "05",
-                        "06",
-                        "07",
-                        "08",
-                        "09",
-                        "10",
-                        "11",
-                        "12"
-                );
+    private ObservableList createMonths() {    
+        ObservableList<String> months = 
+            FXCollections.observableArrayList(
+                    "01",
+                    "02",
+                    "03",
+                    "04",
+                    "05",
+                    "06",
+                    "07",
+                    "08",
+                    "09",
+                    "10",
+                    "11",
+                    "12"
+            );
         return months;        
     }
 
