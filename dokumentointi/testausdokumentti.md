@@ -29,7 +29,7 @@ haarautumiskattavuus saavutti 92 %
 
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/Jacoco_report.png">
 
-Tilanteita, joissa tietokantaa ja/tai sen tauluja ei ole olemassa, tiedonlisäys, -poisto tai -hakeminen ei jostain syystä onnistu. Lisäksi joitakin metodeja olisi syytä testata vielä suuremalla datalla ja useammalla testimetodilla, jotta voitaisiin olla täysin varma niiden toimivuudesta kaikissa tilanteissa. Näistä esimerkkejä ovat metodit 
+Seuraavia tilanteita ei testattu: Tietokantaa ja/tai sen tauluja ei ole olemassa, tiedonlisäys, -poisto tai -hakeminen tietokannasta ei jostain syystä onnistu. Lisäksi joitakin metodeja olisi syytä testata vielä suuremalla datalla ja useammalla testimetodilla, jotta voitaisiin olla täysin varma niiden toimivuudesta kaikissa tilanteissa. Näistä esimerkkejä ovat metodit 
 
 * HashMap<String, ArrayList<Double>> overviewExpenses(Integer userId) 
 * HashMap<String, ArrayList<Double>> overviewIncomes(Integer userId)
