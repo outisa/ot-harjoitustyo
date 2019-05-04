@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
         
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -77,10 +75,13 @@ public class FinancialManagementUi extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Exception error");
-        alert.setContentText("There was an error with connecting to the databases");
+        Alert errorAlert = new Alert(AlertType.ERROR);
+        errorAlert.setTitle("Error");
+        errorAlert.setHeaderText("Exception error");
+        errorAlert.setContentText("There was an error with connection to the databases");
+        
+        Alert informationAlert = new Alert(AlertType.INFORMATION);        
+        informationAlert.setTitle("Information");
         
         Label notUser = new Label("If you don't have any username, create new account.");
         notUser.setTextFill(Color.FORESTGREEN);
@@ -93,7 +94,6 @@ public class FinancialManagementUi extends Application {
         TextField usernameInput = new TextField();
         
         inputPane.getChildren().addAll(loginLabel, usernameInput);
-        Label loginMessage = new Label(" ");
         
         Button loginButton = new Button("login");
         loginButton.setPadding(new Insets(10, 10, 10, 10));
@@ -103,27 +103,25 @@ public class FinancialManagementUi extends Application {
         loginButton.setOnAction(e-> {
             String username = usernameInput.getText();
             if(username.length() > 100) {
-                loginMessage.setText("Your input is too long!");
-                loginMessage.setTextFill(Color.RED);
+                informationAlert.setContentText("Your input is too long!");
+                informationAlert.show();
                 primaryStage.setScene(loginScene);
             } else if(!username.matches("[a-z0-9A-Z]*")) {
-                loginMessage.setText("Use characters a-z, A-Z, 0-9");
-                loginMessage.setTextFill(Color.RED);                 
+                informationAlert.setContentText("All characters are not allowed, check spelling!");
+                informationAlert.show();                
             } else {
                 menuLabel.setText(username + " is logged in.");            
                 try {
                     if (financialManagementService.login(username) == true) {
-                        loginMessage.setText("");
                         primaryStage.setScene(mainScene);
                         usernameInput.setText("");
                     } else {
-                        loginMessage.setText("User does not exist!");
-                        loginMessage.setTextFill(Color.RED);
+                        informationAlert.setContentText("User does not exists!");
+                        informationAlert.show();     
                         primaryStage.setScene(loginScene);
                     }
                 } catch (Exception ex) {
-                    alert.showAndWait();
-                    stop();
+                    errorAlert.showAndWait();
                 }
             }    
        
@@ -134,7 +132,7 @@ public class FinancialManagementUi extends Application {
             primaryStage.setScene(newUserScene);
         });
         
-        loginPane.getChildren().addAll(loginMessage, inputPane, loginButton, notUser,createButton);
+        loginPane.getChildren().addAll(inputPane, loginButton, notUser,createButton);
         loginScene = new Scene(loginPane, 900, 700);
         
         // createNewUserScene
@@ -152,9 +150,8 @@ public class FinancialManagementUi extends Application {
         Label newUsernameLabel = new Label("Username:");
         newUsernameLabel.setPrefWidth(120);
         newUsernamePane.getChildren().addAll(newUsernameLabel, newUsernameInput);
-        Label userCreationMessage = new Label();
         
-        Button backToLogin = new Button("Back to login!");
+        Button backToLogin = new Button("Back to login");
         backToLogin.setPadding(new Insets(10, 10, 10, 10));
         Button createNewUserButton = new Button("Create user");
         createNewUserButton.setPadding(new Insets(10, 10, 10, 10));
@@ -163,24 +160,22 @@ public class FinancialManagementUi extends Application {
             String username = newUsernameInput.getText();
             newUsernameInput.setText("");
             if (username.length() < 3 || username.length() > 100){
-                userCreationMessage.setText("Username must be between 3 and 99 characters long");
-                userCreationMessage.setTextFill(Color.RED);
+                informationAlert.setContentText("Username must be between 3 and 100 characters.");
+                informationAlert.show();
             } else if(!username.matches("[a-z0-9A-Z]*")) {
-                userCreationMessage.setText("Use characters a-z, A-Z, 0-9");
-                userCreationMessage.setTextFill(Color.RED);                
+                informationAlert.setContentText("Use characters a-z, A-Z, 0-9");
+                informationAlert.show();
             } else try {
-                if (financialManagementService.createUser(username)) {
-                    userCreationMessage.setText("");
-                    loginMessage.setText("New user created");
-                    loginMessage.setTextFill(Color.GREEN);
+                if (financialManagementService.createUser(username)) {                  
                     primaryStage.setScene(loginScene);
+                    informationAlert.setContentText("New user created.");
+                    informationAlert.show();                        
                 } else {
-                    userCreationMessage.setText("Username has to be unique.");
-                    userCreationMessage.setTextFill(Color.RED);
+                    informationAlert.setContentText("Username already in use, try another one.");
+                    informationAlert.show();  
                 }
             } catch (Exception ex) {
-                alert.showAndWait();
-                stop();
+                errorAlert.showAndWait();
             }
         });
         
@@ -188,7 +183,7 @@ public class FinancialManagementUi extends Application {
             primaryStage.setScene(loginScene);
         });
         
-        newUserPane.getChildren().addAll(userCreationMessage, newUsernamePane, createNewUserButton, backToLogin);
+        newUserPane.getChildren().addAll(newUsernamePane, createNewUserButton, backToLogin);
         newUserScene = new Scene(newUserPane, 900, 700);
         
         // main scene
@@ -219,7 +214,7 @@ public class FinancialManagementUi extends Application {
         categoriesExpenses.setPadding(new Insets(10));
         Button categoriesIncome = new Button("Incomes per category");
         categoriesIncome.setPadding(new Insets(10));
-        
+
         // Expenses between selection
         final ComboBox yearFrom = createYears();
         yearFrom.setValue("2019");
@@ -231,8 +226,6 @@ public class FinancialManagementUi extends Application {
         monthFrom.setValue("01");
         monthTo.setValue("01");
         
-        Label errorMessage = new Label();
-        errorMessage.setTextFill(Color.RED);
         expensesBetween.setVgap(20);
         expensesBetween.setHgap(20);
         expensesBetween.setPadding(new Insets(15, 15, 15, 15));
@@ -244,8 +237,7 @@ public class FinancialManagementUi extends Application {
         expensesBetween.add(yearTo, 1, 2);
         expensesBetween.add(monthTo, 2, 2);
         expensesBetween.add(searchBetween, 1, 3);
-        expensesBetween.add(errorMessage, 0, 4);
-
+        
         selectButtons.getChildren().addAll(addIncome, addExpense, listLastTenAdds, categoriesExpenses, categoriesIncome);
         menuPane.getChildren().addAll(menuLabel, logoutButton);
        
@@ -258,14 +250,13 @@ public class FinancialManagementUi extends Application {
             Date dateFrom = Date.valueOf(yearFrom.getValue().toString() + "-" + monthFrom.getValue().toString() + "-01");
             Date dateTo = Date.valueOf(yearTo.getValue().toString() + "-" + monthTo.getValue().toString() + "-01");
             if (dateFrom.after(dateTo) || dateFrom.equals(dateTo)) {
-                errorMessage.setText("Begin date must be before end date.");
+                informationAlert.setContentText("The begin date must be before the end date!");
+                informationAlert.show();
             } else {
-                errorMessage.setText("");
                 try {
                     listExpensesBetweenScene = new Scene(listExpensesBetween(primaryStage, dateFrom, dateTo), 900, 700);
                 } catch (Exception ex) {
-                    alert.showAndWait();
-                    stop();
+                    errorAlert.showAndWait();
                 }
                 primaryStage.setScene(listExpensesBetweenScene);
             }    
@@ -284,12 +275,11 @@ public class FinancialManagementUi extends Application {
             primaryStage.setScene(newExpenseScene);
         });
         
-        listLastTenAdds.setOnAction(e->{             
+        listLastTenAdds.setOnAction(e->{
             try {
                 listResentTenScene = new Scene(listLastTenIncomesAndOutcomes(primaryStage), 900, 700);
             } catch (Exception ex) {
-                alert.showAndWait();
-                stop();
+                errorAlert.showAndWait();
             }
             primaryStage.setScene(listResentTenScene);
         });
@@ -299,8 +289,7 @@ public class FinancialManagementUi extends Application {
                 Scene showCategoriesExpense = new Scene(overviewCategoriesExpenses(primaryStage), 900, 700);
                 primaryStage.setScene(showCategoriesExpense);
             } catch (Exception ex) {
-                alert.showAndWait();
-                stop();
+                errorAlert.showAndWait();
             }
         });
         
@@ -309,8 +298,7 @@ public class FinancialManagementUi extends Application {
                 Scene showCategoriesIncome = new Scene(overviewCategoriesIncome(primaryStage), 900, 700);
                 primaryStage.setScene(showCategoriesIncome);
             } catch (Exception ex) {
-                alert.showAndWait();
-                stop();
+                errorAlert.showAndWait();
             }
         });
         
@@ -537,7 +525,7 @@ public class FinancialManagementUi extends Application {
         alert.setHeaderText("Exception error");
         alert.setContentText("There was an error in application");
         
-        Label errormessageIncome = new Label ();
+        Label messageIncome = new Label ();
         GridPane newIncomePane = new GridPane();
         BorderPane organizePane = new BorderPane();
         organizePane.setPadding(new Insets(10, 10, 10, 10));
@@ -572,7 +560,7 @@ public class FinancialManagementUi extends Application {
         newIncomePane.add(new Label("Choose category:"), 0, 4);
         newIncomePane.add(setCategory, 1, 4);
         newIncomePane.add(newIncome, 1, 5);
-        newIncomePane.add(errormessageIncome, 2, 5);
+        newIncomePane.add(messageIncome, 2, 5);
 
         menuBox.getChildren().addAll(headerLabel, backToMain, logout);
         setAmount.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
@@ -585,11 +573,12 @@ public class FinancialManagementUi extends Application {
         });
 
         backToMain.setOnAction(e -> {
-            errormessageIncome.setText("");
+            messageIncome.setText("");
             primaryStage.setScene(mainScene);
         });
         
         logout.setOnAction(e->{ 
+            messageIncome.setText("");            
             financialManagementService.logout();
             primaryStage.setScene(loginScene);
         });
@@ -601,17 +590,16 @@ public class FinancialManagementUi extends Application {
             
             try {
                 if (financialManagementService.createIncome(datetime, amount, setCategory.getValue().toString(), financialManagementService.getLoggedUser().getId()) == false) {
-                    errormessageIncome.setText("Income exists already");
-                    errormessageIncome.setTextFill(Color.RED);
+                    messageIncome.setText("Income exists already");
+                    messageIncome.setTextFill(Color.RED);
                     date.setValue(date.getItems().get(0).toString());
                     
                 } else {
-                    errormessageIncome.setText("Income is added");
-                    errormessageIncome.setTextFill(Color.GREEN);    
+                    messageIncome.setText("Income is added");
+                    messageIncome.setTextFill(Color.GREEN);    
                 }
             } catch (Exception ex) {
                 alert.showAndWait();
-                stop();
             }
         });               
         organizePane.setTop(menuBox);
@@ -627,7 +615,7 @@ public class FinancialManagementUi extends Application {
         alert.setHeaderText("Exception error");
         alert.setContentText("There was an error in application");
         
-        Label errormessageExpense = new Label ();
+        Label messageExpense = new Label ();
         GridPane expensePane = new GridPane();
         BorderPane organizePane = new BorderPane();
         organizePane.setPadding(new Insets(10, 10, 10, 10));
@@ -663,7 +651,7 @@ public class FinancialManagementUi extends Application {
         expensePane.add(new Label("Choose category"), 0, 3);
         expensePane.add(setCategory, 1, 3);
         expensePane.add(newExpense, 1,6);
-        expensePane.add(errormessageExpense, 2,4);
+        expensePane.add(messageExpense, 2,4);
 
         setAmount.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (!newValue.matches("\\d{0,7}([\\.]\\d{0,2})?") || newValue.isEmpty()) {
@@ -675,11 +663,12 @@ public class FinancialManagementUi extends Application {
         });
 
         backToMain.setOnAction(e -> {
-            errormessageExpense.setText("");
+            messageExpense.setText("");
             primaryStage.setScene(mainScene);
         });
 
         logout.setOnAction(e->{ 
+            messageExpense.setText("");            
             financialManagementService.logout();
             primaryStage.setScene(loginScene);
         });
@@ -691,17 +680,16 @@ public class FinancialManagementUi extends Application {
             
             try {
                 if (financialManagementService.createExpense(datetime, price, setCategory.getValue().toString(), financialManagementService.getLoggedUser().getId()) == false) {
-                    errormessageExpense.setText("Expense exists already");
-                    errormessageExpense.setTextFill(Color.RED);
+                    messageExpense.setText("Expense exists already");
+                    messageExpense.setTextFill(Color.RED);
                     setDate.setValue(setDate.getItems().get(0).toString());
                     
                 } else {
-                    errormessageExpense.setText("Expense added");
-                    errormessageExpense.setTextFill(Color.GREEN);    
+                    messageExpense.setText("Expense added");
+                    messageExpense.setTextFill(Color.GREEN);    
                 }
             } catch (Exception ex) {
                 alert.showAndWait();
-                stop();
             }
         });     
         organizePane.setTop(menuBox);
