@@ -30,7 +30,7 @@ Sovellus käynnistyy kirjautumisnäkymään
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/newUser.png">
 
 2. Anna haluttu käyttäjänimi **_Username_** kenttään ja paina **_Create user_** -nappia.
-3. Jos käyttäjänimi on jo käytössä, saat siitä virheilmoituksen. Lisäksi syötteen on oltava väliltä 3-99 ja siinä voi käyttää pelkästään merkkejä A-Z,a-z ja 0-9. Jos syöte ei ole validi, saat siitä myös ilmoituksen. Molemmissa tapauksissa toista kohta 2.
+3. Jos käyttäjänimi on jo käytössä, saat siitä ilmoituksen. Lisäksi syötteen on oltava väliltä 3-99 ja siinä voi käyttää pelkästään merkkejä A-Z,a-z ja 0-9. Jos syöte ei ole validi, saat siitä myös ilmoituksen. Molemmissa tapauksissa toista kohta 2.
 4. Onnistuneen lisäyksen jälkeen siirryt automaattisesti takaisin kirjautumissivulle.
 
 ## Uuden menon lisäys
