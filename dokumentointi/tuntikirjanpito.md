@@ -32,7 +32,7 @@ päivä | aika | mitä tein
 24.4. | 4.5 | Käyttöliittymän muokkausta, käyttöohjeen tekoa, arkkitehtuurin päivitystä
 26.4. | 2 | Sekvenssikaavioiden ja niihin liittyvän tekstin lisäystä
 1.5. | 1 | Automaattisten testien lisäystä
-2.5. | 5 | Automaattiset estit loppuun, järjestelmän manuaalista testausta ja dokumenttien muokkausta
-3.5. | 7 | DatabaseConnector luokka luomaan yhteys tietokantaan ja sulkemaan se, dokumenttien päivitystä ja poikkeusten käsittelyn muutos, Jar-tiedoston luonti
+2.5. | 5 | Automaattiset testit loppuun, järjestelmän manuaalista testausta ja dokumenttien muokkausta
+3.5. | 7 | DatabaseConnector luokka luomaan yhteys tietokantaan ja sulkemaan se, dokumenttien päivitystä ja poikkeusten käsittelyn muutos, jar-tiedoston luonti
 4.5. | 1 | Viimeiset viilaukset käyttöliittymään ja uuden jar-tiedoston luonti
 Yhteensä:| 85 |
