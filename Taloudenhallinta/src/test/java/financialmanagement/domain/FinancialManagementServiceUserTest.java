@@ -1,4 +1,3 @@
-
 package financialmanagement.domain;
 
 import org.junit.Before;

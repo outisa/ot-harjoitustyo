@@ -3,6 +3,9 @@ package financialmanagement.dao;
 
 import financialmanagement.domain.User;
 
+/**
+ * Interface for SQLUserDao.
+ */
 public interface UserDao {
     /**
      * Creates a new user.

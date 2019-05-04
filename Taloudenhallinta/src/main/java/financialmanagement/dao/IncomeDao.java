@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Interface for SQLIncomeDao.
+ */
 public interface IncomeDao {
     /**
      * Creates a new income.

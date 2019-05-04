@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Communicates with database with expense related data.
+ * This class communicates with database with expense related data.
  */
 public class SQLExpenseDao implements ExpenseDao {
     private DatabaseConnector connector;
