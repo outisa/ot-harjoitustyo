@@ -39,7 +39,7 @@ Sovellus käynnistyy kirjautumisnäkymään
 
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/newIncome.png">
 
-2. Valitse menotapahtuman päivämäärä valikosta.
+2. Valitse menotapahtuman päivämäärä valikosta. Voit valita päivän tästä päivästä aina kolme kuukautta taakse päin.
 3. Anna maksettu rahamäärä väliltä 0 - 9999999.99.
 4. Valitse menoon sopiva kategoria valikosta.
 5. Paina nappia **_Add expense_**, jolloin tarkastetaan onko meno jo olemassa.
@@ -51,7 +51,7 @@ Sovellus käynnistyy kirjautumisnäkymään
 
 <img src="https://github.com/outisa/ot-harjoitustyo/blob/master/dokumentointi/kuvat/newExpenseUI.png">
 
-2. Valitse tulon päivämäärä valikosta.
+2. Valitse tulon päivämäärä valikosta. Voit valita päivän tästä päivästä aina kolme kuukautta taakse päin.
 3. Anna saatu rahamäärä väliltä 0 - 9999999.99.
 4. Valitse tuloon sopiva kategoria valikosta.
 5. Paina nappia **_Add income_**, jolloin tarkastetaan onko tulo jo olemassa.
