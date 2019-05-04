@@ -34,4 +34,5 @@ päivä | aika | mitä tein
 1.5. | 1 | Automaattisten testien lisäystä
 2.5. | 5 | Automaattiset estit loppuun, järjestelmän manuaalista testausta ja dokumenttien muokkausta
 3.5. | 7 | DatabaseConnector luokka luomaan yhteys tietokantaan ja sulkemaan se, dokumenttien päivitystä ja poikkeusten käsittelyn muutos, Jar-tiedoston luonti
-Yhteensä:| 84 |
+4.5. | 1 | Viimeiset viilaukset käyttöliittymään ja uuden jar-tiedoston luonti
+Yhteensä:| 85 |
