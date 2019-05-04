@@ -53,4 +53,4 @@ Tällaisia syötteitä olivat muunmuassa negatiiviset luvut, liian pitkät tai l
  
 ## Sovellukseen jääneet laatuongelmat 
 
-Poikkeukset napataan aina jossain vaiheessa ohjelmaa kiinni, ja niistä pitäisi tulla virheilmoitus, jossa kerrotaan vain virheen sattuneen, mutta ei sen kummemmin eritellä virheen syntyperää. Toisaalta ei olla testattu tilannetta, jossa tapahtuu tiedon tallennukseen tai sen hakuun liittyvä virhe, joten ei olla varmoja siitä tuleeko suunniteltua virheilmoitusta ja sammuuko ohjelma.
+Poikkeukset napataan aina jossain vaiheessa ohjelmaa kiinni, ja niistä pitäisi tulla virheilmoitus, jossa kerrotaan vain virheen sattuneen, mutta ei sen kummemmin eritellä virheen syntyperää. Toisaalta ei olla testattu tilannetta, jossa tapahtuu tiedon tallennukseen tai sen hakuun liittyvä virhe, joten ei olla varmoja siitä tuleeko suunniteltua virheilmoitusta jokaisessa tilanteessa, sekä toimiiko ohjelma normaalisti näiden virhetilanteiden jälkeen.
