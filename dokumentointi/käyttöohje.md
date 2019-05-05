@@ -83,3 +83,7 @@ ja vasta sitten krjautua ulos painamalla nappia **_logout_**.
 ## Ohjelman sammutus
 
 Paina oikeassa yläkulmassa olevaa x-merkkiä.
+
+## Ohjelman ja siihen liittyvien poisto kokonaan tietokoneelta
+
+Poista lataamasi jar-tiedosto sekä siihen liittyvä management.db tietokanta. Tietokanta löytyy todennäköisesti kotihakemistostasi ja parhaiten se löytyy _find_  operaation avulla. Tai jos olet ladannut ohjelman Downloads kansioon, löytyy tietokanta todennäköisesti myös sieltä.
