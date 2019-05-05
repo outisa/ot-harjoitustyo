@@ -42,7 +42,7 @@ public class SQLIncomeDao implements IncomeDao {
             stmt.setString(3, income.getCategory());
             stmt.setDouble(4, income.getAmount());
             stmt.executeUpdate();
-            connector.closeConnectionShort(stmt, connection);
+            connector.closeConnection(stmt, connection);
         }
     }
     
@@ -68,7 +68,7 @@ public class SQLIncomeDao implements IncomeDao {
             overview.get(category).add(rs.getDouble("sum"));
             overview.get(category).add(rs.getDouble("percentage"));
         }
-        connector.closeConnection(stmt, rs, connection);
+        connector.closeConnectionWithResultSet(stmt, rs, connection);
         return overview;
     }
 
@@ -92,7 +92,7 @@ public class SQLIncomeDao implements IncomeDao {
         while (rs.next()) {
             incomes.add(new Income(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
         }
-        connector.closeConnection(stmt, rs, connection);
+        connector.closeConnectionWithResultSet(stmt, rs, connection);
 
         for (Income income: incomes) {
             if (income.equals(newIncome)) {
@@ -119,7 +119,7 @@ public class SQLIncomeDao implements IncomeDao {
         while (rs.next()) {
             incomesForCurrentUser.add(new Income(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
         }            
-        connector.closeConnection(stmt, rs, connection);
+        connector.closeConnectionWithResultSet(stmt, rs, connection);
 
            
         return incomesForCurrentUser;

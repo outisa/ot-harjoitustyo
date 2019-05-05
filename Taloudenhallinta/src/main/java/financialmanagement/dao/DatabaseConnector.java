@@ -32,26 +32,25 @@ public class DatabaseConnector {
     }
     
     /**
-     * Closes connection to the database.
+     * Closes connection to the database with ResulSet.
      * @param stmt PreparedStatement 
      * @param rs ResultSet
      * @param connection Connection 
      * @throws SQLException if an error occurs by closing the connection.
      */
-    public void closeConnection(PreparedStatement stmt, ResultSet rs, Connection connection) throws SQLException {
+    public void closeConnectionWithResultSet(PreparedStatement stmt, ResultSet rs, Connection connection) throws SQLException {
         stmt.close();
         rs.close();
         connection.close();
     }
     
     /**
-     * Closes connection to the database, difference to closeConnection() is, that this method
-     * do not close ResulSet.
+     * Closes connection to the database.
      * @param stmt PreparedStatement
      * @param connection Connection
      * @throws SQLException if an error occurs by closing the connection.
      */
-    public void closeConnectionShort(PreparedStatement stmt, Connection connection) throws SQLException {
+    public void closeConnection(PreparedStatement stmt, Connection connection) throws SQLException {
         stmt.close();
         connection.close();
     }

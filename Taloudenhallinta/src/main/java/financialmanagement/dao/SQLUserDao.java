@@ -39,7 +39,7 @@ public class SQLUserDao implements UserDao {
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, user.getUsername());
         stmt.executeUpdate();
-        connector.closeConnectionShort(stmt, connection);
+        connector.closeConnection(stmt, connection);
         return user;
     }
   
@@ -62,7 +62,7 @@ public class SQLUserDao implements UserDao {
             users.add(new User(rs.getInt("id"), rs.getString("username")));
         }
         
-        connector.closeConnection(stmt, rs, connection);
+        connector.closeConnectionWithResultSet(stmt, rs, connection);
         if (users.isEmpty()) {
             return null;
         }

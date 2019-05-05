@@ -46,7 +46,7 @@ public class SQLExpenseDao implements ExpenseDao {
             stmt.setString(3, expense.getCategory());
             stmt.setDouble(4, expense.getAmount());
             stmt.executeUpdate();
-            connector.closeConnectionShort(stmt, connection);
+            connector.closeConnection(stmt, connection);
         }
     }
    
@@ -72,7 +72,7 @@ public class SQLExpenseDao implements ExpenseDao {
         while (rs.next()) {
             expenses.add(new Expense(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
         }
-        connector.closeConnection(stmt, rs, connection);
+        connector.closeConnectionWithResultSet(stmt, rs, connection);
     
         for (Expense expense: expenses) {
             if (expense.equals(newExpense)) {
@@ -105,7 +105,7 @@ public class SQLExpenseDao implements ExpenseDao {
         while (rs.next()) {
             expenses.add(new Expense(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
         }            
-        connector.closeConnection(stmt, rs, connection);
+        connector.closeConnectionWithResultSet(stmt, rs, connection);
         return expenses;
     }
     
@@ -131,7 +131,7 @@ public class SQLExpenseDao implements ExpenseDao {
             overview.get(category).add(rs.getDouble("sum"));
             overview.get(category).add(rs.getDouble("percentage"));
         }
-        connector.closeConnection(stmt, rs, connection);
+        connector.closeConnectionWithResultSet(stmt, rs, connection);
         return overview;
     }
 
@@ -154,7 +154,7 @@ public class SQLExpenseDao implements ExpenseDao {
         while (rs.next()) {
             expensesForCurrentUser.add(new Expense(rs.getInt("account_id"), rs.getDate("date"), rs.getString("category"), rs.getDouble("amount")));
         }            
-        connector.closeConnection(stmt, rs, connection);
+        connector.closeConnectionWithResultSet(stmt, rs, connection);
         return expensesForCurrentUser;
     }
     
